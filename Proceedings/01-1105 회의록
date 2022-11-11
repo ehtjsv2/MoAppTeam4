@@ -1,0 +1,51 @@
+# 의논할 것 정하기
+
+- 모델 정하기
+- 기술  스택 정하기
+- 역할 정하기
+    - 회의록 기록자 : 황동현
+- 추천하는 방식 정하기
+    - 이수현 : 재시도를 할 때 마이너스 가중치를 두어서 기피하는 음식을 찾을 수 있게 하기, 좋아하는 것 중 10개를 뽑고 거기서 3개를 제시하는 것
+    - 박정용 : 확률을 반영, 어떤 범위에 있는 사람인가? 그 사람들이 주로 선택하는 옵션에 대해 군집화를 하고 여기서 랜덤으로 한 개를 추천
+    - 황동현: 군집화? 데이터설정 시 메뉴를 군집화→맛, 단백질 등등
+    - 김도선 : 질리지 않은 음식을 추천, 최근에 먹은 음식을 입력 후 최근에 먹은 음식은 가중치를 내리고 일일 권장 섭취량과 비교를 하여서 메뉴 추천을 한다
+- 취향을 넣는 경우에는 머신 러닝이 필요할 수가 있다.
+- 먹었던 음식을 토대로 어느 군집에 가까운지 정하고 이를 기반으로 추천을 한다
+- 인공지능을 넣지 않는다고 생각하고 진행하기
+    - 음식을 추천해줄 때 어떤 요소를 넣어야 할까?
+        - 부족 영양분 가중치를 높이고, 최근 음식을 제외
+        - 3일을 기준으로 queue를 이용해서 최근에 먹은 음식을 간주한다.
+        - 마이너스 가중치 사용하기, 선호도라는 변수를 만들어 요소에 넣어준다. 마이너스를 해주는 값은 적게 넣을 것
+        - 메뉴 추천에 들어갈 변수 : 영양분, 최근 음식, 선호도
+        - 확률을 기반으로 추천의 정도를 정하기
+            - 필요 영양분을 담은 리스트, 최근 먹었던 음식 리스트, 이 음식들 외 리스트, 난수로 0~10 최근 먹었던 음식 10~60  필요 영양소 리스트60~100 나머지 음식 리스트
+            - 필요 영양분 순위로 2~5개 정도 띄우기 → 최근 먹었던 것 띄워줘
+            - 영양분 점수 + 선호도 + (가중치) = 20(상위) / 1~2개(난수)
+            - - 탄 단 지
+        - 추천기준 (선정된 것)
+            - 영양분 점수 + 선호도 + (가중치) = 20(상위) / 1~2개(난수)
+            - - 탄 단 지
+            
+- 기술 결정 : Flask(Mysql), 크롤링, 코틀린
+
+- 어떤 데이터
+    - [http://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01](http://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01) (레시피 공공데이터)
+    - 만개의 리스트 문제 : 영양소가 없이 재료 레시피만 표시
+    - 식품의약품안전처 : openAPI [https://www.foodsafetykorea.go.kr/api/newDatasetDetail.do](https://www.foodsafetykorea.go.kr/api/newDatasetDetail.do)
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7eac7c2f-06b7-462d-bd5e-33bcf496bfbb/Untitled.png)
+        
+    - [https://various.foodsafetykorea.go.kr/nutrient/](https://various.foodsafetykorea.go.kr/nutrient/)
+    
+    -크롤링시 문제점
+    
+    - 레시피가 없는 경우
+        
+        [전은 다 맛있지! 추석을 더 특별하게 즐기는 10가지 레시피oO* (10000recipe.com)](https://www.10000recipe.com/recipe/6987032)
+        
+    
+- 역할선정
+    - 서버 만들기 : 박정용
+    - DB설계, 크롤링 : 황동현
+    - 코틀린 개발 : 이수현, 김도선
+- 안드로이드 버전 : help→ check for update로 버전 통일하기
