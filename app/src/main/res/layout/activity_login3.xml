@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity3">
+
+  <Button
+      android:id="@+id/before_button"
+      android:layout_width="80dp"
+      android:layout_height="60dp"
+      android:layout_marginEnd="20dp"
+      android:layout_marginBottom="64dp"
+      android:onClick="beforeButton"
+      android:text="이전"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/next_button" />
+
+  <RadioButton
+      android:id="@+id/meat_score1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginTop="20dp"
+      android:text="1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
+
+  <RadioButton
+      android:id="@+id/meat_score2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="20dp"
+      android:text="2"
+      app:layout_constraintStart_toEndOf="@+id/meat_score1"
+      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
+
+  <RadioButton
+      android:id="@+id/meat_score3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="20dp"
+      android:text="3"
+      app:layout_constraintStart_toEndOf="@+id/meat_score2"
+      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
+
+  <RadioButton
+      android:id="@+id/meat_score5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="20dp"
+      android:text="5"
+      app:layout_constraintStart_toEndOf="@+id/meat_score4"
+      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
+
+  <RadioButton
+      android:id="@+id/meat_score4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="20dp"
+      android:text="4"
+      app:layout_constraintStart_toEndOf="@+id/meat_score3"
+      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
+
+  <Button
+      android:id="@+id/next_button"
+      android:layout_width="80dp"
+      android:layout_height="60dp"
+      android:layout_marginEnd="68dp"
+      android:layout_marginBottom="64dp"
+      android:onClick="nextButton"
+      android:text="다음"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <TextView
+      android:id="@+id/Text_meatIndex"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginTop="40dp"
+      android:text="육류 선호도"
+      android:textSize="25sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

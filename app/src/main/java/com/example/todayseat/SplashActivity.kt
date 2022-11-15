@@ -17,8 +17,8 @@ class SplashActivity : AppCompatActivity() {
         //      postDelayed()를 통해 일정 시간(딜레이 시간)동안 쓰레드 작업을 멈춘다.
         //      {딜레이 이후 동작}을 통해 딜레이 시간 이후, 동작을 정의해준다.
         Handler().postDelayed(splashDuration){
-            val intent = Intent(this, MainActivity::class.java)
-            //val intent = Intent(this, LoginActivity::class.java)
+            //val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
