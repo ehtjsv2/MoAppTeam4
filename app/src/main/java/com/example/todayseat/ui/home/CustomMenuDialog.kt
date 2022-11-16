@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.R
 import com.example.todayseat.databinding.InsertMenuDialogBinding
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 
 //class CustomMenuDialog(context: Context,val activity: Activity) {
 //    private val dialog= Dialog(context)
@@ -51,13 +52,25 @@ import kotlinx.coroutines.withContext
 //}
 class CustomMenuDialog(var activity: Activity) : Dialog(activity),
     View.OnClickListener {
-
+    val currentTime : Long = System.currentTimeMillis()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val currentHour=SimpleDateFormat("HH").format(currentTime).toInt()
+        val currentMin=SimpleDateFormat("mm").format(currentTime).toInt()
         var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
         val menuListAdapter=MenuListAdapter(menus)
         val binding= InsertMenuDialogBinding.inflate(layoutInflater)
+        //아침 점심 저녁 text 변경
+        if(currentHour<12){
+            binding.insertMenuDialogTitle.text="오늘 아침은 무엇을 먹었나요?"
+        }
+        else if(currentHour<18){
+            binding.insertMenuDialogTitle.text="오늘 점심은 무엇을 먹었나요?"
+        }
+        else if(currentHour<=23 && currentMin<=59){
+            binding.insertMenuDialogTitle.text="오늘 저녁은 무엇을 먹었나요?"
+        }
 
         binding.insertMenuRecyclerView.apply {
             layoutManager=LinearLayoutManager(context)
@@ -81,6 +94,14 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
 
 
         } )
+        // 등록하기 버튼클릭시, 메뉴 db에 넣어야됨
+        binding.registBtn.setOnClickListener {
+            dismiss()
+        }
+        // 무시하기 버튼클릭시, 무시
+        binding.ignoreBtn.setOnClickListener {
+            dismiss()
+        }
         setContentView(binding.root)
 
 //        yes.setOnClickListener(this)
