@@ -6,6 +6,9 @@ import android.os.Bundle
 import com.example.todayseat.databinding.ActivityLogin5Binding
 
 class LoginActivity5 : AppCompatActivity() {
+    //처리해야할 데이터
+    var dislike_list:MutableList<String> = ArrayList()
+
     lateinit var binding: ActivityLogin5Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

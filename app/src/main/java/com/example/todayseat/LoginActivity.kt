@@ -9,6 +9,12 @@ import com.example.todayseat.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
 
+    // 처리해야할 데이터
+    var name:String = "-"
+    var age:Int = 0
+    var stature:Int = 0
+    var gender:String = "-"
+
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

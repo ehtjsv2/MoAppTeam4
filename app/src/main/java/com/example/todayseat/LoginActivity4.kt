@@ -6,7 +6,11 @@ import android.os.Bundle
 import com.example.todayseat.databinding.ActivityLogin4Binding
 
 class LoginActivity4 : AppCompatActivity() {
-    lateinit var binding: ActivityLogin4Binding
+
+    //처리해야할 데이터
+    var like_list:MutableList<String> = ArrayList()
+
+   lateinit var binding: ActivityLogin4Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLogin4Binding.inflate(layoutInflater)

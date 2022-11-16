@@ -6,25 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <RadioButton
-        android:id="@+id/gender_m"
+    <RadioGroup
+        android:id="@+id/group_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="60dp"
-        android:text="남성"
+        android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/text_gender"
-        app:layout_constraintTop_toBottomOf="@+id/join_stature" />
+        app:layout_constraintTop_toBottomOf="@+id/join_stature">
 
-    <RadioButton
-        android:id="@+id/gender_fm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
-        android:text="여성"
-        app:layout_constraintStart_toEndOf="@+id/gender_m"
-        app:layout_constraintTop_toBottomOf="@+id/join_stature" />
+        <RadioButton
+            android:id="@+id/gender_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남성" />
+
+        <RadioButton
+            android:id="@+id/gender_fm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="여성" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/join_name"
