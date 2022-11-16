@@ -19,13 +19,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".MainActivity3_3"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".LoginActivity3_2"
             android:exported="false">
@@ -61,15 +55,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".LoginActivity_2"
-            android:exported="false"
-            android:label="@string/title_activity_login2"
-            android:theme="@style/Theme.TodaysEat.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name=".LoginActivity"
             android:exported="false">
