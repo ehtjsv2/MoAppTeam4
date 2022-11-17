@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity3">
+    tools:context=".Login.LoginActivity3">
 
   <Button
       android:id="@+id/before_button"
@@ -17,56 +17,6 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/next_button" />
 
-  <RadioButton
-      android:id="@+id/meat_score1"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="20dp"
-      android:text="1"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <RadioButton
-      android:id="@+id/meat_score2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="20dp"
-      android:text="2"
-      app:layout_constraintStart_toEndOf="@+id/meat_score1"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <RadioButton
-      android:id="@+id/meat_score3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="20dp"
-      android:text="3"
-      app:layout_constraintStart_toEndOf="@+id/meat_score2"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <RadioButton
-      android:id="@+id/meat_score5"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="20dp"
-      android:text="5"
-      app:layout_constraintStart_toEndOf="@+id/meat_score4"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <RadioButton
-      android:id="@+id/meat_score4"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="10dp"
-      android:layout_marginTop="20dp"
-      android:text="4"
-      app:layout_constraintStart_toEndOf="@+id/meat_score3"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
   <Button
       android:id="@+id/next_button"
       android:layout_width="80dp"
@@ -78,8 +28,56 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />
 
+
+  <RadioGroup
+      android:id="@+id/meatgroup"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="50dp"
+      android:orientation="horizontal"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/Text_koreanIndex">
+
+    <RadioButton
+        android:id="@+id/meat_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <RadioButton
+        android:id="@+id/meat_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="2" />
+
+    <RadioButton
+        android:id="@+id/meat_score3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="3" />
+
+    <RadioButton
+        android:id="@+id/meat_score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="4" />
+
+    <RadioButton
+        android:id="@+id/meat_score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="5" />
+
+  </RadioGroup>
+
+
   <TextView
-      android:id="@+id/Text_meatIndex"
+      android:id="@+id/Text_koreanIndex"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="50dp"
@@ -88,5 +86,128 @@
       android:textSize="25sp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+  <RadioGroup
+      android:id="@+id/seagroup"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="50dp"
+      android:orientation="horizontal"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/Text_etcIndex">
+
+    <RadioButton
+        android:id="@+id/sea_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <RadioButton
+        android:id="@+id/sea_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="2" />
+
+    <RadioButton
+        android:id="@+id/sea_score3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="3" />
+
+    <RadioButton
+        android:id="@+id/sea_score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="4" />
+
+    <RadioButton
+        android:id="@+id/sea_score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="5" />
+
+  </RadioGroup>
+
+
+  <TextView
+      android:id="@+id/Text_etcIndex"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginTop="40dp"
+      android:text="어패류 선호도"
+      android:textSize="25sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/meatgroup" />
+
+
+  <RadioGroup
+      android:id="@+id/vegegroup"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="50dp"
+      android:orientation="horizontal"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/Text_riceIndex">
+
+    <RadioButton
+        android:id="@+id/vege_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1" />
+
+    <RadioButton
+        android:id="@+id/vege_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="2" />
+
+    <RadioButton
+        android:id="@+id/vege_score3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="3" />
+
+    <RadioButton
+        android:id="@+id/vege_score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="4" />
+
+    <RadioButton
+        android:id="@+id/vege_score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="5" />
+
+  </RadioGroup>
+
+
+  <TextView
+      android:id="@+id/Text_riceIndex"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="50dp"
+      android:layout_marginTop="40dp"
+      android:text="채소류 선호도"
+      android:textSize="25sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/seagroup" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

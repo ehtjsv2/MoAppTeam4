@@ -17,14 +17,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginStart="60dp"
+            android:singleLine="true"
+            android:inputType="text"
             android:hint="3일 이내 먹었던 음식을 검색하세요."/>
 
-        <ListView
-            android:id="@+id/Search_ListView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginStart="60dp"
+            android:id="@+id/Search_recycler"
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:divider="#999999"
-            android:dividerHeight="1dp"></ListView>
+            android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
 
         <TextView
             android:id="@+id/Eat_title"
@@ -33,37 +36,41 @@
             android:layout_marginTop="60dp"
             android:layout_marginStart="40dp"
             android:text="최근 먹은 음식" />
-        <ListView
-            android:id="@+id/Eat_ListView"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Eat_recycler"
             android:layout_width="match_parent"
+            android:layout_marginStart="40dp"
             android:layout_height="102dp"
             android:divider="#999999"
-            android:dividerHeight="1dp"></ListView>
-    </LinearLayout>
+            android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
 
 
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="64dp"
-        android:onClick="nextButton"
-        android:text="다음"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/before_button"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="64dp"
-        android:onClick="beforeButton"
-        android:text="이전"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/next_button" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="60dp"
+            >
+            <Button
+                android:id="@+id/before_button"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="200dp"
+                android:onClick="beforeButton"
+                android:text="이전"
+            />
 
-
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:onClick="nextButton"
+                android:text="다음"
+            />
+            </LinearLayout>
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
