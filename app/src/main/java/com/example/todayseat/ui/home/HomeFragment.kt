@@ -1,13 +1,19 @@
 package com.example.todayseat.ui.home
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.todayseat.R
 import com.example.todayseat.databinding.FragmentHomeBinding
+import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
@@ -28,15 +34,24 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        //val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            //textView.text = it
         }
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun loadFragment(fragment: Fragment){
+        Log.d("clickTest","click!->"+fragment.tag)
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container,fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
