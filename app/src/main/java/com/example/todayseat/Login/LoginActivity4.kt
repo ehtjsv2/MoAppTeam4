@@ -5,16 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todayseat.Login.LoginActivity3_3
+import com.example.todayseat.Login.LoginActivity5
 import com.example.todayseat.databinding.ActivityLogin4Binding
 import com.example.todayseat.databinding.SearchListviewBinding
-import org.w3c.dom.Text
 
 interface OnItemClick {
     fun onClick(value: String)

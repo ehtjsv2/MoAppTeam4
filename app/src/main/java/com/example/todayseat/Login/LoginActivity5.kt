@@ -1,14 +1,15 @@
-package com.example.todayseat
+package com.example.todayseat.Login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todayseat.databinding.ActivityLogin4Binding
+import com.example.todayseat.LoginActivity4
+import com.example.todayseat.MyAdapter
+import com.example.todayseat.MyAdapter2
+import com.example.todayseat.OnItemClick
 import com.example.todayseat.databinding.ActivityLogin5Binding
 
 
@@ -23,7 +24,7 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick {
 
 
     lateinit var binding: ActivityLogin5Binding
-    lateinit var adapter2:MyAdapter2
+    lateinit var adapter2: MyAdapter2
 
     override fun onClick(value: String) {
         var count:Int = 0
@@ -54,7 +55,7 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick {
 
 
         settingList()
-        var adapter:MyAdapter = MyAdapter(this,search_list,this)
+        var adapter: MyAdapter = MyAdapter(this,search_list,this)
         binding.SearchRecycler.adapter=adapter
         binding.SearchRecycler.layoutManager = LinearLayoutManager(this)
 

@@ -1,11 +1,10 @@
-package com.example.todayseat
+package com.example.todayseat.Login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
+import com.example.todayseat.R
 import com.example.todayseat.databinding.ActivityLogin2Binding
 
 

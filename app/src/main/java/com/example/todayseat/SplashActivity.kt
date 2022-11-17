@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.os.postDelayed
+import com.example.todayseat.Login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     private val splashDuration = 3000L
@@ -41,6 +42,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
 
         // Handler()를 통해서 UI 쓰레드를 컨트롤 한다.
         // Handler().postDelayed(딜레이 시간){딜레이 이후 동작}

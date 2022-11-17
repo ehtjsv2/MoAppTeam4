@@ -13,7 +13,7 @@
         android:theme="@style/Theme.TodaysEat"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity3_3"
+            android:name=".Login.LoginActivity3_3"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -21,14 +21,14 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity3_2"
+            android:name=".Login.LoginActivity3_2"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity5"
+            android:name=".Login.LoginActivity5"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -42,14 +42,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity3"
+            android:name=".Login.LoginActivity3"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity2"
+            android:name=".Login.LoginActivity2"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -57,7 +57,7 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
