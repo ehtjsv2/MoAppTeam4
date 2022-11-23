@@ -2,6 +2,7 @@ package com.example.todayseat.ui.home
 
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.util.Log
@@ -33,7 +34,12 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
+        val menuListAdapter=MenuListAdapter(menus)
+        val dlg=CustomMenuDialog(requireActivity())
+        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dlg.setCancelable(false)
+        dlg.show()
         //val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             //textView.text = it

@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todayseat.LoginActivity4
-import com.example.todayseat.MyAdapter
-import com.example.todayseat.MyAdapter2
-import com.example.todayseat.OnItemClick
+import com.example.todayseat.*
 import com.example.todayseat.databinding.ActivityLogin5Binding
 
 

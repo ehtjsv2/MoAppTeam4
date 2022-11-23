@@ -1,17 +1,10 @@
 package com.example.todayseat
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.todayseat.databinding.ActivityMainBinding
-import com.example.todayseat.ui.home.DialogTestFragment
 import com.example.todayseat.ui.home.HomeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
 import com.example.todayseat.ui.preference.PreferenceFragment
@@ -35,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_preference -> {
-                    loadFragment(DialogTestFragment())
+                    loadFragment(PreferenceFragment())
                     return@setOnItemSelectedListener true
 
                 }
