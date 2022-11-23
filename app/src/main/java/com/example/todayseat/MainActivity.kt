@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         Log.d("LifeCycleTest","onCreate")
-        loadFragment(HomeFragment())
+       // loadFragment(HomeFragment())
         bottomNav = findViewById(R.id.nav_view) as BottomNavigationView
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {

@@ -24,6 +24,13 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val dlg=CustomMenuDialog(requireActivity())
+        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dlg.setCancelable(false)
+        dlg.show()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,15 +38,12 @@ class HomeFragment : Fragment() {
     ): View {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
-
+        Log.d("TAG11","onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
         val menuListAdapter=MenuListAdapter(menus)
-        val dlg=CustomMenuDialog(requireActivity())
-        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg.setCancelable(false)
-        dlg.show()
+
         //val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             //textView.text = it
