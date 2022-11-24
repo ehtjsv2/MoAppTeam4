@@ -83,7 +83,7 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
             // 변경 감지되면
             override fun onQueryTextChange(newText: String?): Boolean {
                 menuListAdapter.filter.filter(newText)
-                Log.d("TAG11","text changed!!")
+                //Log.d("TAG11","text changed!!")
                 return true
             }
         })

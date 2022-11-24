@@ -44,6 +44,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
+        android:clickable="true"
         app:layout_constraintStart_toStartOf="@+id/prefer_menu_class"
         app:layout_constraintTop_toBottomOf="@+id/prefer_menu_class"
         app:srcCompat="@drawable/icon_bad" />

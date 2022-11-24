@@ -28,14 +28,23 @@ class PreferenceFragment : Fragment() {
             "제육볶음","고기"))
         menus.add(Menu("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg",
         "김치볶음밥","밥"))
-//        val menuListAdapter= PreferMenuListAdapter(menus)
         Log.d("TAG11","before binding adapter")
+        val preferMenuListAdpater =PreferMenuListAdapter(menus)
         binding.preferRecyclerView.layoutManager=LinearLayoutManager(requireContext())
-        binding.preferRecyclerView.adapter=PreferMenuListAdapter(menus)
-//        binding.preferRecyclerView.apply {
-//            layoutManager=LinearLayoutManager(context)
-//            adapter=menuListAdapter
-//        }
+        binding.preferRecyclerView.adapter=preferMenuListAdpater
+
+        binding.preferSearchView.setOnQueryTextListener(object :android.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                Log.d("TAG11","text change!!")
+                preferMenuListAdpater.filter.filter(p0)
+                return true
+            }
+
+        })
 
         val root: View = binding.root
 
