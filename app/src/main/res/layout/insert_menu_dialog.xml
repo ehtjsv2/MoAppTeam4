@@ -114,6 +114,7 @@
             android:background="@drawable/dialog_circle">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/insert_menu_img"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"

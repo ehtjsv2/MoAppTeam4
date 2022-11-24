@@ -64,12 +64,15 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         //아침 점심 저녁 text 변경
         if(currentHour<12){
             binding.searchMenu.queryHint="아침 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_toast)
         }
         else if(currentHour<18){
             binding.searchMenu.queryHint="점심 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_rice)
         }
         else if(currentHour<=23 && currentMin<=59){
             binding.searchMenu.queryHint="저녁 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_chicken)
         }
 
         binding.insertMenuRecyclerView.apply {
