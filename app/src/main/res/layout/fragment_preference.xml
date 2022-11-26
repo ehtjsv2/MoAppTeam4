@@ -17,13 +17,20 @@
         android:iconifiedByDefault="false"
         android:backgroundTint="@color/light_gray"
         android:queryHint="메뉴 검색하기" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ligth_gary_rectangle_radius"
+        android:gravity="center"
+        android:text="선호도를 업데이트해주세요! \n고르기 힘드시면 넘어가는 것이 더 좋습니다"
+        android:layout_marginTop="10dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prefer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
   />
 
 
