@@ -18,6 +18,7 @@
         android:backgroundTint="@color/light_gray"
         android:queryHint="메뉴 검색하기" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prefer_recycler_view"
         android:layout_width="match_parent"
