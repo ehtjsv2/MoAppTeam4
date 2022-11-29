@@ -63,13 +63,16 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         val binding= InsertMenuDialogBinding.inflate(layoutInflater)
         //아침 점심 저녁 text 변경
         if(currentHour<12){
-            binding.insertMenuDialogTitle.text="오늘 아침은 무엇을 먹었나요?"
+            binding.searchMenu.queryHint="아침 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_toast)
         }
         else if(currentHour<18){
-            binding.insertMenuDialogTitle.text="오늘 점심은 무엇을 먹었나요?"
+            binding.searchMenu.queryHint="점심 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_rice)
         }
         else if(currentHour<=23 && currentMin<=59){
-            binding.insertMenuDialogTitle.text="오늘 저녁은 무엇을 먹었나요?"
+            binding.searchMenu.queryHint="저녁 메뉴 입력"
+            binding.insertMenuImg.setImageResource(R.drawable.icon_chicken)
         }
 
         binding.insertMenuRecyclerView.apply {
@@ -83,7 +86,7 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
             // 변경 감지되면
             override fun onQueryTextChange(newText: String?): Boolean {
                 menuListAdapter.filter.filter(newText)
-                Log.d("TAG11","text changed!!")
+                //Log.d("TAG11","text changed!!")
                 return true
             }
         })

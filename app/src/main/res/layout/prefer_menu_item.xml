@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prefer_menu_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:gravity="center|top"
+    android:layout_gravity="center|top"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/prefer_menu_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/icon_toast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/prefer_menu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="김치볶음밥"
+
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/prefer_menu_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/prefer_menu_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="분류"
+            app:layout_constraintStart_toStartOf="@+id/prefer_menu_name"
+            app:layout_constraintTop_toBottomOf="@+id/prefer_menu_name" />
+
+        <ImageView
+            android:id="@+id/prefer_menu_bad_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="@+id/prefer_menu_class"
+            app:layout_constraintTop_toBottomOf="@+id/prefer_menu_class"
+            app:srcCompat="@drawable/icon_bad" />
+
+        <TextView
+            android:id="@+id/prefer_menu_bad"
+            android:layout_width="32dp"
+            android:layout_height="11dp"
+            android:text="싫어요"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/prefer_menu_bad_img"
+            app:layout_constraintTop_toBottomOf="@+id/prefer_menu_bad_img" />
+
+        <TextView
+            android:id="@+id/prefer_menu_good"
+            android:layout_width="32dp"
+            android:layout_height="11dp"
+            android:text="좋아요"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/prefer_menu_good_img"
+            app:layout_constraintTop_toBottomOf="@+id/prefer_menu_good_img" />
+
+        <TextView
+            android:id="@+id/prefer_menu_best"
+            android:layout_width="41dp"
+            android:layout_height="13dp"
+            android:text="최고에요"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/prefer_menu_best_img"
+            app:layout_constraintTop_toBottomOf="@+id/prefer_menu_best_img" />
+
+        <ImageView
+            android:id="@+id/prefer_menu_good_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintStart_toEndOf="@+id/prefer_menu_bad_img"
+            app:layout_constraintTop_toTopOf="@+id/prefer_menu_bad_img"
+            app:srcCompat="@drawable/icon_good" />
+
+        <ImageView
+            android:id="@+id/prefer_menu_best_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintStart_toEndOf="@+id/prefer_menu_good_img"
+            app:layout_constraintTop_toTopOf="@+id/prefer_menu_good_img"
+            app:srcCompat="@drawable/icon_heart" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+
+        android:background="@color/light_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

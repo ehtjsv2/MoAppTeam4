@@ -1,13 +1,13 @@
 package com.example.todayseat
 
-import android.graphics.Color
+import com.example.todayseat.ui.preference.PreferenceFragment
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.todayseat.ui.home.DialogTestFragment
 import com.example.todayseat.ui.home.HomeFragment
+import com.example.todayseat.ui.home.RecipeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
 import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.components.AxisBase
@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_preference -> {
-                    loadFragment(DialogTestFragment())
+                    loadFragment(PreferenceFragment())
                     return@setOnItemSelectedListener true
 
                 }
                 R.id.navigation_my_page -> {
-                    Log.d("clickTest", "friendclick!")
-                    loadFragment(MyPageFragment())
+                    Log.d("clickTest","friendclick!")
+                    loadFragment(RecipeFragment())
                     return@setOnItemSelectedListener true
                 }
             }
