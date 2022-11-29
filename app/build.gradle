@@ -37,7 +37,6 @@ android {
         enabled true
     }
 }
-
 dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -80,8 +79,9 @@ dependencies {
 
 
     //수현 84줄
+    //Horizontal progress bar
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-
-
+    //time chart
 
 }

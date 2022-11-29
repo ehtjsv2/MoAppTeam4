@@ -1,36 +1,40 @@
 package com.example.todayseat
 
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.todayseat.databinding.ActivityMainBinding
 import com.example.todayseat.ui.home.DialogTestFragment
 import com.example.todayseat.ui.home.HomeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
-import com.example.todayseat.ui.preference.PreferenceFragment
+import com.github.mikephil.charting.charts.HorizontalBarChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var bottomNav : BottomNavigationView
+    lateinit var bottomNav: BottomNavigationView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        Log.d("LifeCycleTest","onCreate")
+        Log.d("LifeCycleTest", "onCreate")
         loadFragment(HomeFragment())
         bottomNav = findViewById(R.id.nav_view) as BottomNavigationView
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
-                    Log.d("clickTest","homeclick!")
+                    Log.d("clickTest", "homeclick!")
                     loadFragment(HomeFragment())
                     return@setOnItemSelectedListener true
                 }
@@ -40,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 R.id.navigation_my_page -> {
-                    Log.d("clickTest","friendclick!")
+                    Log.d("clickTest", "friendclick!")
                     loadFragment(MyPageFragment())
                     return@setOnItemSelectedListener true
                 }
@@ -49,15 +53,17 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    private fun loadFragment(fragment: Fragment){
-        Log.d("clickTest","click!->"+fragment.tag)
+
+    private fun loadFragment(fragment: Fragment) {
+        Log.d("clickTest", "click!->" + fragment.tag)
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container,fragment)
+        transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
 
 }
+
 
 //val navController = findNavController(R.id.nav_host_fragment_activity_main2)
 //        // Passing each menu ID as a set of Ids because each
