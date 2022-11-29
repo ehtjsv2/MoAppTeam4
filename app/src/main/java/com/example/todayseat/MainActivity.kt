@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.todayseat.ui.home.HomeFragment
+import com.example.todayseat.ui.home.RecipeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
 import com.example.todayseat.ui.preference.PreferenceFragment
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_my_page -> {
                     Log.d("clickTest","friendclick!")
-                    loadFragment(MyPageFragment())
+                    loadFragment(RecipeFragment())
                     return@setOnItemSelectedListener true
                 }
             }
