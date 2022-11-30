@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.todayseat">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodaysEat"
-        tools:targetApi="31" >
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.home.MapActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.Appkey"
+            android:value="0nmmLeVim7fZbGXsSHIrcEfI5gI=" />
 
         <activity
             android:name=".Login.LoginActivity3_3"
@@ -20,7 +37,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Login.LoginActivity3_2"
             android:exported="false">
@@ -56,7 +72,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".Login.LoginActivity"
             android:exported="false">
@@ -68,7 +83,7 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:label="오늘 뭐 먹지?"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -82,7 +97,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="오늘 뭐 먹지?" >
+            android:label="오늘 뭐 먹지?">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

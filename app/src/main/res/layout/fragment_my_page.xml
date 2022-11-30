@@ -2,22 +2,146 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/d_select"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.myPage.MyPageFragment"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    tools:context=".ui.myPage.MyPageFragment">
+
+
+    <Button
+        android:id="@+id/l_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:onClick="nextButton"
+        android:text="검색"
+        app:layout_constraintStart_toEndOf="@+id/lsearch"
+        app:layout_constraintTop_toBottomOf="@+id/next_button3" />
+
+    <Button
+        android:id="@+id/next_button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:onClick="nextButton"
+        android:text="검색"
+        app:layout_constraintStart_toEndOf="@+id/dsearch"
+        app:layout_constraintTop_toBottomOf="@+id/l_select" />
+
+    <Button
+        android:id="@+id/next_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:onClick="nextButton"
+        android:text="검색"
+        app:layout_constraintStart_toEndOf="@+id/msearch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/scoreButten"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="CustomSelect"
+        android:text="영양점수표\n보기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/m"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:text="아침"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:text="저녁"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l" />
+
+    <TextView
+        android:id="@+id/l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:text="점심"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m" />
+
+    <TextView
+        android:id="@+id/msearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="40dp"
+        android:background="@null"
+        android:hint="미응답"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/m"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="60dp"
+        android:background="@null"
+        android:hint="미응답"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/l"
+        app:layout_constraintTop_toBottomOf="@+id/msearch" />
+
+    <TextView
+        android:id="@+id/dsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="60dp"
+        android:background="@null"
+        android:hint="미응답"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/d"
+        app:layout_constraintTop_toBottomOf="@+id/lsearch" />
+
+    <TextView
+        android:id="@+id/Eatfood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:text="최근 먹은 음식"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/d" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Eatfood" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

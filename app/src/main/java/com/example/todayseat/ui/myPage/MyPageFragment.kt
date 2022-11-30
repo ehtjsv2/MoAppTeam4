@@ -1,15 +1,20 @@
 package com.example.todayseat.ui.myPage
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.todayseat.R
 import com.example.todayseat.databinding.FragmentMyPageBinding
+import com.example.todayseat.ui.home.CustomMenuDialog
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : Fragment(){
 
     private var _binding: FragmentMyPageBinding? = null
 
@@ -28,12 +33,14 @@ class MyPageFragment : Fragment() {
         _binding = FragmentMyPageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+
+        binding.scoreButten.setOnClickListener {
+            val dlg= CustomSelect()
+            dlg.show(requireActivity().supportFragmentManager,"CustomSelect")
         }
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
