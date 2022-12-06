@@ -1,6 +1,8 @@
 package com.example.todayseat.ui.home
 
 
+import android.content.Context
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.todayseat.MainActivity
 import com.example.todayseat.R
 import com.example.todayseat.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.charts.BarChart
@@ -25,13 +28,17 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteDatabase.openOrCreateDatabase
+import android.database.sqlite.SQLiteOpenHelper
 
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    //LSH
+    //HDH db 넣기
 
+    //LSH
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -39,6 +46,10 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dlg=CustomMenuDialog(requireActivity())
+//        val helper = myDBHelper(this)
+//        val moappDB = helper.writableDatabase
+//        helper.onUpgrade(moappDB, 1, 2)
+
         dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dlg.setCancelable(false)
         dlg.show()
@@ -53,9 +64,20 @@ class HomeFragment : Fragment() {
         Log.d("TAG11","onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
-        val menuListAdapter=MenuListAdapter(menus)
+//
+//        //db food table에서 메뉴 가져오기
+//        val sql = "SELECT F_name FROM FOOD LIMIT 5"
+//        val c: Cursor = moappDB.rawQuery(sql,null)
 
+        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
+//        var i : Int = 0
+//        while (c.moveToNext()){
+//            val F_ID_pos = c.getColumnIndex("F_name")
+//            menus.set(i,c.getString(F_ID_pos))
+//            i = i+1
+//        }
+//        val menuListAdapter=MenuListAdapter(menus)
+        Log.i("DB","Food table에서 가져온 데이터 HomeFragment에 넣기")
 
         //val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
@@ -174,6 +196,40 @@ class HomeFragment : Fragment() {
         transaction.replace(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    //HDH
+//    private fun selectFoodData(db: SQLiteDatabase?){
+//        val sql = "SELECT * FROM RECEIPE WHERE R_ID == 100"
+//        val c: Cursor = db.rawQuery(sql, null)
+//
+//        while (c.moveToNext()) {
+//            val F_ID_pos = c.getColumnIndex("R_ID")
+//            val F_name_pos = c.getColumnIndex("R_name")
+//            val category_app_pos = c.getColumnIndex("F_ID")
+//            val serving_size_pos = c.getColumnIndex("R_ingredient")
+//            val content_unit_pos = c.getColumnIndex("R_seasoning")
+//            val kcal_pos = c.getColumnIndex("R_step")
+//
+//            Log.i("DB", "get Column in Query ")
+//
+//            val F_ID = c.getString(F_ID_pos)
+//            val F_name = c.getString(F_name_pos)
+//            val category_app = c.getString(category_app_pos)
+//            val serving_size = c.getString(serving_size_pos)
+//            val content_unit = c.getString(content_unit_pos)
+//            val kcal = c.getString(kcal_pos)
+//
+//
+//            Log.i("DB", "get variance in Column ")
+//        }
+//    }
+    inner class myDBHelper(context: Context) :
+        SQLiteOpenHelper(context, "Moapp4", null, 2) {
+        //앱이 설치되어서 SQLiteOpenHelper 클래스가 최초로 되는 순간 호출,테이블 생성
+        override fun onCreate(db: SQLiteDatabase?) {}
+        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        }
     }
 
 }
