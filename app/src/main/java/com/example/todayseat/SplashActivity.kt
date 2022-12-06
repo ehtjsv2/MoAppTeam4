@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.os.postDelayed
 import com.example.todayseat.Login.LoginActivity
+import com.example.todayseat.ui.home.HomeFragment
 
 class SplashActivity : AppCompatActivity() {
     private val splashDuration = 3000L
