@@ -2,7 +2,6 @@ package com.example.todayseat.ui.home
 
 import retrofit2.converter.gson.GsonConverterFactory
 import android.Manifest
-import android.R
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -27,7 +26,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.HandlerCompat.postDelayed
 import androidx.core.os.postDelayed
+import com.example.todayseat.Login.LoginActivity2
 import com.example.todayseat.MainActivity
+import com.example.todayseat.R
 import com.example.todayseat.databinding.ActivityMainBinding
 import com.example.todayseat.databinding.ActivityMapBinding
 import com.example.todayseat.databinding.BalloonLayoutBinding
@@ -94,6 +95,13 @@ class MapActivity : AppCompatActivity(),loadcComplete {
 
         setContentView(view)
 
+        val map_page_ok_btn:Button = findViewById(com.example.todayseat.R.id.map_page_ok_btn)
+
+        map_page_ok_btn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
 
         //val mapView = MapView(this)
@@ -117,6 +125,7 @@ class MapActivity : AppCompatActivity(),loadcComplete {
                 //mapView.setMapCenterPoint(uNowPosition, true) // 지정한 위치로 가기
                 //mapView.setZoomLevel(4, true); // 줌레벨 변경
 
+                //searchKeyword("치킨",this@MapActivity,uLongitude,uLongitude)
                 searchKeyword("치킨",this@MapActivity) //나온 결과를 해당 위치에 기입
 /*
                 val handler = android.os.Handler()
@@ -130,18 +139,17 @@ class MapActivity : AppCompatActivity(),loadcComplete {
                                 xlist[i].toDouble()
                             )   // 좌표
                             markerType = MapPOIItem.MarkerType.CustomImage          // 마커 모양 (커스텀)
-                            //customImageResourceId = R.drawable.이미지               // 커스텀 마커 이미지
-                            selectedMarkerType =
-                                MapPOIItem.MarkerType.CustomImage  // 클릭 시 마커 모양 (커스텀)
-                            //customSelectedImageResourceId = R.drawable.이미지       // 클릭 시 커스텀 마커 이미지
+                            customImageResourceId = R.drawable.map_marker_icon               // 커스텀 마커 이미지
+                            selectedMarkerType = MapPOIItem.MarkerType.CustomImage  // 클릭 시 마커 모양 (커스텀)
+                            customSelectedImageResourceId = R.drawable.map_marker_icon   // 클릭 시 커스텀 마커 이미지
                             isCustomImageAutoscale = false      // 커스텀 마커 이미지 크기 자동 조정
                             setCustomImageAnchor(0.5f, 1.0f)    // 마커 이미지 기준점
                             mapView.addPOIItem(marker) // 마커찍기
                         }
                     }
                 },1000)
+*/
 
- */
             }catch(e: NullPointerException){
                 Log.e("LOCATION_ERROR", e.toString())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -172,7 +180,7 @@ class MapActivity : AppCompatActivity(),loadcComplete {
 
 
     }
-
+    //fun searchKeyword(keyword: String,mCallback:MapActivity,x:String, y:String)
     fun searchKeyword(keyword: String,mCallback:MapActivity) {
 
         val retrofit = Retrofit.Builder() // Retrofit 구성
@@ -181,7 +189,7 @@ class MapActivity : AppCompatActivity(),loadcComplete {
             .build()
         val api = retrofit.create(KakaoAPI::class.java) // 통신 인터페이스를 객체로 생성
         val call = api.getSearchKeyword(API_KEY, keyword, "FD6") // 검색 조건 입력
-
+        //val call = api.getSearchKeyword(API_KEY, keyword, "FD6",x,y,1000)
         // API 서버에 요청
         call.enqueue(object: Callback<ResultSearchKeyword> {
             override fun onResponse(

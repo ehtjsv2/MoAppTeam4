@@ -15,10 +15,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/map_page_location_btn"
+        android:id="@+id/map_page_ok_btn"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:text="내 위치"
+        android:text="확인"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

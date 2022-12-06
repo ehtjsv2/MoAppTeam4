@@ -19,6 +19,9 @@ import com.example.todayseat.databinding.SearchListviewBinding
 interface OnItemClick {
     fun onClick(value: String)
 }
+interface OnItemClick2 {
+    fun onClick2(value: String)
+}
 
 class MyViewHolder(val binding: SearchListviewBinding) :
     RecyclerView.ViewHolder(binding.root){

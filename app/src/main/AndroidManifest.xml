@@ -18,6 +18,7 @@
         android:theme="@style/Theme.TodaysEat"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.home.MapActivity"
             android:exported="false">

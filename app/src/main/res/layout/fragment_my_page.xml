@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/l_select"
+        android:id="@+id/l_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -18,10 +18,10 @@
         android:onClick="nextButton"
         android:text="검색"
         app:layout_constraintStart_toEndOf="@+id/lsearch"
-        app:layout_constraintTop_toBottomOf="@+id/next_button3" />
+        app:layout_constraintTop_toBottomOf="@+id/m_button" />
 
     <Button
-        android:id="@+id/next_button5"
+        android:id="@+id/d_butten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -29,10 +29,10 @@
         android:onClick="nextButton"
         android:text="검색"
         app:layout_constraintStart_toEndOf="@+id/dsearch"
-        app:layout_constraintTop_toBottomOf="@+id/l_select" />
+        app:layout_constraintTop_toBottomOf="@+id/l_button" />
 
     <Button
-        android:id="@+id/next_button3"
+        android:id="@+id/m_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
