@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,21 +16,19 @@ import com.example.todayseat.Login.LoginActivity3_3
 import com.example.todayseat.Login.LoginActivity5
 import com.example.todayseat.databinding.ActivityLogin4Binding
 import com.example.todayseat.databinding.SearchListviewBinding
-
+import com.example.todayseat.ui.home.MenuListAdapter
+/*
 interface OnItemClick {
     fun onClick(value: String)
 }
-interface OnItemClick2 {
-    fun onClick2(value: String)
-}
-
+*/
 class MyViewHolder(val binding: SearchListviewBinding) :
     RecyclerView.ViewHolder(binding.root){
         fun bind(item:String){
             binding.label.text = item
         }
     }
-
+/*
 class MyAdapter(val context: Context, val datas: MutableList<String>, listener: OnItemClick ) :
     RecyclerView.Adapter<MyViewHolder>() {
     lateinit var binding: SearchListviewBinding
@@ -76,11 +75,10 @@ class MyAdapter(val context: Context, val datas: MutableList<String>, listener: 
     }
 }
 
-
-class MyAdapter2(val context: Context, val datas: MutableList<String>, listener: OnItemClick ) :
+*/
+class MyAdapter2(val context: Context, val datas: MutableList<String> ) :
     RecyclerView.Adapter<MyViewHolder>() {
     lateinit var binding:SearchListviewBinding
-    private val mCallback: OnItemClick = listener
 
     override fun getItemCount(): Int {
         return datas.size }
@@ -102,7 +100,7 @@ class MyAdapter2(val context: Context, val datas: MutableList<String>, listener:
 
 
 
-class LoginActivity4 : AppCompatActivity(), OnItemClick {
+class LoginActivity4 : AppCompatActivity(){
 
     //처리해야할 데이터
     var like_list:MutableList<String> = ArrayList()
@@ -114,27 +112,7 @@ class LoginActivity4 : AppCompatActivity(), OnItemClick {
     lateinit var binding: ActivityLogin4Binding
     lateinit var adapter2:MyAdapter2
 
-    override fun onClick(value: String) {
-        var count:Int = 0
-        var index:Int = -1
 
-        for(i in 0..like_list.size-1){
-            if(like_list[i].contains(value)){
-                count = 1;
-                index = i;
-            }
-        }
-        if(count == 1){
-            like_list.removeAt(index)
-            adapter2.notifyDataSetChanged()
-        }
-        else {
-            like_list.add(value)
-            adapter2.notifyDataSetChanged()
-            //Log.d("pjy","어댑터 $item")
-        }
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,13 +122,42 @@ class LoginActivity4 : AppCompatActivity(), OnItemClick {
 
 
         settingList()
-        var adapter:MyAdapter = MyAdapter(this,search_list,this)
+        var adapter = MenuListAdapter(search_list)
         binding.SearchRecycler.adapter=adapter
         binding.SearchRecycler.layoutManager = LinearLayoutManager(this)
 
-        adapter2 = MyAdapter2(this,like_list,this)
+        adapter2 = MyAdapter2(this,like_list)
         binding.EatRecycler.adapter=adapter2
         binding.EatRecycler.layoutManager = LinearLayoutManager(this)
+
+
+        adapter.setItemClickListener(object : MenuListAdapter.OnItemClickListener{
+            override fun onClick(selectedMenu: String) {
+                var count:Int = 0
+                var index:Int = -1
+
+                for(i in 0..like_list.size-1){
+                    if(like_list[i].contains(selectedMenu)){
+                        count = 1;
+                        index = i;
+                    }
+                }
+                if(count == 1){
+                    like_list.removeAt(index)
+                    adapter2.notifyDataSetChanged()
+                }
+                else {
+                    like_list.add(selectedMenu)
+                    adapter2.notifyDataSetChanged()
+                    //Log.d("pjy","어댑터 $item")
+                }
+            }
+        } )
+
+
+//        yes.setOnClickListener(this)
+//        no.setOnClickListener(this)
+
 
         // 데이터 변경 이벤트
         binding.TextSearch.addTextChangedListener(object  : TextWatcher{

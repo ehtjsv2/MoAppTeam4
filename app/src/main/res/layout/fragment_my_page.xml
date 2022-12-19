@@ -16,7 +16,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         android:onClick="nextButton"
-        android:text="검색"
+        android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/lsearch"
         app:layout_constraintTop_toBottomOf="@+id/m_button" />
 
@@ -27,7 +27,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
         android:onClick="nextButton"
-        android:text="검색"
+        android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/dsearch"
         app:layout_constraintTop_toBottomOf="@+id/l_button" />
 
@@ -38,7 +38,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:onClick="nextButton"
-        android:text="검색"
+        android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/msearch"
         app:layout_constraintTop_toTopOf="parent" />
 

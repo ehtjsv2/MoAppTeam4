@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 버튼 클릭 이벤트 추후 캐시, 값 여부 판단, 데이터 처리 추가하기
         binding.nextButton.setOnClickListener{
-            if(binding.joinName.text.isEmpty())
+            if(binding.joinName.text!!.isEmpty())
             {
                 name = "-"
                 //Toast.makeText(this,"값을 입력하세요",Toast.LENGTH_SHORT).show()
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                 name = binding.joinName.text.toString()
             }
 
-            if(binding.joinAge.text.isEmpty())
+            if(binding.joinAge.text!!.isEmpty())
             {
                 age = 0
                 //Toast.makeText(this,"값을 입력하세요",Toast.LENGTH_SHORT).show()
@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                 age = binding.joinAge.text.toString().toInt()
             }
 
-            if(binding.joinStature.text.isEmpty())
+            if(binding.joinStature.text!!.isEmpty())
             {
                 stature = 0
                 //Toast.makeText(this,"값을 입력하세요",Toast.LENGTH_SHORT).show()

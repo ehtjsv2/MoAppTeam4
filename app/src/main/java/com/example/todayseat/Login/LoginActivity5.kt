@@ -1,17 +1,101 @@
 package com.example.todayseat.Login
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.*
 import com.example.todayseat.databinding.ActivityLogin5Binding
+import com.example.todayseat.databinding.SearchListviewBinding
+
+interface OnItemClick2 {
+    fun onClick2(value: String)
+}
+
+
+class dislikeAdapter(val context: Context, val datas: MutableList<String>, listener: OnItemClick2 ) :
+    RecyclerView.Adapter<MyViewHolder>() {
+    lateinit var binding: SearchListviewBinding
+    private val mCallback: OnItemClick2 = listener
+    var dislike_list: MutableList<String> = ArrayList()
+
+    override fun getItemCount(): Int {
+        return datas.size
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        binding = SearchListviewBinding.inflate(
+            LayoutInflater.from(
+                parent.context
+            ), parent, false
+        )
+        return MyViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = datas[position]
+        holder.bind(item)
+
+        binding.root.setOnClickListener {
+            var count: Int = 0
+            var index: Int = -1
+            for (i in 0..dislike_list.size - 1) {
+                if (dislike_list[i].contains(item)) {
+                    count = 1;
+                    index = i;
+                }
+            }
+            if (count == 1) {
+                dislike_list.removeAt(index)
+                Toast.makeText(this.context, "${item} 취소", Toast.LENGTH_SHORT).show()
+                mCallback.onClick2(item)
+            } else {
+                dislike_list.add(item)
+                //Log.d("pjy","어댑터 $item")
+                Toast.makeText(this.context, "${item} 선택", Toast.LENGTH_SHORT).show()
+                mCallback.onClick2(item)
+            }
+        }
+    }
+}
+
+
+class dislikeAdapter2(val context: Context, val datas: MutableList<String>, listener: OnItemClick2 ) :
+    RecyclerView.Adapter<MyViewHolder>() {
+    lateinit var binding: SearchListviewBinding
+    private val mCallback: OnItemClick2 = listener
+
+    override fun getItemCount(): Int {
+        return datas.size }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder{
+        binding = SearchListviewBinding.inflate(
+            LayoutInflater.from(
+                parent.context), parent, false)
+        return MyViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val item = datas[position]
+        holder.bind(item)
+
+    }
+
+}
 
 
 
-class LoginActivity5 : AppCompatActivity(), OnItemClick {
+
+
+
+class LoginActivity5 : AppCompatActivity(), OnItemClick2 {
 
     //처리해야할 데이터
     var dislike_list:MutableList<String> = ArrayList()
@@ -21,9 +105,9 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick {
 
 
     lateinit var binding: ActivityLogin5Binding
-    lateinit var adapter2: MyAdapter2
+    lateinit var adapter2: dislikeAdapter2
 
-    override fun onClick(value: String) {
+    override fun onClick2(value: String) {
         var count:Int = 0
         var index:Int = -1
 
@@ -52,11 +136,11 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick {
 
 
         settingList()
-        var adapter: MyAdapter = MyAdapter(this,search_list,this)
+        var adapter: dislikeAdapter = dislikeAdapter(this,search_list,this)
         binding.SearchRecycler.adapter=adapter
         binding.SearchRecycler.layoutManager = LinearLayoutManager(this)
 
-        adapter2 = MyAdapter2(this,dislike_list,this)
+        adapter2 = dislikeAdapter2(this,dislike_list,this)
         binding.EatRecycler.adapter=adapter2
         binding.EatRecycler.layoutManager = LinearLayoutManager(this)
 
@@ -122,3 +206,4 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick {
         all_list.add("파스타")
     }
 }
+

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.os.postDelayed
 import com.example.todayseat.Login.LoginActivity
+import com.example.todayseat.Login.LoginActivity2
+import com.example.todayseat.Login.LoginActivity3
 import com.example.todayseat.ui.home.MapActivity
 import com.example.todayseat.ui.home.HomeFragment
 
@@ -57,7 +59,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(splashDuration){
             //val intent = Intent(this, MainActivity::class.java)
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity4::class.java)
             startActivity(intent)
             finish()
         }
