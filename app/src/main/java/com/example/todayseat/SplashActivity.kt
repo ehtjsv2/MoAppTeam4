@@ -78,7 +78,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(splashDuration){
             //val intent = Intent(this, MainActivity::class.java)
-            val intent = Intent(this, LoginActivity4::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -186,6 +186,8 @@ class SplashActivity : AppCompatActivity() {
             Log.d("DB1234", "create DB")
             insertCsv_to_DB(db)
             insertReceipeCsv_to_DB(db)
+            val sql="insert into CUSTOMER VALUES ('1',null,null,null,null,null,null,null,null,null);"
+            db?.execSQL(sql)
             Log.d("DB1234", "insertCSV FK in DB")
 //            editor.putInt("isInstall", 1);
 //            editor.apply()

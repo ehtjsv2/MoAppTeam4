@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.todayseat.SplashActivity
 
 
 import com.example.todayseat.databinding.FragmentHomeBinding
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 
 import java.lang.Math.abs
+import java.text.SimpleDateFormat
 
 
 class HomeFragment : Fragment() {
@@ -114,11 +116,24 @@ class HomeFragment : Fragment() {
         }
 
 
+        val currentTime : Long = System.currentTimeMillis()
+        val currentYear= SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth= SimpleDateFormat("MM").format(currentTime)
+        val currentDay= SimpleDateFormat("dd").format(currentTime)
+        val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
+        val c = SplashActivity.moappDB.rawQuery("select COUNT(*) from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        var count=0
+        while(c.moveToNext()){
+            count=c.getInt(0)
+        }
+        Log.d("TAG11",count.toString())
+        if (count==0){
+            val dlg=CustomMenuDialog(requireActivity())
+            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dlg.setCancelable(false)
+            dlg.show()
+        }
 
-        val dlg=CustomMenuDialog(requireActivity())
-        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg.setCancelable(false)
-        dlg.show()
         val dlg2=CustomMenuScoreDialog(requireActivity())
         dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dlg2.setCancelable(false)
@@ -255,6 +270,7 @@ class HomeFragment : Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 
 //    //HDH
 //    private fun selectFoodData(db: SQLiteDatabase?){

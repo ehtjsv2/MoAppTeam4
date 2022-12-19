@@ -11,6 +11,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.contentValuesOf
@@ -29,10 +30,15 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val currentYear=SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth=SimpleDateFormat("MM").format(currentTime)
+        val currentDay=SimpleDateFormat("dd").format(currentTime)
         val currentHour=SimpleDateFormat("HH").format(currentTime).toInt()
         val currentMin=SimpleDateFormat("mm").format(currentTime).toInt()
+        val currentSec=SimpleDateFormat("ss").format(currentTime)
+        val date=currentYear+"-"+currentMonth+"-"+currentDay+" "+currentHour+":"+currentMin+":"+currentSec
 
-        val sql = "SELECT * FROM FOOD LIMIT 2 "
+        val sql = "SELECT * FROM FOOD"
         val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
         Log.d("DB1234","HomeFragment cursor")
 
@@ -83,6 +89,16 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         } )
         // 등록하기 버튼클릭시, 메뉴 db에 넣어야됨
         binding.registBtn.setOnClickListener {
+            val sql ="insert into FOODRECENT(food_eat_ID,Date_eat,C_ID_eat) values ('${binding.selectMenuName.text}', '$date' ,1);"
+            SplashActivity.moappDB.execSQL(sql)
+            val c=SplashActivity.moappDB.rawQuery("select * from foodrecent",null)
+            while(c.moveToNext()){
+                val F_name_pos=c.getColumnIndex("food_eat_ID")
+                val F_date_pos=c.getColumnIndex("Date_eat")
+                Log.d("TAG11","${c.getString(F_name_pos)} ${c.getString(F_date_pos)}")
+            }
+            Toast.makeText(activity, "등록 완료!", Toast.LENGTH_SHORT).show()
+
             dismiss()
         }
         // 무시하기 버튼클릭시, 무시

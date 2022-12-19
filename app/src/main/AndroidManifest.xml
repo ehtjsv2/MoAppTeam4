@@ -5,7 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,7 @@
         android:theme="@style/Theme.TodaysEat"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity
             android:name=".ui.home.MapActivity"
             android:exported="false">
@@ -29,7 +31,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.Appkey"
-            android:value="0nmmLeVim7fZbGXsSHIrcEfI5gI=" />
+            android:value="52ec286a5b86954675825bfa720afb88" />
 
         <activity
             android:name=".Login.LoginActivity3_3"
