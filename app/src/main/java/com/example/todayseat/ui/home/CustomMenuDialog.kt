@@ -3,6 +3,7 @@ package com.example.todayseat.ui.home
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.InsertMenuDialogBinding
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -58,7 +60,18 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         val currentHour=SimpleDateFormat("HH").format(currentTime).toInt()
         val currentMin=SimpleDateFormat("mm").format(currentTime).toInt()
+
+        val sql = "SELECT * FROM FOOD LIMIT 2 "
+        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
+        Log.d("DB1234","HomeFragment cursor")
+
         var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
+        while (c.moveToNext()){
+            var F_name_pos = c.getColumnIndex("F_name")
+            menus.add(c.getString(F_name_pos))
+        }
+        Log.d("DB1234","menus에 sql로 받아온 것 넣기")
+
         val menuListAdapter=MenuListAdapter(menus)
         val binding= InsertMenuDialogBinding.inflate(layoutInflater)
         //아침 점심 저녁 text 변경

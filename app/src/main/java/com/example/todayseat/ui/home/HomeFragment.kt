@@ -10,27 +10,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.todayseat.MainActivity
 import com.example.todayseat.R
 import com.example.todayseat.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.HorizontalBarChart
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.Legend.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteDatabase.openOrCreateDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.todayseat.MainActivity
+import com.example.todayseat.SplashActivity
+import com.example.todayseat.SplashActivity.Companion.moappDB
+
+//import com.example.todayseat.MainActivity.Companion.moappDB
+
 
 
 class HomeFragment : Fragment() {
@@ -46,9 +45,12 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dlg=CustomMenuDialog(requireActivity())
-//        val helper = myDBHelper(this)
+
+//        val helper = myDBHelper1(this)
 //        val moappDB = helper.writableDatabase
 //        helper.onUpgrade(moappDB, 1, 2)
+//        MainActivity.helper
+//        MainActivity.moappDB
 
         dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dlg.setCancelable(false)
@@ -64,20 +66,21 @@ class HomeFragment : Fragment() {
         Log.d("TAG11","onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//
-//        //db food table에서 메뉴 가져오기
-//        val sql = "SELECT F_name FROM FOOD LIMIT 5"
-//        val c: Cursor = moappDB.rawQuery(sql,null)
+
+//        db food table에서 메뉴 가져오기
+//        val sql = "SELECT * FROM FOOD LIMIT 2 "
+//        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
+//        Log.d("DB1234","HomeFragment cursor")
 
         var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
-//        var i : Int = 0
+
 //        while (c.moveToNext()){
-//            val F_ID_pos = c.getColumnIndex("F_name")
-//            menus.set(i,c.getString(F_ID_pos))
-//            i = i+1
+//            var F_name_pos = c.getColumnIndex("F_name")
+//            menus.add(c.getString(F_name_pos))
 //        }
-//        val menuListAdapter=MenuListAdapter(menus)
-        Log.i("DB","Food table에서 가져온 데이터 HomeFragment에 넣기")
+//        Log.d("DB1234","menus에 sql로 받아온 것 넣기")
+        var menuListAdapter=MenuListAdapter(menus)
+        Log.i("DB1234","Food table에서 가져온 데이터 HomeFragment에 넣기")
 
         //val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
@@ -198,10 +201,10 @@ class HomeFragment : Fragment() {
         transaction.commit()
     }
 
-    //HDH
+//    //HDH
 //    private fun selectFoodData(db: SQLiteDatabase?){
 //        val sql = "SELECT * FROM RECEIPE WHERE R_ID == 100"
-//        val c: Cursor = db.rawQuery(sql, null)
+//        val c: Cursor = db!!.rawQuery(sql, null)
 //
 //        while (c.moveToNext()) {
 //            val F_ID_pos = c.getColumnIndex("R_ID")
@@ -211,7 +214,7 @@ class HomeFragment : Fragment() {
 //            val content_unit_pos = c.getColumnIndex("R_seasoning")
 //            val kcal_pos = c.getColumnIndex("R_step")
 //
-//            Log.i("DB", "get Column in Query ")
+//            Log.i("DB1234", "get Column in Query ")
 //
 //            val F_ID = c.getString(F_ID_pos)
 //            val F_name = c.getString(F_name_pos)
@@ -221,16 +224,10 @@ class HomeFragment : Fragment() {
 //            val kcal = c.getString(kcal_pos)
 //
 //
-//            Log.i("DB", "get variance in Column ")
+//            Log.i("DB1234", "get variance in Column ")
 //        }
 //    }
-    inner class myDBHelper(context: Context) :
-        SQLiteOpenHelper(context, "Moapp4", null, 2) {
-        //앱이 설치되어서 SQLiteOpenHelper 클래스가 최초로 되는 순간 호출,테이블 생성
-        override fun onCreate(db: SQLiteDatabase?) {}
-        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        }
-    }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.todayseat.ui.preference
 
+import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todayseat.MainActivity
+import com.example.todayseat.SplashActivity
+import com.example.todayseat.SplashActivity.Companion.moappDB
 
 import com.example.todayseat.databinding.FragmentPreferenceBinding
 
@@ -29,6 +33,15 @@ class PreferenceFragment : Fragment() {
         menus.add(Menu("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg",
         "김치볶음밥","밥"))
         Log.d("TAG11","before binding adapter")
+
+        val sql = "SELECT F_name FROM FOOD LIMIT 5"
+        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
+        while (c.moveToNext()){
+            val F_ID_pos = c.getColumnIndex("F_name")
+            menus.add(Menu("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg",
+                c.getString(F_ID_pos),"밥"))
+        }
+
         val preferMenuListAdpater =PreferMenuListAdapter(menus)
         binding.preferRecyclerView.layoutManager=LinearLayoutManager(requireContext())
         binding.preferRecyclerView.adapter=preferMenuListAdpater
