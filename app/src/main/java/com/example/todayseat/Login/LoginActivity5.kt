@@ -8,13 +8,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.*
 import com.example.todayseat.databinding.ActivityLogin5Binding
 import com.example.todayseat.databinding.SearchListviewBinding
+import com.example.todayseat.ui.home.MenuListAdapter
 
+/*
 interface OnItemClick2 {
     fun onClick2(value: String)
 }
@@ -66,11 +67,12 @@ class dislikeAdapter(val context: Context, val datas: MutableList<String>, liste
     }
 }
 
+*/
 
-class dislikeAdapter2(val context: Context, val datas: MutableList<String>, listener: OnItemClick2 ) :
+class dislikeAdapter2(val context: Context, val datas: MutableList<String> ) :
     RecyclerView.Adapter<MyViewHolder>() {
     lateinit var binding: SearchListviewBinding
-    private val mCallback: OnItemClick2 = listener
+
 
     override fun getItemCount(): Int {
         return datas.size }
@@ -95,7 +97,7 @@ class dislikeAdapter2(val context: Context, val datas: MutableList<String>, list
 
 
 
-class LoginActivity5 : AppCompatActivity(), OnItemClick2 {
+class LoginActivity5 : AppCompatActivity() {
 
     //처리해야할 데이터
     var dislike_list:MutableList<String> = ArrayList()
@@ -107,27 +109,6 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick2 {
     lateinit var binding: ActivityLogin5Binding
     lateinit var adapter2: dislikeAdapter2
 
-    override fun onClick2(value: String) {
-        var count:Int = 0
-        var index:Int = -1
-
-        for(i in 0..dislike_list.size-1){
-            if(dislike_list[i].contains(value)){
-                count = 1;
-                index = i;
-            }
-        }
-        if(count == 1){
-            dislike_list.removeAt(index)
-            adapter2.notifyDataSetChanged()
-        }
-        else {
-            dislike_list.add(value)
-            adapter2.notifyDataSetChanged()
-            //Log.d("pjy","어댑터 $item")
-        }
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,14 +117,36 @@ class LoginActivity5 : AppCompatActivity(), OnItemClick2 {
 
 
         settingList()
-        var adapter: dislikeAdapter = dislikeAdapter(this,search_list,this)
+        var adapter= MenuListAdapter2(search_list)
         binding.SearchRecycler.adapter=adapter
         binding.SearchRecycler.layoutManager = LinearLayoutManager(this)
 
-        adapter2 = dislikeAdapter2(this,dislike_list,this)
+        adapter2 = dislikeAdapter2(this,dislike_list)
         binding.EatRecycler.adapter=adapter2
         binding.EatRecycler.layoutManager = LinearLayoutManager(this)
 
+        adapter.setItemClickListener(object : MenuListAdapter.OnItemClickListener{
+            override fun onClick(selectedMenu: String) {
+                var count:Int = 0
+                var index:Int = -1
+
+                for(i in 0..dislike_list.size-1){
+                    if(dislike_list[i].contains(selectedMenu)){
+                        count = 1;
+                        index = i;
+                    }
+                }
+                if(count == 1){
+                    dislike_list.removeAt(index)
+                    adapter2.notifyDataSetChanged()
+                }
+                else {
+                    dislike_list.add(selectedMenu)
+                    adapter2.notifyDataSetChanged()
+                    //Log.d("pjy","어댑터 $item")
+                }
+            }
+        } )
         // 데이터 변경 이벤트
         binding.TextSearch.addTextChangedListener(object  : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
