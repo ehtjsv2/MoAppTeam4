@@ -18,7 +18,8 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="280dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
 
             <ImageView
                 android:id="@+id/img_bibim0"
@@ -69,7 +70,7 @@
                 android:background="@drawable/circle"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:text="23"
+                android:text="76"
                 android:textAlignment="center"
                 android:textColor="#151414"
                 android:textStyle="bold"
@@ -96,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="14dp"
-                    android:text="1999"
+                    android:text="1000"
                     android:textColor="@color/main6"
                     android:textSize="40dp"
                     android:textStyle="bold" />

@@ -7,21 +7,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
 
 import com.example.todayseat.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.components.*
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 
 import java.lang.Math.abs
+import javax.xml.transform.Templates
+import kotlin.properties.Delegates
 
 
 class HomeFragment : Fragment() {
@@ -33,6 +34,14 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    //bar chart 연결을 위한 global 변수
+    var kcalS = 50f        // 칼로리점수 :  { |데이터베이스의 합 - ( 자신의 키 -100 * 0.9 * 활동지수 )| - buffer 100kcal  }* 4kcal /(4+9kcal) * 0.25}
+    var carboS = 30f       // 탄수화물점수 : {|총칼로리*0.6/4g - 데이터베이스 g|  - buffer 25g }* 4kcal /(4+9kcal) * 0.12
+    var fatS = 60f         // 지방점수 : 데이터베이스의 합 - 50g *9kcal /(4+9kcal) * 0.38
+    var proteinS = 70f     // 단백질점수 : (영양성분표 기준 권장g 이상 - 데이터베이스의 합g) * 4kcal /(4+9kcal) * 0.25
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,25 +63,23 @@ class HomeFragment : Fragment() {
         var totalKcal = binding.kcalChange.text.toString().toInt() // 총섭취칼로리
         var totalCarbo = 0f // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
         var totalFat = 0f // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+        var totalProtein = 0f   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
 
+        var need_protein = 0f // 권장 단백질
         var need_calorie = 0f // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
-        var kcalS = 0f        // 칼로리점수 :  { |데이터베이스의 합 - ( 자신의 키 -100 * 0.9 * 활동지수 )| - buffer 100kcal  }* 4kcal /(4+9kcal) * 0.25}
-        var carboS = 0f       // 탄수화물점수 : {|총칼로리*0.6/4g - 데이터베이스 g|  - buffer 25g }* 4kcal /(4+9kcal) * 0.12
-        var fatS = 0f         // 지방점수 : 데이터베이스의 합 - 50g *9kcal /(4+9kcal) * 0.38
-        var proteinS = 0f     // 단백질점수 : (영양성분표 기준 권장g 이상 - 데이터베이스의 합g) * 4kcal /(4+9kcal) * 0.25
+
 
         //건강 지수 계산
 
         //need_calorie = height - 100 *0.9 * activation
-        kcalS = (abs((totalKcal) - need_calorie) - 100 *4 / (4+9) * 0.25).toFloat()
-        carboS = ((abs(totalKcal*0.6/4- totalCarbo) - 25)*4/(4+9)*0.12).toFloat()
-        fatS = ((totalFat - 50 ) *9 *(4+9) * 0.38).toFloat()
+        //kcalS = (abs((totalKcal) - need_calorie) - 100 *4 / (4+9) * 0.25).toFloat()
+        //carboS = ((abs(totalKcal*0.6/4- totalCarbo) - 25)*4/(4+9)*0.12).toFloat()
+        //fatS = ((totalFat - 50 ) *9 *(4+9) * 0.38).toFloat()
+        //proteinS = (( need_protein - totalProtein ) * 4 / (4+9)*0.25).toFloat()
 
         binding.recommendText.setOnClickListener {
             loadFragment(HomeFragment2())
         }
-
-
 
         //영양분 점수에 따른 비빔밥 변경 0~20/20~40/40~60/60~80/80~100
         when(nST){
@@ -175,23 +182,27 @@ class HomeFragment : Fragment() {
         // 그리드 선 수평 거리 설정
         xAxis.granularity = 1f
         // x축 텍스트 컬러 설정
-        xAxis.textColor = Color.BLACK
+        xAxis.textColor = Color.RED
         // x축 선 설정 (default = true)
         xAxis.setDrawAxisLine(false)
         // 격자선 설정 (default = true)
         xAxis.setDrawGridLines(false)
+        // xAxis.setSpaceMax(1f);
+        // xAxis.setSpaceMin(1f);
 
         val leftAxis: YAxis = barChart.axisLeft
         // 좌측 선 설정 (default = true)
-        leftAxis.setDrawAxisLine(false)
+        //leftAxis.setDrawAxisLine(false)
         // 좌측 텍스트 컬러 설정
-        leftAxis.textColor = Color.BLACK
+        //leftAxis.textColor = Color.BLUE
 
         val rightAxis: YAxis = barChart.axisRight
         // 우측 선 설정 (default = true)
         rightAxis.setDrawAxisLine(false)
         // 우측 텍스트 컬러 설정
-        rightAxis.textColor = Color.GREEN
+        //rightAxis.textColor = Color.rgb(200,100,220)
+        //rightAxis.setAxisMaximum(100f)
+        //rightAxis.setAxisMinimum(0f)
 
         // 바차트의 타이틀
         val legend: Legend = barChart.legend
@@ -226,21 +237,47 @@ class HomeFragment : Fragment() {
          */
 
         // 여기를 100점 만점으로 기준 잡아야할듯 탄단지가 서로 단위가 너무 다름
-        valueList.add(BarEntry(1f, 90f)) // 가장 아래에 들어감 지방
-        valueList.add(BarEntry(2f, 65f)) // 단백질
-        valueList.add(BarEntry(3f, 20f)) // 탄수화물
+        valueList.add(BarEntry(1f, fatS)) // 가장 아래에 들어감 지방
+        valueList.add(BarEntry(2f, proteinS)) // 단백질
+        valueList.add(BarEntry(3f, carboS)) // 탄수화물
 
         val barDataSet = BarDataSet(valueList, title)
         // 바 색상 설정 (ColorTemplate.LIBERTY_COLORS)
         // 33(빨간색)이수현 66(주황색) 100(초록색) if문으로 구현예정
+        var Color1 by Delegates.notNull<Int>()
+        var Color2 by Delegates.notNull<Int>()
+        var Color3 by Delegates.notNull<Int>()
+
+        when(carboS.toInt()){
+            in 0..33 ->  Color1 = Color.rgb(204,0,0)
+            in 34..66 -> Color1 = Color.rgb(255,153,0)
+            in 67..100 ->  Color1 = Color.rgb(102,153,51)
+        }
+
+        when(proteinS.toInt()){
+            in 0..33 ->  Color2 = Color.rgb(204,0,0)
+            in 34..66 -> Color2 = Color.rgb(255,153,0)
+            in 67..100 ->  Color2 = Color.rgb(102,153,51)
+        }
+
+        when(fatS.toInt()){
+            in 0..33 ->  Color3 = Color.rgb(204,0,0)
+            in 34..66 -> Color3 = Color.rgb(255,153,0)
+            in 67..100 ->  Color3 = Color.rgb(102,153,51)
+        }
         //아래에서부터 들어감
         barDataSet.setColors(
-            Color.rgb(191,225,192), Color.rgb(253,208,89),
-            Color.rgb(223,88,66))
-
+            Color3,Color2,Color1)
         val data = BarData(barDataSet)
         barChart.data = data
         barChart.invalidate()
+    }
+
+    inner class MyAxisFormatter : ValueFormatter(){
+        private val nutrientList = arrayOf("탄수화물","단백질","지방")
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+            return nutrientList.getOrNull(value.toInt()-1)?: value.toString()
+        }
     }
 
     override fun onDestroyView() {
