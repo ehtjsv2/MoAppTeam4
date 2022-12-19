@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.todayseat.SplashActivity.Companion.helper
 import com.example.todayseat.SplashActivity.Companion.moappDB
 import com.example.todayseat.ui.home.HomeFragment
+import com.example.todayseat.ui.home.HomeFragment2
 import com.example.todayseat.ui.home.RecipeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
 import com.github.mikephil.charting.charts.HorizontalBarChart
@@ -45,15 +46,12 @@ class MainActivity : AppCompatActivity() {
         getHashKey()
         setContentView(R.layout.activity_main)
         Log.d("LifeCycleTest", "onCreate")
-
-
-        loadFragment(HomeFragment())
         bottomNav = findViewById(R.id.nav_view) as BottomNavigationView
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
                     Log.d("clickTest", "homeclick!")
-                    loadFragment(HomeFragment())
+                    loadFragment(HomeFragment2())
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_preference -> {
@@ -103,12 +101,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-//val navController = findNavController(R.id.nav_host_fragment_activity_main2)
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_preference, R.id.navigation_my_page
-//            )
-//        )

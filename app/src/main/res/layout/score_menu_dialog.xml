@@ -21,31 +21,33 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <SearchView
-                android:id="@+id/search_menu"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:text="치킨"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="을 먹는다면.."
+                android:textSize="20sp"
+                />
 
-                android:gravity="center"
-                android:iconifiedByDefault="false"
-                android:backgroundTint="@color/light_gray"
-                android:background="@drawable/search_box_stroke"
-                android:queryHint="오늘 아침은 무엇을 드셨나요"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/insert_menu_dialog_title" />
         </LinearLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/insert_menu_recycler_view"
             android:layout_width="240dp"
             android:layout_height="120dp"
@@ -58,41 +60,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-        <TextView
-            android:id="@+id/select_menu_name"
-            android:layout_width="240dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/light_gray"
-            android:background="@drawable/search_box_stroke"
-            android:gravity="center"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/insert_menu_recycler_view" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/ignore_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
             android:background="#00ffffff"
-            android:text="무시"
-            app:layout_constraintEnd_toStartOf="@+id/regist_btn"
-            app:layout_constraintTop_toBottomOf="@+id/select_menu_name" />
-
-        <Button
-            android:id="@+id/regist_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="20dp"
-            android:text="등록하기"
+            android:text="확인"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/select_menu_name" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/insert_menu_recycler_view" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -120,7 +98,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/dialog_circle2"
                 android:padding="10dp"
-                android:src="@drawable/icon_toast" />
+                android:src="@drawable/icon_bar_graph" />
         </FrameLayout>
     </FrameLayout>
 

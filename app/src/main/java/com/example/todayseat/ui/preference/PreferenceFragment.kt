@@ -11,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todayseat.MainActivity
 import com.example.todayseat.SplashActivity
-import com.example.todayseat.SplashActivity.Companion.moappDB
-
 import com.example.todayseat.databinding.FragmentPreferenceBinding
 
 class PreferenceFragment : Fragment() {
@@ -32,6 +30,7 @@ class PreferenceFragment : Fragment() {
             "제육볶음","고기"))
         menus.add(Menu("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg",
         "김치볶음밥","밥"))
+
         Log.d("TAG11","before binding adapter")
 
         val sql = "SELECT F_name FROM FOOD LIMIT 5"
