@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.todayseat.ui.home.HomeFragment
+import com.example.todayseat.ui.home.HomeFragment2
 import com.example.todayseat.ui.home.RecipeFragment
 import com.example.todayseat.ui.myPage.MyPageFragment
 import com.github.mikephil.charting.charts.HorizontalBarChart
@@ -47,17 +48,16 @@ class MainActivity : AppCompatActivity() {
         val helper = myDBHelper(this)
         val moappDB = helper.writableDatabase
         helper.onUpgrade(moappDB, 1, 2)
-
         insertCsv_to_DB(moappDB)
         insertReceipeCsv_to_DB(moappDB)
 
-        loadFragment(HomeFragment())
+        //loadFragment(HomeFragment())
         bottomNav = findViewById(R.id.nav_view) as BottomNavigationView
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
                     Log.d("clickTest", "homeclick!")
-                    loadFragment(HomeFragment())
+                    loadFragment(HomeFragment2())
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_preference -> {

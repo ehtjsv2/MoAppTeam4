@@ -67,6 +67,20 @@ class RecipeFragment : Fragment() {
             }
 
         }
+        binding.recipeDetailBtn02.setOnClickListener {
+            Log.d("TAG11","btn02 Click")
+            binding.recipeDetailBtn02.isSelected=binding.recipeDetailBtn02.isSelected!=true
+            if(binding.recipeDetailBtn02.isSelected==true){
+                binding.recipeRecipeRecyclerView.layoutParams.height=600
+                binding.recipeRecipeRecyclerView.foreground=context?.resources?.getDrawable(R.drawable.recipe_ingred_back2)
+                binding.recipeDetailBtn02.text="접기▲"
+            }
+            else{
+                binding.recipeRecipeRecyclerView.layoutParams.height=300
+                binding.recipeRecipeRecyclerView.foreground=context?.resources?.getDrawable(R.drawable.recipe_ingred_back)
+                binding.recipeDetailBtn02.text="자세히보기▼"
+            }
+        }
         // Inflate the layout for this fragment
         return binding.root
     }

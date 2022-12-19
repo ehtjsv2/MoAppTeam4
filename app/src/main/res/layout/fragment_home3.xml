@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.home.HomeFragment2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/home2_menu_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="치킨"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/menu_image"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:src="@drawable/chicken"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home2_menu_name" />
+
+        <TextView
+            android:id="@+id/nScoreNext"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-30dp"
+            android:layout_marginEnd="-30dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="97"
+            android:textAlignment="center"
+            android:textColor="#252323"
+            android:textSize="50dp"
+            app:layout_constraintEnd_toEndOf="@+id/menu_image"
+            app:layout_constraintTop_toTopOf="@+id/menu_image"><!-- 영양분 점수 --></TextView>
+
+        <ImageButton
+            android:id="@+id/likeFood"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="-20dp"
+            android:background="@drawable/positive_vote"
+            app:layout_constraintStart_toStartOf="@+id/menu_image"
+            app:layout_constraintTop_toTopOf="@+id/dislikeFood" />
+
+        <ImageButton
+            android:id="@+id/dislikeFood"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/menu_image"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="-60dp"
+            android:layout_marginEnd="-20dp"
+            android:background="@drawable/negative_vote"
+            app:layout_constraintEnd_toEndOf="@+id/menu_image"
+            app:layout_constraintTop_toBottomOf="@+id/menu_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/cook"
+            android:background="@drawable/choice_btn"
+            android:text="요리"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="40dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/reroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="45dp"
+            android:gravity="center"
+            android:background="@drawable/choice_btn"
+            android:drawableBottom="@drawable/resize_reload">
+
+        </Button>
+
+        <Button
+            android:id="@+id/buying"
+            android:background="@drawable/choice_btn"
+            android:text="구매"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="40dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+<!--tools:context=".ui.home.HomeFragment2"-->

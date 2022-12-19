@@ -45,14 +45,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dlg=CustomMenuDialog(requireActivity())
-//        val helper = myDBHelper(this)
-//        val moappDB = helper.writableDatabase
-//        helper.onUpgrade(moappDB, 1, 2)
 
-        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg.setCancelable(false)
-        dlg.show()
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,6 +57,19 @@ class HomeFragment : Fragment() {
         Log.d("TAG11","onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val dlg=CustomMenuDialog(requireActivity())
+//        val helper = myDBHelper(this)
+//        val moappDB = helper.writableDatabase
+//        helper.onUpgrade(moappDB, 1, 2)
+
+        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dlg.setCancelable(false)
+        dlg.show()
+        val dlg2=CustomMenuScoreDialog(requireActivity())
+        dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dlg2.setCancelable(false)
+
+        //dlg
 //
 //        //db food table에서 메뉴 가져오기
 //        val sql = "SELECT F_name FROM FOOD LIMIT 5"

@@ -20,36 +20,7 @@ import com.example.todayseat.databinding.InsertMenuDialogBinding
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 
-//class CustomMenuDialog(context: Context,val activity: Activity) {
-//    private val dialog= Dialog(context)
-//    private lateinit var onClickListener: OnDialogClickListener
-//    val binding=InsertMenuDialogBinding.inflate(LayoutInflater.from(context))
-//    fun setOnClickListener(listener: OnDialogClickListener){
-//        onClickListener=listener
-//    }
-//
-//    val context1=context
-//
-//    fun showDialog()
-//    {
-//        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
-//        val menuListAdapter=MenuListAdapter(menus)
-//        binding.insertMenuRecyclerView.layoutManager=LinearLayoutManager()
-//        binding.insertMenuRecyclerView.adapter=menuListAdapter
-//        //
-//        dialog.setContentView(R.layout.insert_menu_dialog)
-//        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT)
-//        dialog.setCanceledOnTouchOutside(true)
-//        dialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent);
-//        dialog.setCancelable(true)
-//        dialog.setTitle("메뉴입력")
-//        dialog.show()
-//    }
-//
-//    interface OnDialogClickListener{
-//        fun onClicked(name:String)
-//    }
-//}
+
 class CustomMenuDialog(var activity: Activity) : Dialog(activity),
     View.OnClickListener {
     val currentTime : Long = System.currentTimeMillis()

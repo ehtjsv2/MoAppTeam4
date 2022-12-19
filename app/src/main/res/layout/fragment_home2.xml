@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <RelativeLayout
         android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:id="@+id/home2_menu_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="치킨"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:textStyle="bold"/>
     <ImageView
         android:layout_width="500dp"
         android:layout_height="500dp"
@@ -37,7 +47,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="138dp"
+            android:layout_marginBottom="80dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/positive_vote" />
 
@@ -47,7 +57,7 @@
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="138dp"
+            android:layout_marginBottom="80dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/negative_vote" />
 

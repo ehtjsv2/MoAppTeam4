@@ -1,5 +1,6 @@
 package com.example.todayseat.ui.preference
 
+import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todayseat.MainActivity
 
 import com.example.todayseat.databinding.FragmentPreferenceBinding
 
@@ -28,6 +30,7 @@ class PreferenceFragment : Fragment() {
             "제육볶음","고기"))
         menus.add(Menu("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg",
         "김치볶음밥","밥"))
+
         Log.d("TAG11","before binding adapter")
         val preferMenuListAdpater =PreferMenuListAdapter(menus)
         binding.preferRecyclerView.layoutManager=LinearLayoutManager(requireContext())
