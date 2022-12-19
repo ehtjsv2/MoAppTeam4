@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity4">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,12 +20,14 @@
             android:layout_marginStart="60dp"
             android:singleLine="true"
             android:inputType="text"
+
             android:hint="3일 이내 먹었던 음식을 검색하세요."/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginStart="60dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
             android:id="@+id/Search_recycler"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="102dp"
             android:divider="#999999"
             android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
@@ -35,15 +38,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginStart="40dp"
+            android:textColor="@color/main5"
             android:text="최근 먹은 음식" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Eat_recycler"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_marginStart="40dp"
             android:layout_height="102dp"
             android:divider="#999999"
-            android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
+            android:dividerHeight="1dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
+            ></androidx.recyclerview.widget.RecyclerView>
 
 
 
@@ -59,7 +65,6 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="200dp"
-                android:onClick="beforeButton"
                 android:text="이전"
             />
 
@@ -68,7 +73,6 @@
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
-                android:onClick="nextButton"
                 android:text="다음"
             />
             </LinearLayout>

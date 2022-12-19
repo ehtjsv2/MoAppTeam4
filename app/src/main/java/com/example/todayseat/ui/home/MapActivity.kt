@@ -107,7 +107,6 @@ class MapActivity : AppCompatActivity(),loadcComplete {
         //val mapView = MapView(this)
         //val mapViewContainer = findViewById<View>(com.example.todayseat.R.id.map_view) as ViewGroup
         //mapViewContainer.addView(mapView)// 맵띄우기
-        //mapView.setCalloutBalloonAdapter(CustomBalloonAdapter(layoutInflater)) // 커스텀 말풍선 등록
         //mapView.setCalloutBalloonAdapter(CustomBalloonAdapter(layoutInflater))  // 커스텀 말풍선 등록
         //mapView.setPOIItemEventListener(eventListener)
         val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)

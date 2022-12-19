@@ -12,9 +12,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.os.postDelayed
 import com.example.todayseat.Login.LoginActivity
-import com.example.todayseat.SplashActivity.Companion.helper
-import com.example.todayseat.SplashActivity.Companion.moappDB
-import com.example.todayseat.databinding.ActivitySplashBinding
+
 import com.example.todayseat.ui.home.MapActivity
 import com.example.todayseat.ui.home.HomeFragment
 import com.opencsv.CSVReader
@@ -80,7 +78,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(splashDuration){
             //val intent = Intent(this, MainActivity::class.java)
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity4::class.java)
             startActivity(intent)
             finish()
         }
