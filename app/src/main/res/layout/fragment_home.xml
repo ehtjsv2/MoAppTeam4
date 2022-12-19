@@ -17,44 +17,119 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="259dp"
+            android:layout_height="280dp"
             android:layout_gravity="center">
 
+            <ImageView
+                android:id="@+id/img_bibim0"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:src="@drawable/bibim0"/>
+
+            <ImageView
+                android:id="@+id/img_bibim1"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:src="@drawable/bibim1"/>
+
+            <ImageView
+                android:id="@+id/img_bibim2"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:src="@drawable/bibim2"/>
+
+            <ImageView
+                android:id="@+id/img_bibim3"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"
+                android:src="@drawable/bibim3"/>
+
+            <ImageView
+                android:id="@+id/img_bibim4"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible"
+                android:src="@drawable/bibim4"/>
+
+            <!-- 영양분 점수 -->
             <TextView
                 android:id="@+id/nScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="260dp"
+                android:layout_height="260dp"
                 android:layout_gravity="center"
                 android:background="@drawable/circle"
                 android:gravity="center"
-                android:text="97"
-                android:textAlignment="center"
-                android:textColor="#252323"
-                android:textSize="100dp"><!-- 영양분 점수 --></TextView>
-
-            <TextView
-                android:id="@+id/kcal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1999kcal"
-                android:textSize="40dp"
-                android:textStyle="bold"
                 android:layout_centerHorizontal="true"
+                android:text="23"
+                android:textAlignment="center"
+                android:textColor="#151414"
+                android:textStyle="bold"
+                android:textSize="30sp"></TextView>
+
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
-                />
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/calender"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/kcal_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="14dp"
+                    android:text="1999"
+                    android:textColor="@color/main6"
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/kcaltext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/kcal_change"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="19dp"
+                    android:layout_toRightOf="@id/kcal_change"
+                    android:text="kcal"
+                    android:textColor="@color/main6"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
         <LinearLayout
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_width="match_parent"
             android:orientation="vertical">
 
             <com.github.mikephil.charting.charts.HorizontalBarChart
                 android:id="@+id/barChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"  />
+                android:layout_height="match_parent"
+                android:paddingTop="30dp"
+                />
 
                     <TextView
                         android:id="@+id/tv_progress"
@@ -66,19 +141,85 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/recommend"
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:background="@color/main4"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:text="추천"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            tools:ignore="RtlCompat" /> <!--텍스트 center, gravity!-->
+            android:background="@drawable/choice_btn"
+            android:backgroundTint="@color/main5">
+
+
+            <RelativeLayout
+                android:id="@+id/recommend_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/recommend_text_connect1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_centerInParent="true"
+                    android:autoSizeMaxTextSize="38sp"
+                    android:autoSizeMinTextSize="26sp"
+                    android:autoSizeStepGranularity="2sp"
+
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center"
+                    android:text="추천"
+                    android:textAlignment="center"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+
+                    android:textSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="28sp"
+                    android:autoSizeStepGranularity="2sp"
+
+                    android:gravity="center"
+                    android:text="오늘의 식사 "
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:layout_toLeftOf="@+id/recommend_text_connect1"
+                    android:layout_alignBaseline="@+id/recommend_text_connect1"/>
+
+                <TextView
+                    android:id="@+id/recommend_text_connect2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/recommend_text_connect1"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/recommend_text_connect1"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="16sp"
+                    android:autoSizeMaxTextSize="28sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:text="해주세요"
+                    android:textAlignment="center"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:paddingLeft="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/recommend_menu"
+                    android:layout_toEndOf="@+id/recommend_text_connect2" />
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
 
     </LinearLayout>
 

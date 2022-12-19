@@ -1,25 +1,27 @@
 package com.example.todayseat.ui.home
 
 
+import android.R
 import android.content.Context
-import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.TextPaint
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
-import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.todayseat.MainActivity
-import com.example.todayseat.R
 import com.example.todayseat.databinding.FragmentHomeBinding
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.HorizontalBarChart
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.*
@@ -28,9 +30,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteDatabase.openOrCreateDatabase
-import android.database.sqlite.SQLiteOpenHelper
+import java.lang.Math.abs
 
 
 class HomeFragment : Fragment() {
@@ -61,9 +61,73 @@ class HomeFragment : Fragment() {
     ): View {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
-        Log.d("TAG11","onCreateView")
+        Log.d("TAG11", "onCreateView")
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        //영양분 점수 계산식
+        var nST = binding.nScore.text.toString().toInt()
+        var totalKcal = binding.kcalChange.text.toString().toInt() // 총섭취칼로리
+        var totalCarbo = 0f // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+        var totalFat = 0f // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+
+        var need_calorie = 0f // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
+        var kcalS = 0f        // 칼로리점수 :  { |데이터베이스의 합 - ( 자신의 키 -100 * 0.9 * 활동지수 )| - buffer 100kcal  }* 4kcal /(4+9kcal) * 0.25}
+        var carboS = 0f       // 탄수화물점수 : {|총칼로리*0.6/4g - 데이터베이스 g|  - buffer 25g }* 4kcal /(4+9kcal) * 0.12
+        var fatS = 0f         // 지방점수 : 데이터베이스의 합 - 50g *9kcal /(4+9kcal) * 0.38
+        var proteinS = 0f     // 단백질점수 : (영양성분표 기준 권장g 이상 - 데이터베이스의 합g) * 4kcal /(4+9kcal) * 0.25
+
+        //건강 지수 계산
+
+        //need_calorie = height - 100 *0.9 * activation
+        kcalS = (abs((totalKcal) - need_calorie) - 100 *4 / (4+9) * 0.25).toFloat()
+        carboS = ((abs(totalKcal*0.6/4- totalCarbo) - 25)*4/(4+9)*0.12).toFloat()
+        fatS = ((totalFat - 50 ) *9 *(4+9) * 0.38).toFloat()
+
+
+
+
+
+        //영양분 점수에 따른 비빔밥 변경 0~20/20~40/40~60/60~80/80~100
+        when(nST){
+            in 0..20 -> {
+                binding.imgBibim0.visibility = View.VISIBLE
+                binding.imgBibim1.visibility = View.INVISIBLE
+                binding.imgBibim2.visibility = View.INVISIBLE
+                binding.imgBibim3.visibility = View.INVISIBLE
+                binding.imgBibim4.visibility = View.INVISIBLE
+            }
+            in 21..40 -> {
+                binding.imgBibim0.visibility = View.INVISIBLE
+                binding.imgBibim1.visibility = View.VISIBLE
+                binding.imgBibim2.visibility = View.INVISIBLE
+                binding.imgBibim3.visibility = View.INVISIBLE
+                binding.imgBibim4.visibility = View.INVISIBLE
+            }
+            in 41..60 -> {
+                binding.imgBibim0.visibility = View.INVISIBLE
+                binding.imgBibim1.visibility = View.INVISIBLE
+                binding.imgBibim2.visibility = View.VISIBLE
+                binding.imgBibim3.visibility = View.INVISIBLE
+                binding.imgBibim4.visibility = View.INVISIBLE
+            }
+            in 61..80 -> {
+                binding.imgBibim0.visibility = View.INVISIBLE
+                binding.imgBibim1.visibility = View.INVISIBLE
+                binding.imgBibim2.visibility = View.INVISIBLE
+                binding.imgBibim3.visibility = View.VISIBLE
+                binding.imgBibim4.visibility = View.INVISIBLE
+            }
+            in 81..100 -> {
+                binding.imgBibim0.visibility = View.INVISIBLE
+                binding.imgBibim1.visibility = View.INVISIBLE
+                binding.imgBibim2.visibility = View.INVISIBLE
+                binding.imgBibim3.visibility = View.INVISIBLE
+                binding.imgBibim4.visibility = View.VISIBLE
+            }
+        }
+
+
 //
 //        //db food table에서 메뉴 가져오기
 //        val sql = "SELECT F_name FROM FOOD LIMIT 5"
@@ -193,7 +257,7 @@ class HomeFragment : Fragment() {
     private fun loadFragment(fragment: Fragment) {
         Log.d("clickTest", "click!->" + fragment.tag)
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
+        transaction.replace(com.example.todayseat.R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
