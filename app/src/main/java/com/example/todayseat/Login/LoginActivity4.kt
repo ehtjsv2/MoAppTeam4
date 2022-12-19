@@ -16,7 +16,7 @@ import com.example.todayseat.Login.LoginActivity3_3
 import com.example.todayseat.Login.LoginActivity5
 import com.example.todayseat.databinding.ActivityLogin4Binding
 import com.example.todayseat.databinding.SearchListviewBinding
-import com.example.todayseat.ui.home.MenuListAdapter
+import com.example.todayseat.Login.MenuListAdapter
 /*
 interface OnItemClick {
     fun onClick(value: String)

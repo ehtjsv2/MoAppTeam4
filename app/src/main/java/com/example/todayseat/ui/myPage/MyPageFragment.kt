@@ -35,19 +35,19 @@ class MyPageFragment : Fragment(){
         val root: View = binding.root
 
         binding.dButten.setOnClickListener {
-            val dlg= CustomSelect(requireActivity(),"아침")
+            val dlg= CustomSelect(requireActivity(),"저녁")
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()
         }
         binding.mButton.setOnClickListener {
-            val dlg=CustomSelect(requireActivity(),"점심")
+            val dlg=CustomSelect(requireActivity(),"아침")
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()
         }
         binding.lButton.setOnClickListener {
-            val dlg=CustomSelect(requireActivity(),"저녁")
+            val dlg=CustomSelect(requireActivity(),"점심")
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.*
 import com.example.todayseat.databinding.ActivityLogin5Binding
 import com.example.todayseat.databinding.SearchListviewBinding
-import com.example.todayseat.ui.home.MenuListAdapter
+import com.example.todayseat.Login.MenuListAdapter2
 
 /*
 interface OnItemClick2 {
