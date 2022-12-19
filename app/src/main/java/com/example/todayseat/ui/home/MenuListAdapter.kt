@@ -17,7 +17,6 @@ class MenuListAdapter(val menus: MutableList<String>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), Filterable {
     class MyViewHolder(val binding: InsertMenuItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-
     private var files = menus
     private var isEmpty=1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
