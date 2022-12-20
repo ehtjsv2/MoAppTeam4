@@ -90,9 +90,10 @@ class SplashActivity : AppCompatActivity() {
             val c = moappDB.rawQuery(sql,null)
             c.moveToNext()
             val check_value:Int = c.getColumnIndex("check_info")
-            val str=c.getInt(check_value)
+            val str = c.getInt(check_value)
+//            val str = 1
             Log.d("pjy",str.toString())
-            //val intent = Intent(this, MainActivity::class.java
+            val intent = Intent(this, MainActivity::class.java)
             if(str == 1){
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -148,6 +149,7 @@ class SplashActivity : AppCompatActivity() {
                         "carbo FLOAT,\n" +
                         "fat FLOAT,\n" +
                         "protein FLOAT,\n" +
+                        "preference_check INT,\n"+
                         "PRIMARY KEY(F_ID)\n" +
                         ");"
             )
@@ -280,18 +282,19 @@ class SplashActivity : AppCompatActivity() {
             charsToRemove.forEach { content_str = content_str.replace(it.toString(), "") }
             var sql =
                 "INSERT INTO FOOD (F_ID, F_name, category_app, serving_size, content_unit \n" +
-                        " ,kcal, carbo, fat, protein) VALUES (?,?,?,?,?,?,?,?,?)"
-            val arr = arrayOfNulls<String>(9)
+                        " ,kcal, carbo, fat, protein, preference_check) VALUES (?,?,?,?,?,?,?,?,?,?)"
+            val arr = arrayOfNulls<String>(10)
             var a = content_str.split(",")
 
             for (i in 0..8) {
                 arr.set(i, a[i])
             }
-//            Log.i("DB112", content_str)
+            arr.set(9,"0")
+            Log.i("DB1234", arr[9].toString())
             db?.execSQL(sql, arr)
 
         }
-        Log.i("DB112","input Food csvfile to DB end")
+        Log.i("DB1234","input Food csvfile to DB end")
     }
     // onCreate 함수내에 넣어서 한번만 시행될 수 있도록 하자
     private fun insertReceipeCsv_to_DB(db: SQLiteDatabase?){

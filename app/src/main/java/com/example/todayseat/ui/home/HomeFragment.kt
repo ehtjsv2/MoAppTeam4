@@ -1,4 +1,5 @@
 package com.example.todayseat.ui.home
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.todayseat.SplashActivity
+import com.example.todayseat.SplashActivity.Companion.moappDB
 
 
 import com.example.todayseat.databinding.FragmentHomeBinding
@@ -134,8 +136,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-
-
         val currentTime : Long = System.currentTimeMillis()
         val currentYear= SimpleDateFormat("YYYY").format(currentTime)
         val currentMonth= SimpleDateFormat("MM").format(currentTime)
@@ -144,41 +144,51 @@ class HomeFragment : Fragment() {
         val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
         val c = SplashActivity.moappDB.rawQuery("select Date_eat from FOODRECENT where Date_eat like '${compareDate}%';",null)
         lateinit var date:String
+        var count:Int=0
         while(c.moveToNext()){
+            count++
             date=c.getString(0)
         }
-        Log.d("TAG11",date.toString())
-        val ar=date.split(" ")
-        val time=ar[1]
-        val HH=ar[1].split(":")
-        val dlg=CustomMenuDialog(requireActivity())
-        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg.setCancelable(false)
-
-        if(currentHH.toInt()<12 && currentHH>=6){
-            if(HH[0].toInt()<12 && HH[0].toInt()>=6){
-
-            }else{
-                dlg.show()
-            }
+        if(count==0){
+            val dlg=CustomMenuDialog(requireActivity())
+            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dlg.setCancelable(false)
+            dlg.show()
         }
-        else if(currentHH<18){
-            if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+        else{
+            val ar=date.split(" ")
+            val time=ar[1]
+            val HH=time.split(":")
+            val dlg=CustomMenuDialog(requireActivity())
+            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dlg.setCancelable(false)
 
-            }
-            else{
-                dlg.show()
-            }
-        }
-        else if(currentHH<24 || currentHH<6){
-            if((HH[0].toInt()<24&&HH[0].toInt()>=18)||HH[0].toInt()<6){
+            if(currentHH.toInt()<12 && currentHH>=6){
+                if(HH[0].toInt()<12 && HH[0].toInt()>=6){
 
+                }else{
+                    dlg.show()
+                }
             }
-            else{
-                dlg.show()
+            else if(currentHH<18){
+                if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+
+                }
+                else{
+                    dlg.show()
+                }
             }
+            else if(currentHH<24 || currentHH<6){
+                if((HH[0].toInt()<24&&HH[0].toInt()>=18)||HH[0].toInt()<6){
+
+                }
+                else{
+                    dlg.show()
+                }
+            }
+            //Log.d("TAG11",time.toString())
         }
-        Log.d("TAG11",time.toString())
+
 
 
 //        if (count==0){
@@ -189,17 +199,17 @@ class HomeFragment : Fragment() {
 //        dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 //        dlg2.setCancelable(false)
 //
-//        //db food table에서 메뉴 가져오기
-//        val sql = "SELECT F_name FROM FOOD LIMIT 5"
-//        val c: Cursor = moappDB.rawQuery(sql,null)
+//        //db food table에서 메뉴 가져오기, 한개만 가져와서 test해보기
+//        val sql = "SELECT * FROM FOOD LIMIT 2"
+//        val cul: Cursor = moappDB.rawQuery(sql,null)
 
         var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
 
-//        while (c.moveToNext()){
-//            var F_name_pos = c.getColumnIndex("F_name")
-//            menus.add(c.getString(F_name_pos))
+//        while (cul.moveToNext()){
+//            var F_name_pos = cul.getColumnIndex("preference_check")
+//            menus.add(cul.getString(F_name_pos))
 //        }
-//        Log.d("DB1234","menus에 sql로 받아온 것 넣기")
+//        Log.d("DB1234", menus.toList().toString())
         var menuListAdapter=MenuListAdapter(menus)
         Log.i("DB1234","Food table에서 가져온 데이터 HomeFragment에 넣기")
 

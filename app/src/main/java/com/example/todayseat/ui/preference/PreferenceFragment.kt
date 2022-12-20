@@ -32,8 +32,9 @@ class PreferenceFragment : Fragment() {
         // menuClass를 1~8까지로 분류
 
         Log.d("TAG11","before binding adapter")
-        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID ORDER BY f.F_ID LIMIT 50"
-//        val sql = "SELECT f.F_name, f.category_app FROM FOOD f  LIMIT 50"
+//        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID AND f.preference_check = 0  ORDER BY f.F_ID LIMIT 50;"
+        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID ORDER BY f.F_ID LIMIT 50;"
+//        val sql = "SELECT f.F_name, f.category_app FROM FOOD f  LIMIT 50;"
         val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
         Log.d("DB1234","before while_sql")
 
@@ -42,15 +43,16 @@ class PreferenceFragment : Fragment() {
             val F_name_pos = c.getColumnIndex("F_name")
             val F_category_pos = c.getColumnIndex("category_app")
             val F_url_pos = c.getColumnIndex("F_url")
-//            var F_url = c.getString(F_url_pos)
-//            F_url =
-//            "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20140324_60%2Fbori1758_1395633002962lR3pN_JPEG%2F20140323_125913.jpg&type=ofullfill340_600_png"
-            menus.add(Menu(c.getString(F_url_pos),
+
+            var F_url = c.getString(F_url_pos)
+            var url_len = F_url.length - 1
+            var ran = IntRange(1,url_len)
+            var F_url_sub = F_url.slice(ran)
+            menus.add(Menu(F_url_sub,
                 c.getString(F_name_pos), c.getString(F_category_pos)))
-            Log.d("DB1234",menus[0].toString())
-            Log.d("DB1234",c.getString(F_url_pos))
-            Log.d("DB1234",c.getString(F_name_pos))
-            Log.d("DB1234",c.getString(F_category_pos))
+            Log.d("DB123",F_url_sub)
+            Log.d("DB123",c.getString(F_name_pos))
+            Log.d("DB123",c.getString(F_category_pos))
         }
 
         val preferMenuListAdpater =PreferMenuListAdapter(menus)
