@@ -120,23 +120,54 @@ class HomeFragment : Fragment() {
         val currentYear= SimpleDateFormat("YYYY").format(currentTime)
         val currentMonth= SimpleDateFormat("MM").format(currentTime)
         val currentDay= SimpleDateFormat("dd").format(currentTime)
+        val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
         val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
-        val c = SplashActivity.moappDB.rawQuery("select COUNT(*) from FOODRECENT where Date_eat like '${compareDate}%';",null)
-        var count=0
+        val c = SplashActivity.moappDB.rawQuery("select Date_eat from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        lateinit var date:String
         while(c.moveToNext()){
-            count=c.getInt(0)
+            date=c.getString(0)
         }
-        Log.d("TAG11",count.toString())
-        if (count==0){
-            val dlg=CustomMenuDialog(requireActivity())
-            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-            dlg.setCancelable(false)
-            dlg.show()
-        }
+        Log.d("TAG11",date.toString())
+        val ar=date.split(" ")
+        val time=ar[1]
+        val HH=ar[1].split(":")
+        val dlg=CustomMenuDialog(requireActivity())
+        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dlg.setCancelable(false)
 
-        val dlg2=CustomMenuScoreDialog(requireActivity())
-        dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg2.setCancelable(false)
+        if(currentHH.toInt()<12 && currentHH>=6){
+            if(HH[0].toInt()<12 && HH[0].toInt()>=6){
+
+            }else{
+                dlg.show()
+            }
+        }
+        else if(currentHH<18){
+            if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+
+            }
+            else{
+                dlg.show()
+            }
+        }
+        else if(currentHH<24 || currentHH<6){
+            if((HH[0].toInt()<24&&HH[0].toInt()>=18)||HH[0].toInt()<6){
+
+            }
+            else{
+                dlg.show()
+            }
+        }
+        Log.d("TAG11",time.toString())
+
+
+//        if (count==0){
+//
+//        }
+
+//        val dlg2=CustomMenuScoreDialog(requireActivity())
+//        dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+//        dlg2.setCancelable(false)
 //
 //        //db food table에서 메뉴 가져오기
 //        val sql = "SELECT F_name FROM FOOD LIMIT 5"

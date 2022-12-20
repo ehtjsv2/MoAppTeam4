@@ -45,6 +45,7 @@ class CustomMenuScoreDialog(var activity: Activity) : Dialog(activity),
         setData(binding.insertMenuRecyclerView)
         Log.d("TAG11","다이얼로그출력!")
         setContentView(binding.root)
+        val sql="select * from food where F_name=' ${HomeFragment2.food_name};"
 
 //        yes.setOnClickListener(this)
 //        no.setOnClickListener(this)

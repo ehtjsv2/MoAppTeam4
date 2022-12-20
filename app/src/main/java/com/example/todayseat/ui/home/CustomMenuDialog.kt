@@ -42,7 +42,7 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
         Log.d("DB1234","HomeFragment cursor")
 
-        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
+        var menus= mutableListOf<String>()
         while (c.moveToNext()){
             var F_name_pos = c.getColumnIndex("F_name")
             menus.add(c.getString(F_name_pos))
