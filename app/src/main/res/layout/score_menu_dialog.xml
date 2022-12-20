@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="치킨"
+                android:fontFamily="@font/bmjua"
                 android:textSize="30sp"
                 android:textStyle="bold" />
             <TextView
@@ -41,6 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="을 먹는다면.."
+                android:fontFamily="@font/bmjua"
                 android:textSize="20sp"
                 />
 
@@ -67,6 +69,7 @@
             android:layout_marginTop="20dp"
             android:background="#00ffffff"
             android:text="확인"
+            android:fontFamily="@font/bmjua"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/insert_menu_recycler_view" />

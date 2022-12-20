@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="김치볶음밥"
+            android:fontFamily="@font/bmjua"
 
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/prefer_menu_image"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="분류"
+            android:fontFamily="@font/bmjua"
             app:layout_constraintStart_toStartOf="@+id/prefer_menu_name"
             app:layout_constraintTop_toBottomOf="@+id/prefer_menu_name" />
 
@@ -62,6 +64,7 @@
             android:layout_width="32dp"
             android:layout_height="11dp"
             android:text="싫어요"
+            android:fontFamily="@font/bmjua"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/prefer_menu_bad_img"
             app:layout_constraintTop_toBottomOf="@+id/prefer_menu_bad_img" />
@@ -71,6 +74,7 @@
             android:layout_width="32dp"
             android:layout_height="11dp"
             android:text="좋아요"
+            android:fontFamily="@font/bmjua"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/prefer_menu_good_img"
             app:layout_constraintTop_toBottomOf="@+id/prefer_menu_good_img" />
@@ -79,7 +83,8 @@
             android:id="@+id/prefer_menu_best"
             android:layout_width="41dp"
             android:layout_height="13dp"
-            android:text="최고에요"
+            android:text="최고예요"
+            android:fontFamily="@font/bmjua"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/prefer_menu_best_img"
             app:layout_constraintTop_toBottomOf="@+id/prefer_menu_best_img" />

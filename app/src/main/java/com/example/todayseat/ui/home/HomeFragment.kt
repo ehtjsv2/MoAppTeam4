@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.todayseat.R
 import com.example.todayseat.SplashActivity
 import com.example.todayseat.SplashActivity.Companion.moappDB
 
@@ -326,6 +327,21 @@ class HomeFragment : Fragment() {
             }
         }
 
+        var rice:Int = -1
+        binding.groupRice.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.rice_zero-> {
+                    rice = 0
+                }
+                R.id.rice_one->{
+                    rice =1
+                }
+                R.id.rice_two -> {
+                    rice = 2
+
+                }
+            }
+        }
 
 
 //        if (count==0){

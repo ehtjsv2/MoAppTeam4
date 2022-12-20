@@ -15,6 +15,7 @@ import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.FragmentHome3Binding
 import java.text.SimpleDateFormat
 import java.util.Random
+import kotlin.math.*
 
 
 private var _binding: FragmentHome3Binding? = null
@@ -25,16 +26,16 @@ class HomeFragment2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        
+        val currentTime : Long = System.currentTimeMillis()
         _binding = FragmentHome3Binding.inflate(inflater, container, false)
         //요리하기버튼
-        val currentTime : Long = System.currentTimeMillis()
-        val currentYear= SimpleDateFormat("YYYY").format(currentTime)
-        val currentMonth= SimpleDateFormat("MM").format(currentTime)
-        val currentDay= SimpleDateFormat("dd").format(currentTime)
-        val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
-        val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
-        val c10 = SplashActivity.moappDB.rawQuery("select Date_eat,food_eat_ID from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        val currentTime2 : Long = System.currentTimeMillis()
+        val currentYear2= SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth2= SimpleDateFormat("MM").format(currentTime)
+        val currentDay2= SimpleDateFormat("dd").format(currentTime)
+        val currentHH2= SimpleDateFormat("HH").format(currentTime).toInt()
+        val compareDate2=currentYear2+"-"+currentMonth2+"-"+currentDay2
+        val c10 = SplashActivity.moappDB.rawQuery("select Date_eat,food_eat_ID from FOODRECENT where Date_eat like '${compareDate2}%';",null)
         lateinit var date:String
         var date2:Long=0
         var count1:Int=0
@@ -61,7 +62,7 @@ class HomeFragment2 : Fragment() {
                 l_H=HH[0].toInt()
                 l_menu=c10.getString(1)
             }
-            else if(currentHH<24 || currentHH<6){ // 저녁
+            else if(currentHH2<24 || currentHH2<6){ // 저녁
                 d_H=HH[0].toInt()
                 d_menu=c10.getString(1)
             }
@@ -92,14 +93,14 @@ class HomeFragment2 : Fragment() {
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
 
-            if(currentHH.toInt()<12 && currentHH>=6){
+            if(currentHH2.toInt()<12 && currentHH2>=6){
                 if(m_H!=-1){
 
                 }else{
                     dlg.show()
                 }
             }
-            else if(currentHH<18){
+            else if(currentHH2<18){
                 if(l_H!=-1){
 
                 }
@@ -107,12 +108,12 @@ class HomeFragment2 : Fragment() {
                     dlg.show()
                 }
             }
-            else if(currentHH<24 || currentHH<6){
+            else if(currentHH2<24 || currentHH2<6){
                 if(d_H!=-1){
-                    Log.d("TAG11","current= $currentHH, HH= ${HH[0]}")
+                    Log.d("TAG11","current= $currentHH2, HH= ${HH[0]}")
                 }
                 else{
-                    Log.d("TAG11","current= $currentHH, d_H= $d_H")
+                    Log.d("TAG11","current= $currentHH2, d_H= $d_H")
                     dlg.show()
                 }
             }
@@ -134,7 +135,7 @@ class HomeFragment2 : Fragment() {
         var d_fat:Float=0f
         var d_pro:Float=0f
         val c2 : Cursor
-        val c5 : Cursor
+        val c12 : Cursor
         val c4 : Cursor
         if(m_menu!=null){
             c2 = SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$m_menu';",null)
@@ -145,12 +146,12 @@ class HomeFragment2 : Fragment() {
             m_pro=c2.getFloat(3)
         }
         if(l_menu!=null){
-            c5=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$l_menu';",null)
-            c5.moveToNext()
-            l_kcal=c5.getFloat(0)
-            l_carbo=c5.getFloat(1)
-            l_fat=c5.getFloat(2)
-            l_pro=c5.getFloat(3)
+            c12=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$l_menu';",null)
+            c12.moveToNext()
+            l_kcal=c12.getFloat(0)
+            l_carbo=c12.getFloat(1)
+            l_fat=c12.getFloat(2)
+            l_pro=c12.getFloat(3)
         }
         if(d_menu!=null){
             c4=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$d_menu';",null)
@@ -179,6 +180,14 @@ class HomeFragment2 : Fragment() {
         var ranklist:MutableList<Int> = ArrayList()
         var allfood:MutableList<String> = ArrayList()
         var selectfood:MutableList<String> = ArrayList()
+        var fatlist:MutableList<Int> = ArrayList()
+        var carlist:MutableList<Int> = ArrayList()
+        var prolsit:MutableList<Int> = ArrayList()
+        var selectfood2:MutableList<String> = ArrayList()
+
+        var fproi = 0
+        var ffati = 0
+        var fcari = 0
 
         val sql = "SELECT meat, seafood, vegetable, noodle, snack_bar, korean, rice, etc FROM foodfavor where Favor_ID=1"
         val c = SplashActivity.moappDB.rawQuery(sql,null)
@@ -231,18 +240,522 @@ class HomeFragment2 : Fragment() {
         while (c3.moveToNext()){
             var F_name_pos = c3.getColumnIndex("F_ID")
             allfood.add(c3.getString(F_name_pos))
+
+            var F_name_pos2 = c3.getColumnIndex("fat")
+            allfood.add(c3.getString(F_name_pos))
         }
         for(i in 0 ..9) {
             num = random.nextInt(allfood.size)
+            var c = SplashActivity.moappDB.rawQuery("SELECT * FROM FOOD where F_ID = '${allfood[num]}'",null)
+            c.moveToNext()
+            var inde = c.getColumnIndex("fat")
+            fatlist.add(c.getInt(inde))
+            inde = c.getColumnIndex("carbo")
+            carlist.add(c.getInt(inde))
+            inde = c.getColumnIndex("protein")
+            prolsit.add(c.getInt(inde))
             selectfood.add(allfood[num])
             allfood.removeAt(num)
         }
+
         //등수정하기 후에
+
+        Log.d("ppp",currentTime.toString())
+        val currentYear= SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth= SimpleDateFormat("MM").format(currentTime)
+        val currentDay= SimpleDateFormat("dd").format(currentTime)
+        val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
+
+
+        val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
+        var m = "-"
+        var l = "-"
+        var d = "-"
+
+        Log.d("TAG11",compareDate)
+        val c5 = SplashActivity.moappDB.rawQuery("select * from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        while (c5.moveToNext()){
+            var recentin = c5.getColumnIndex("Date_eat")
+            var recentdate = c5.getString(recentin)
+
+            var ar=recentdate.split(" ")
+            var time=ar[1]
+            var HH=time.split(":")
+
+
+            var recentf = c5.getColumnIndex("food_eat_ID")
+            var recentname = c5.getString(recentf)
+
+            if(HH[0].toInt() < 12 && HH[0].toInt()>= 6){
+                m = recentname
+            }
+            else if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+                l = recentname
+            }
+            else if(HH[0].toInt()<24 || HH[0].toInt()<6) {
+                d = recentname
+            }
+        }
+
+
+        val c6 = SplashActivity.moappDB.rawQuery("select * from RECOMMENDNUTRIENT where C_id = '1'",null)
+        c6.moveToNext()
+
+        var proi = c6.getColumnIndex("RN_protein")
+        var pro = c6.getInt(proi)
+        var fati = c6.getColumnIndex("RN_fat")
+        var fat = c6.getInt(fati)
+        var cari = c6.getColumnIndex("RN_carbo")
+        var car = c6.getInt(cari)
+
+        var standardp =0
+        var standardf =0
+        var standardc =0
+
+        var eatp = 0
+        var eatf = 0
+        var eatc = 0
+
+        if(currentHH< 12 && currentHH>= 6){
+            if(m.equals("-")){
+                standardp = (pro/3).toInt()
+                standardf =(fat/3).toInt()
+                standardc =(car/3).toInt()
+
+                eatp = 0
+                eatf = 0
+                eatc = 0
+            }
+            else{
+                standardp = (pro/3).toInt()
+                standardf =(fat/3).toInt()
+                standardc =(car/3).toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}'",null)
+                c6.moveToNext()
+                fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+            }
+        }
+        else if(currentHH<18 && currentHH>=12){
+            if(m.equals("-")&&l.equals("-")){
+                standardp = (pro*2/3).toInt()
+                standardf =(fat*2/3).toInt()
+                standardc =(car*2/3).toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+            }
+            else if(m.equals("-") && !l.equals("-")){
+                standardp = (pro*2/3).toInt()
+                standardf =(fat*2/3).toInt()
+                standardc =(car*2/3).toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c6.moveToNext()
+                fproi = c6.getColumnIndex("protein")
+                eatp += c6.getInt(fproi)
+                ffati = c6.getColumnIndex("fat")
+                eatf += c6.getInt(ffati)
+                fcari = c6.getColumnIndex("carbo")
+                eatc += c6.getInt(fcari)
+
+            }
+            else if(!m.equals("-") && l.equals("-")){
+                standardp = (pro*2/3).toInt()
+                standardf =(fat*2/3).toInt()
+                standardc =(car*2/3).toInt()
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+
+            }
+            else if(!m.equals("-") && !l.equals("-")){
+                standardp = (pro*2/3).toInt()
+                standardf =(fat*2/3).toInt()
+                standardc =(car*2/3).toInt()
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+            }
+        }
+        else if(currentHH<24 || currentHH<6) {
+            if(m.equals("-")&&!l.equals("-")&&d.equals("-")){ // xOX
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+
+
+
+            }
+            else if(m.equals("-")&&!l.equals("-")&&!d.equals("-")){ //xOO
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
+                c6.moveToNext()
+                fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+
+
+
+            }
+            else if(m.equals("-")&&l.equals("-")&&d.equals("-")){ //xXX
+                    standardp = pro.toInt()
+                    standardf = fat.toInt()
+                    standardc = car.toInt()
+
+                    eatp = (pro*2/3).toInt()
+                    eatf = (fat*2/3).toInt()
+                    eatc = (car*2/3).toInt()
+            }
+            else if(m.equals("-")&&l.equals("-")&&!d.equals("-")){//xXO
+                    standardp = pro.toInt()
+                    standardf = fat.toInt()
+                    standardc = car.toInt()
+
+                    eatp = (pro*2/3).toInt()
+                    eatf = (fat*2/3).toInt()
+                    eatc = (car*2/3).toInt()
+
+                    val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
+                    c6.moveToNext()
+                    var fproi = c6.getColumnIndex("protein")
+                    eatp += c6.getInt(fproi)
+                    var ffati = c6.getColumnIndex("fat")
+                    eatf += c6.getInt(ffati)
+                    var fcari = c6.getColumnIndex("carbo")
+                    eatc += c6.getInt(fcari)
+
+            }
+            else if(!m.equals("-")&&l.equals("-")&&d.equals("-")){//OXX
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                var fproi = c6.getColumnIndex("protein")
+                eatp += c6.getInt(fproi)
+                var ffati = c6.getColumnIndex("fat")
+                eatf += c6.getInt(ffati)
+                var fcari = c6.getColumnIndex("carbo")
+                eatc += c6.getInt(fcari)
+
+            }
+            else if(!m.equals("-")&&l.equals("-")&&!d.equals("-")){//OXO
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                eatp = (pro/3).toInt()
+                eatf = (fat/3).toInt()
+                eatc = (car/3).toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                var fproi = c6.getColumnIndex("protein")
+                eatp += c6.getInt(fproi)
+                var ffati = c6.getColumnIndex("fat")
+                eatf += c6.getInt(ffati)
+                var fcari = c6.getColumnIndex("carbo")
+                eatc += c6.getInt(fcari)
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+
+
+            }
+            else if(!m.equals("-")&&!l.equals("-")&&d.equals("-")){//OOX
+
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                var fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                var ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                var fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+            }
+            else if(!m.equals("-")&&!l.equals("-")&&!d.equals("-")){//OOO
+
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
+
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${m}' ",null)
+                c6.moveToNext()
+                var fproi = c6.getColumnIndex("protein")
+                eatp = c6.getInt(fproi)
+                var ffati = c6.getColumnIndex("fat")
+                eatf = c6.getInt(ffati)
+                var fcari = c6.getColumnIndex("carbo")
+                eatc = c6.getInt(fcari)
+
+                val c7 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${l}' ",null)
+                c7.moveToNext()
+                fproi = c7.getColumnIndex("protein")
+                eatp += c7.getInt(fproi)
+                ffati = c7.getColumnIndex("fat")
+                eatf += c7.getInt(ffati)
+                fcari = c7.getColumnIndex("carbo")
+                eatc += c7.getInt(fcari)
+
+                val c8 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
+                c8.moveToNext()
+                fproi = c8.getColumnIndex("protein")
+                eatp += c8.getInt(fproi)
+                ffati = c8.getColumnIndex("fat")
+                eatf += c8.getInt(ffati)
+                fcari = c8.getColumnIndex("carbo")
+                eatc += c8.getInt(fcari)
+
+            }
+        }
+
+
+        var needf:Double = eatf/standardf.toDouble()
+        var needc:Double = eatc/standardc.toDouble()
+        var needp:Double = eatp/standardp.toDouble()
+
+        var n1 = 0
+        var n2 = 0
+        var n3 = 0
+
+        // 지탄단이 필요
+        if(needf >= needc){
+            n1 +=1
+        }
+        else{
+            n2 +=1
+        }
+
+        if(needf >= needp){
+            n1 +=1
+        }
+        else{
+            n3 +=1
+        }
+
+        if(needc >= needp){
+            n2 +=1
+        }
+        else{
+            n3 +=1
+        }
+
+        var needf2 = standardf-eatf
+        var needc2 = standardc-eatc
+        var needp2 = standardp-eatp
+
+        var temp = 0
+        var goodindex = 0
+        var goodvalue = 10000
+        // 순위별
+        if(n1 == 2){
+            for(i in 0..9) {
+                temp = needf2 - fatlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n2 ==2){
+            for(i in 0..9) {
+                temp = needc2 - carlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n3 ==2){
+            for(i in 0..9) {
+                temp = needp2 -prolsit[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+
+        temp = 0
+        goodindex = 0
+        goodvalue = 10000
+
+
+        if(n1 == 1){
+            for(i in 0..8) {
+                temp = needf2 - fatlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n2 ==1){
+            for(i in 0..8) {
+                temp = needc2 - carlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n3 ==1){
+            for(i in 0..8) {
+                temp = needp2 -prolsit[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+
+        if(n1 == 0){
+            for(i in 0..7) {
+                temp = needf2 - fatlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n2 ==0){
+            for(i in 0..7) {
+                temp = needc2 - carlist[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+        else if(n3 ==0){
+            for(i in 0..7) {
+                temp = needp2 -prolsit[i]
+                if(goodvalue>abs(temp)){
+                    goodindex = i
+                    goodvalue = abs(temp)
+                }
+            }
+            selectfood2.add(selectfood[goodindex])
+            selectfood.removeAt(goodindex)
+        }
+
+
 
         num = random.nextInt(100)
         if(num<=49){
-            Log.d("pjy",selectfood[0])
-            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood[0]}'"
+            Log.d("pjy",selectfood2[0])
+            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood2[0]}'"
             val c4 = SplashActivity.moappDB.rawQuery(sql4,null)
             c4.moveToNext()
             var F_name_pos = c4.getColumnIndex("F_name")
@@ -252,8 +765,8 @@ class HomeFragment2 : Fragment() {
             food_name = fname
         }
         else if(num <= 79){
-            Log.d("pjy",selectfood[1])
-            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood[1]}'"
+            Log.d("pjy",selectfood2[1])
+            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood2[1]}'"
             val c4 = SplashActivity.moappDB.rawQuery(sql4,null)
             c4.moveToNext()
             var F_name_pos = c4.getColumnIndex("F_name")
@@ -263,8 +776,8 @@ class HomeFragment2 : Fragment() {
             food_name = fname
         }
         else{
-            Log.d("pjy",selectfood[2])
-            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood[2]}'"
+            Log.d("pjy",selectfood2[2])
+            val sql4 = "SELECT * FROM FOOD where F_ID = '${selectfood2[2]}'"
             val c4 = SplashActivity.moappDB.rawQuery(sql4,null)
             c4.moveToNext()
             var F_name_pos = c4.getColumnIndex("F_name")

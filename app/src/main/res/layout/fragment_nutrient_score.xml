@@ -37,6 +37,7 @@
         <Button
             android:id="@+id/backBtn_to_myPage"
             android:text="취소"
+            android:fontFamily="@font/bmjua"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

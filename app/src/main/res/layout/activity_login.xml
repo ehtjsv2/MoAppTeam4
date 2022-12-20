@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".Login.LoginActivity">
 
+    <ImageView
+        android:id="@+id/ohsiki_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ohsiki_pink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <RadioGroup
         android:id="@+id/group_gender"
         android:layout_width="wrap_content"
@@ -20,14 +28,16 @@
             android:id="@+id/gender_m"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="남성" />
+            android:text="남성"
+            android:fontFamily="@font/bmjua"/>
 
         <RadioButton
             android:id="@+id/gender_fm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="여성" />
+            android:text="여성"
+            android:fontFamily="@font/bmjua"/>
     </RadioGroup>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,13 +56,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_name">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/join_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:singleLine="true"
-        />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/join_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -75,7 +84,7 @@
             android:id="@+id/join_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,16 +109,17 @@
             android:id="@+id/join_stature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/next_button"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="40dp"
         android:text="다음"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -118,12 +128,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/bmjua"
         android:text="이름"
         android:textColor="@color/main5"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
+    />
 
     <TextView
         android:id="@+id/text_age"
@@ -131,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/bmjua"
         android:text="나이"
         android:textColor="@color/main5"
         android:textSize="25sp"
@@ -143,6 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/bmjua"
         android:text="키"
         android:textColor="@color/main5"
         android:textSize="25sp"
@@ -154,7 +168,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/bmjua"
         android:text="성별"
         android:textColor="@color/main5"
         android:textSize="25sp"

@@ -74,8 +74,14 @@ class SplashActivity : AppCompatActivity() {
         // blink 애니메이션
         val anim = AnimationUtils.loadAnimation(this,R.anim.blink_animation)
         // 애니메이션 재생
+        val animTong = AnimationUtils.loadAnimation(this,R.anim.anim_splash_imageview)
+
         val image : TextView = findViewById(R.id.textView4)
+        val image2 : ImageView = findViewById(R.id.imageView5)
+        val image3 : ImageView = findViewById(R.id.ohsiki_logo)
         image.startAnimation(anim)
+        image2.startAnimation(animTong)
+        image3.startAnimation(anim)
 
         // Handler()를 통해서 UI 쓰레드를 컨트롤 한다.
         // Handler().postDelayed(딜레이 시간){딜레이 이후 동작}
@@ -245,8 +251,8 @@ class SplashActivity : AppCompatActivity() {
             db?.execSQL(sql)
             val sql2="insert into foodfavor VALUES ('1',null,null,null,null,null,null,null,null);"
             db?.execSQL(sql2)
-            sql= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
-            db?.execSQL(sql)
+            val sql3= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
+            db?.execSQL(sql3)
 
 
 //            editor.putInt("isInstall", 1);
