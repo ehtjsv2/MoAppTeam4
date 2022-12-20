@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_home -> {
                     Log.d("clickTest", "homeclick!")
-                    loadFragment(HomeFragment2())
+                    loadFragment(HomeFragment())
                     return@setOnItemSelectedListener true
                 }
                 R.id.navigation_preference -> {

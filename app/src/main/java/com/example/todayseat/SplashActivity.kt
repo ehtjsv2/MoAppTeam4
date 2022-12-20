@@ -60,12 +60,12 @@ class SplashActivity : AppCompatActivity() {
 
         helper = myDBHelper(this)
         moappDB = helper.writableDatabase
+//        helper.onUpgrade(moappDB, 1, 2)
 //        val isInstall = pref.getInt("isInstall",0)
 //        if(isInstall==1){
 //            binding.textView4.visibility= View.INVISIBLE
 //        }
         setContentView(R.layout.activity_splash)
-//        helper.onUpgrade(moappDB, 1, 2)
 
 
         // Handler()를 통해서 UI 쓰레드를 컨트롤 한다.
@@ -78,7 +78,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(splashDuration){
             //val intent = Intent(this, MainActivity::class.java)
-            val intent = Intent(this, LoginActivity4::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -88,7 +88,7 @@ class SplashActivity : AppCompatActivity() {
         SQLiteOpenHelper(context, "Moapp4", null, 1) {
         //앱이 설치되어서 SQLiteOpenHelper 클래스가 최초로 되는 순간 호출,테이블 생성
         override fun onCreate(db: SQLiteDatabase?) {
-            Log.d("DB","testCreate")
+            Log.d("DB1234","testCreate")
             //1.CUSTOMER TABLE
             db?.execSQL(
                 "CREATE TABLE CUSTOMER(\n" +
@@ -183,25 +183,55 @@ class SplashActivity : AppCompatActivity() {
                         "PRIMARY KEY(S_ID)\n" +
                         ");"
             )
-            Log.d("DB1234", "create DB")
+            //9.PHOTO 테이블
+            db?.execSQL(
+                "CREATE TABLE PHOTO(\n" +
+                        "P_ID VARCHAR(10),\n" +
+                        "F_name VARCHAR(30),\n" +
+                        "F_url VARCHAR(200),\n" +
+                        "PRIMARY KEY(P_ID),\n" +
+                        "FOREIGN KEY (P_ID) REFERENCES F_ID(FOOD)\n"+
+                        ");"
+            )
+            //10.권장영양소(RECOMMENDNUTRIENT)테이블
+            db?.execSQL("CREATE TABLE RECOMMENDNUTRIENT(\n" +
+                    "RN_ID VARCHAR(10),\n" +
+                    "C_id VARCHAR(10),\n" +
+                    "RN_kcal FLOAT,\n" +
+                    "RN_carbo FLOAT,\n" +
+                    "RN_protein FLOAT,\n" +
+                    "RN_fat FLOAT,\n" +
+                    "PRIMARY KEY(RN_ID)\n" +
+                    ");")
+
+            Log.i("DB1234", "create DB")
             insertCsv_to_DB(db)
             insertReceipeCsv_to_DB(db)
-            Log.d("DB1234", "insertCSV FK in DB")
+            insertPhotoCsv_to_DB(db)
+            Log.i("DB1234", "insertCSV FK in DB")
+
+            var sql="insert into CUSTOMER VALUES ('1',null,null,null,null,null,null,null,null,null);"
+            db?.execSQL(sql)
+            sql= "insert into FOODFAVOR VALUES ('F_1',0,0,0,0,0,0,0,0);"
+            db?.execSQL(sql)
+            sql= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
+            db?.execSQL(sql)
+
 //            editor.putInt("isInstall", 1);
 //            editor.apply()
         }
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            db?.execSQL("DROP TABLE IF EXISTS CUSTOMER")
-            db?.execSQL("DROP TABLE IF EXISTS FOOD")
-            db?.execSQL("DROP TABLE IF EXISTS FOODCATEGORY")
-            db?.execSQL("DROP TABLE IF EXISTS FOODFAVOR")
-            db?.execSQL("DROP TABLE IF EXISTS FOODRECENT")
-            db?.execSQL("DROP TABLE IF EXISTS EXCLUDEFOOD")
-            db?.execSQL("DROP TABLE IF EXISTS RECEIPE")
-            db?.execSQL("DROP TABLE IF EXISTS NUTRIENTSCORE")
-            onCreate(db)
+//            db?.execSQL("DROP TABLE IF EXISTS CUSTOMER")
+//            db?.execSQL("DROP TABLE IF EXISTS FOOD")
+//            db?.execSQL("DROP TABLE IF EXISTS FOODCATEGORY")
+//            db?.execSQL("DROP TABLE IF EXISTS FOODFAVOR")
+//            db?.execSQL("DROP TABLE IF EXISTS FOODRECENT")
+//            db?.execSQL("DROP TABLE IF EXISTS EXCLUDEFOOD")
+//            db?.execSQL("DROP TABLE IF EXISTS RECEIPE")
+//            db?.execSQL("DROP TABLE IF EXISTS NUTRIENTSCORE")
+//            db?.execSQL("DROP TABLE IF EXISTS PHOTO")
+//            onCreate(db)
 
-            Log.d("DB1234", "OldVersion : ${oldVersion}, newversion  ${newVersion}")
         }
     }
     //저장된 csv 파일의 데이터를 DB로 보내는 함수
@@ -233,11 +263,11 @@ class SplashActivity : AppCompatActivity() {
             for (i in 0..8) {
                 arr.set(i, a[i])
             }
-            Log.i("DB11", content_str)
+//            Log.i("DB112", content_str)
             db?.execSQL(sql, arr)
 
         }
-        Log.i("DB1234","input Food csvfile to DB end")
+        Log.i("DB112","input Food csvfile to DB end")
     }
     // onCreate 함수내에 넣어서 한번만 시행될 수 있도록 하자
     private fun insertReceipeCsv_to_DB(db: SQLiteDatabase?){
@@ -267,12 +297,45 @@ class SplashActivity : AppCompatActivity() {
                 arr.set(i,a[i])
             }
 
-            Log.i("DB11", content_str)
+//            Log.i("DB11", content_str)
             db?.execSQL(sql, arr)
         }
 
 //
         Log.i("DB1234","input Receipe csvfile to DB end")
+    }
+    // onCreate 함수내에 넣어서 한번만 시행될 수 있도록 하자
+    private fun insertPhotoCsv_to_DB(db: SQLiteDatabase?){
+        val assetManager : AssetManager = this.assets
+        var k = 0
+        var content_str = ""
+
+        val charsToRemove = "[]"
+        val inputStream : InputStream = assetManager.open("모앱4팀_음식사진전처리본.csv")
+        val reader = CSVReader(InputStreamReader(inputStream))
+//        : (Mutable)List<Array<out String!>!>!
+        val allContent  = reader.readAll()
+
+        for (content in allContent){
+            if(k == 0){
+                k = k+1
+                continue
+            }
+            content_str = content.toList().toString()
+            charsToRemove.forEach{ content_str = content_str.replace(it.toString(),"")}
+            var sql = "INSERT INTO PHOTO (P_ID, F_name, F_url \n"+
+                    " ) VALUES (?,?,?)"
+            val arr = arrayOfNulls<String>(3)
+            var a = content_str.split(",")
+
+            for (i in 0..2){
+                arr.set(i,a[i])
+            }
+
+            Log.i("DB112", content_str)
+            db?.execSQL(sql, arr)
+        }//
+        Log.i("DB1234","input PHOTO csvfile to DB end")
     }
     companion object{
         lateinit var helper : SplashActivity.myDBHelper
