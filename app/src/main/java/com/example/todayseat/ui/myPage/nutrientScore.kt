@@ -78,9 +78,10 @@ class MPAndroidChartActivity : AppCompatActivity(), OnChartValueSelectedListener
     private fun setData(count: Int, range: Float) {
 
         val values = ArrayList<Entry>()
+        //values.add(Entry(1f,30f))
+       //values.add(Entry(2f,30f))
 
         for (i in 0 until count) {
-
             val value = (Math.random() * range).toFloat()
             values.add(Entry(i.toFloat(), value/*, resources.getDrawable(R.drawable.star)*/))
         }

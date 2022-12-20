@@ -17,6 +17,7 @@
         android:layout_marginTop="47dp"
         android:onClick="nextButton"
         android:text="입력"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintStart_toEndOf="@+id/lsearch"
         app:layout_constraintTop_toBottomOf="@+id/m_button" />
 
@@ -28,6 +29,7 @@
         android:layout_marginTop="48dp"
         android:onClick="nextButton"
         android:text="입력"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintStart_toEndOf="@+id/dsearch"
         app:layout_constraintTop_toBottomOf="@+id/l_button" />
 
@@ -39,6 +41,7 @@
         android:layout_marginTop="75dp"
         android:onClick="nextButton"
         android:text="입력"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintStart_toEndOf="@+id/msearch"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,6 +54,7 @@
         android:layout_marginBottom="30dp"
         android:onClick="CustomSelect"
         android:text="영양점수표"
+        android:fontFamily="@font/bmjua"
         android:textColor="@color/white"
         android:backgroundTint="@color/main5"
         app:icon="@android:drawable/ic_input_add"
@@ -66,6 +70,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:text="아침"
+        android:fontFamily="@font/bmjua"
         android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +84,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:text="저녁"
+        android:fontFamily="@font/bmjua"
         android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +97,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:text="점심"
+        android:fontFamily="@font/bmjua"
         android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +146,9 @@
         android:id="@+id/Eatfood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="96dp"
+        android:fontFamily="@font/bmjua"
         android:text="최근 먹은 음식"
         android:textColor="@color/main5"
         android:textSize="20dp"
@@ -149,9 +157,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodl"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="200dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/ligth_gary_rectangle_radius"
         app:layout_constraintStart_toStartOf="parent"

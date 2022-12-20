@@ -129,8 +129,6 @@ class MyPageFragment : Fragment(){
         }
 
 
-
-
         var menus:MutableList<String> = ArrayList()
         val sql = "SELECT food_eat_ID FROM FOODRECENT"
         val c = SplashActivity.moappDB.rawQuery(sql,null)

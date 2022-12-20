@@ -6,13 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Login.LoginActivity3_2">
 
+    <ImageView
+        android:id="@+id/ohsiki_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ohsiki_pink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/before_button"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="40dp"
         android:text="이전"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/next_button" />
 
@@ -20,9 +29,10 @@
         android:id="@+id/next_button"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="40dp"
         android:text="다음"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -79,12 +89,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/main5"
         android:text="면류 선호도"
+        android:fontFamily="@font/bmjua"
+        android:textColor="@color/main5"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
 
 
 
@@ -144,6 +154,7 @@
         android:layout_marginTop="40dp"
         android:textColor="@color/main5"
         android:text="분식류 선호도"
+        android:fontFamily="@font/bmjua"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noodlegroup" />
@@ -200,14 +211,14 @@
         android:id="@+id/Text_vegeIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="40dp"
-        android:textColor="@color/main5"
         android:text="밥류 선호도"
+        android:fontFamily="@font/bmjua"
+        android:textColor="@color/main5"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/snackgroup" />
-
 
     <TextView
         android:id="@+id/textView5"
