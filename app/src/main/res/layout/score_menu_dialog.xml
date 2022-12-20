@@ -33,6 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:id="@+id/foodname"
                 android:text="치킨"
                 android:fontFamily="@font/bmjua"
                 android:textSize="30sp"
@@ -106,7 +107,7 @@
     </FrameLayout>
 
     <!--    <Button-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="가나다" />-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="가나다" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

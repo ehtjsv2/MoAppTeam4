@@ -3,7 +3,9 @@ package com.example.todayseat.ui.home
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.database.Cursor
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.InsertMenuDialogBinding
 import com.example.todayseat.databinding.ScoreMenuDialogBinding
 import com.github.mikephil.charting.charts.BarChart
@@ -47,63 +50,283 @@ var color1 : Int = 0
 var color2 : Int = 0
 var color3 : Int = 0
 
-class CustomMenuScoreDialog(var activity: Activity) : Dialog(activity),
+class CustomMenuScoreDialog(var activity: Activity, var value:String) : Dialog(activity),
     View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         val binding= ScoreMenuDialogBinding.inflate(layoutInflater)
+
+        binding.foodname.text = value
         // 확인 버튼클릭시, 무시
         binding.ignoreBtn.setOnClickListener {
             dismiss()
         }
-        initBarChart(binding.insertMenuRecyclerView)
-        setData(binding.insertMenuRecyclerView)
+
         Log.d("TAG11","다이얼로그출력!")
         setContentView(binding.root)
+
+        val currentTime : Long = System.currentTimeMillis()
+        val currentYear= SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth= SimpleDateFormat("MM").format(currentTime)
+        val currentDay= SimpleDateFormat("dd").format(currentTime)
+        val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
+        val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
+        val c = SplashActivity.moappDB.rawQuery("select Date_eat,food_eat_ID from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        lateinit var date:String
+        var date2:Long=0
+        var count:Int=0
+        var m_H=-1//아침시간
+        var l_H=-1//점심시간
+        var d_H=-1//저녁시간
+        var m_menu:String?=null
+        var l_menu:String?=null
+        var d_menu:String?=null
+        var menu:String
+        while(c.moveToNext()){
+            count++
+            date=c.getString(0)
+            date2=c.getLong(0)
+            Log.d("TAG11","current menu date= $date, Long= $date2")
+            var ar=date.split(" ") // [i]의 시간이 담김
+            var time=ar[1]
+            var HH=time.split(":")
+            if(HH[0].toInt()<12 && HH[0].toInt()>=6){ // 아침
+                m_H=HH[0].toInt()
+                m_menu=c.getString(1)
+            }
+            else if(HH[0].toInt()<18 && HH[0].toInt()>=12){ // 점심
+                l_H=HH[0].toInt()
+                l_menu=c.getString(1)
+            }
+            else if(currentHH<24 || currentHH<6){ // 저녁
+                d_H=HH[0].toInt()
+                d_menu=c.getString(1)
+            }
+            val currentHH=SimpleDateFormat("HH").format(date2)
+            Log.d("TAG11","$m_H, $l_H, $d_H")
+            if(currentHH.toInt()<12 && currentHH.toInt()>=6){
+                m_H=currentHH.toInt()
+
+            }
+            else if(currentHH.toInt()<18){
+                l_H=currentHH.toInt()
+            }
+            else if(currentHH.toInt()<24 || currentHH.toInt()<6){
+                d_H=currentHH.toInt()
+            }
+        }
+
+
+        //아침
+        var m_kcal:Float=0f
+        var m_carbo:Float=0f
+        var m_fat:Float=0f
+        var m_pro:Float=0f
+        //점심
+        var l_kcal:Float=0f
+        var l_carbo:Float=0f
+        var l_fat:Float=0f
+        var l_pro:Float=0f
+        //저녁
+        var d_kcal:Float=0f
+        var d_carbo:Float=0f
+        var d_fat:Float=0f
+        var d_pro:Float=0f
+        val c2 : Cursor
+        val c3 : Cursor
+        val c4 : Cursor
+        if(m_menu!=null){
+            c2 = SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$m_menu';",null)
+            c2.moveToNext()
+            m_kcal=c2.getFloat(0)
+            m_carbo=c2.getFloat(1)
+            m_fat=c2.getFloat(2)
+            m_pro=c2.getFloat(3)
+        }
+        if(l_menu!=null){
+            c3=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$l_menu';",null)
+            c3.moveToNext()
+            l_kcal=c3.getFloat(0)
+            l_carbo=c3.getFloat(1)
+            l_fat=c3.getFloat(2)
+            l_pro=c3.getFloat(3)
+        }
+        if(d_menu!=null){
+            c4=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$d_menu';",null)
+            c4.moveToNext()
+            d_kcal=c4.getFloat(0)
+            d_carbo=c4.getFloat(1)
+            d_fat=c4.getFloat(2)
+            d_pro=c4.getFloat(3)
+        }
+        Log.d("TAG11","아침=${m_kcal}, ${m_carbo}, ${m_fat}, ${m_pro}")
+        Log.d("TAG11","점심=${l_kcal}, ${l_carbo}, ${l_fat}, ${l_pro}")
+        Log.d("TAG11","저녁=${d_kcal}, ${d_carbo}, ${d_fat}, ${d_pro}")
+
+
+        if(currentHH.toInt()<12){ // 아침
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            m_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            m_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            m_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            m_fat=c11.getFloat(mci)
+
+        }
+        else if(currentHH.toInt()<18 && currentHH.toInt()>=12){ // 점심
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            l_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            l_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            l_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            l_fat=c11.getFloat(mci)
+        }
+        else if(currentHH.toInt()<24){ // 저녁
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            d_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            d_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            d_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            d_fat=c11.getFloat(mci)
+
+        }
+
+        val total_kcal=m_kcal+l_kcal+d_kcal
+        val total_carbo=m_carbo+l_carbo+d_carbo
+        val total_fat=m_fat+l_fat+d_fat
+        val total_pro=m_pro+l_pro+d_pro
+        Log.d("TAG11","총(탄,지,단)= ${total_kcal}. ${total_carbo}, ${total_fat}, ${total_pro}")
+
         val sql="select * from food where F_name=' ${HomeFragment2.food_name};"
 
 //        yes.setOnClickListener(this)
 //        no.setOnClickListener(this)
 
 
+        val sql3 = "SELECT * FROM recommendnutrient where C_id=1"
+        val c10 = SplashActivity.moappDB.rawQuery(sql3,null)
+        c10.moveToNext()
+        var kindex= c10.getColumnIndex("RN_kcal")
+        var kcal=c10.getFloat(kindex)
+        var pindex= c10.getColumnIndex("RN_protein")
+        var protein=c10.getFloat(pindex)
+
+        val sql6 = "SELECT age, height, activation, gender FROM CUSTOMER where C_ID=1"
+        val c5 = SplashActivity.moappDB.rawQuery(sql6,null)
+        c5.moveToNext()
+        var check_value:Int = c5.getColumnIndex("height")
+        var str1=c5.getInt(check_value)
+
+
+        check_value = c5.getColumnIndex("activation")
+        var str2=c5.getInt(check_value)
+        var v = 0
+        if( str2 == 1){
+            v = 20
+        }
+        else if(str2 == 2){
+            v =30
+        }
+        else {
+            v = 40
+        }
         //그래프를 위한 변수 추가
         //영양분 점수 계산식
         // #####################여기를 바꾸시면 적용됩니다
         var nST = 0f //영양분 점수
-        var totalKcal = 1625.77f // 총섭취칼로리
+        var totalKcal = total_kcal // 총섭취칼로리
         // #####################여기를 바꾸시면 적용됩니다
 
         //고객 정보
-        var height = 175f
-        var activation = 30f
+        var height = str1
+        var activation = v.toFloat()
 
         //DB 에서 합한 합
-        var totalCarbo = 202.78f // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
-        var totalFat = 62.66f // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
-        var totalProtein = 62.69f   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+        var totalCarbo = total_carbo // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+        var totalFat = total_fat// 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+        var totalProtein = total_pro // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
 
-        var need_protein = 50f // 권장 단백질
-        var need_calorie = 0f // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
+        var need_protein = protein  // 권장 단백질
+        var need_calorie = kcal // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
 
 
         //건강 지수 계산
         need_calorie =
             ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
-        kcalS = (100f*0.25f - ((kotlin.math.abs((totalKcal) - need_calorie) - 100f)*4f/(4f+9f) * 0.25f))
-        carboS = (100f*0.12f - ((kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo) - 25f)*4f/(4f+9f)*0.12f))
-        fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
-        proteinS = (100f*0.25f - (( need_protein - totalProtein ) * 4f / (4f+9f)*0.25f))
+        totalCarbo=need_calorie*0.6f
+        var kcals_minus=((kotlin.math.abs((totalKcal) - need_calorie)-300f))
+        if(kcals_minus<0){
+            kcals_minus=0f
+        }
+        kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
+        if(kcalS<0)kcalS=0f
+
+
+
+        var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+        if(carbos_minus<0){
+            carbos_minus=0f
+        }
+        carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+        if(totalCarbo==0f) carboS=0f
+        if(carboS<=0)carboS=0f
+
+        var fat_minus = (totalFat-50f)
+        fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
+        if(fat_minus<=0)fatS=0f
+        if(fatS<=0)fatS=0f
+
+        if(proteinS>=25)proteinS=25f
+        Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
 
         nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
-
+        //if(nST<0)nST=0f
         //그래프를 위한 백점 환산
-        fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
-        if (fatS100>=100) fatS100=100f
-        proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
-        if (proteinS100>=100) proteinS100=100f
+        if(total_fat==0f){
+            fatS100=0f
+        }
+        else{
+            fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
+            if (fatS100>=100) fatS100=100f
+        }
+
+        //proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
+        if(need_protein-totalProtein<0){
+            proteinS100=100f
+        }
+        else{
+            proteinS100 = 100-((need_protein-totalProtein)/need_protein*100).toFloat()
+        }
+
+        //if (proteinS100>=100) proteinS100=100f
+        if(total_carbo==0f){
+            carboS100=0f
+        }
         carboS100 = (carboS.toDouble()*100.0/25.0).toFloat()
         if (carboS>=100) carboS=100f
+
+
+        Log.d("tt", carboS100.toString())
+        Log.d("tt", proteinS100.toString())
+        Log.d("tt", fatS100.toString())
+        initBarChart(binding.insertMenuRecyclerView)
+        setData(binding.insertMenuRecyclerView)
     }
 
     override fun onClick(p0: View?) {

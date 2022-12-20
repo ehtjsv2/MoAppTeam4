@@ -71,7 +71,7 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         }
         binding.searchMenu.setOnQueryTextListener(object :android.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-               return true
+                return true
             }
             // 변경 감지되면
             override fun onQueryTextChange(newText: String?): Boolean {

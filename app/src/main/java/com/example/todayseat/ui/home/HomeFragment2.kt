@@ -467,31 +467,31 @@ class HomeFragment2 : Fragment() {
 
             }
             else if(m.equals("-")&&l.equals("-")&&d.equals("-")){ //xXX
-                    standardp = pro.toInt()
-                    standardf = fat.toInt()
-                    standardc = car.toInt()
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
 
-                    eatp = (pro*2/3).toInt()
-                    eatf = (fat*2/3).toInt()
-                    eatc = (car*2/3).toInt()
+                eatp = (pro*2/3).toInt()
+                eatf = (fat*2/3).toInt()
+                eatc = (car*2/3).toInt()
             }
             else if(m.equals("-")&&l.equals("-")&&!d.equals("-")){//xXO
-                    standardp = pro.toInt()
-                    standardf = fat.toInt()
-                    standardc = car.toInt()
+                standardp = pro.toInt()
+                standardf = fat.toInt()
+                standardc = car.toInt()
 
-                    eatp = (pro*2/3).toInt()
-                    eatf = (fat*2/3).toInt()
-                    eatc = (car*2/3).toInt()
+                eatp = (pro*2/3).toInt()
+                eatf = (fat*2/3).toInt()
+                eatc = (car*2/3).toInt()
 
-                    val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
-                    c6.moveToNext()
-                    var fproi = c6.getColumnIndex("protein")
-                    eatp += c6.getInt(fproi)
-                    var ffati = c6.getColumnIndex("fat")
-                    eatf += c6.getInt(ffati)
-                    var fcari = c6.getColumnIndex("carbo")
-                    eatc += c6.getInt(fcari)
+                val c6 = SplashActivity.moappDB.rawQuery("select * from food where F_name = '${d}' ",null)
+                c6.moveToNext()
+                var fproi = c6.getColumnIndex("protein")
+                eatp += c6.getInt(fproi)
+                var ffati = c6.getColumnIndex("fat")
+                eatf += c6.getInt(ffati)
+                var fcari = c6.getColumnIndex("carbo")
+                eatc += c6.getInt(fcari)
 
             }
             else if(!m.equals("-")&&l.equals("-")&&d.equals("-")){//OXX
@@ -763,6 +763,7 @@ class HomeFragment2 : Fragment() {
             Log.d("pjy",fname)
             binding.home2MenuName.text = fname
             food_name = fname
+            binding.nScoreNext.text = myname(fname).toString()
         }
         else if(num <= 79){
             Log.d("pjy",selectfood2[1])
@@ -774,6 +775,7 @@ class HomeFragment2 : Fragment() {
             Log.d("pjy",fname)
             binding.home2MenuName.text = fname
             food_name = fname
+            binding.nScoreNext.text = myname(fname).toString()
         }
         else{
             Log.d("pjy",selectfood2[2])
@@ -785,6 +787,7 @@ class HomeFragment2 : Fragment() {
             Log.d("pjy",fname)
             binding.home2MenuName.text = fname
             food_name = fname
+            binding.nScoreNext.text = myname(fname).toString()
         }
 
 
@@ -795,7 +798,7 @@ class HomeFragment2 : Fragment() {
             loadFragment(RecipeFragment())
         }
         binding.nScoreNext.setOnClickListener {
-            val dlg2=CustomMenuScoreDialog(requireActivity())
+            val dlg2=CustomMenuScoreDialog(requireActivity(), food_name)
             dlg2.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg2.setCancelable(false)
             dlg2.show()
@@ -820,5 +823,239 @@ class HomeFragment2 : Fragment() {
     }
     companion object{
         var food_name="우동(중식)"
+    }
+
+    fun myname(value:String):Int{
+        val currentTime : Long = System.currentTimeMillis()
+        val currentYear= SimpleDateFormat("YYYY").format(currentTime)
+        val currentMonth= SimpleDateFormat("MM").format(currentTime)
+        val currentDay= SimpleDateFormat("dd").format(currentTime)
+        val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
+        val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
+        val c = SplashActivity.moappDB.rawQuery("select Date_eat,food_eat_ID from FOODRECENT where Date_eat like '${compareDate}%';",null)
+        lateinit var date:String
+        var date2:Long=0
+        var count:Int=0
+        var m_H=-1//아침시간
+        var l_H=-1//점심시간
+        var d_H=-1//저녁시간
+        var m_menu:String?=null
+        var l_menu:String?=null
+        var d_menu:String?=null
+        var menu:String
+        while(c.moveToNext()){
+            count++
+            date=c.getString(0)
+            date2=c.getLong(0)
+            Log.d("TAG11","current menu date= $date, Long= $date2")
+            var ar=date.split(" ") // [i]의 시간이 담김
+            var time=ar[1]
+            var HH=time.split(":")
+            if(HH[0].toInt()<12 && HH[0].toInt()>=6){ // 아침
+                m_H=HH[0].toInt()
+                m_menu=c.getString(1)
+            }
+            else if(HH[0].toInt()<18 && HH[0].toInt()>=12){ // 점심
+                l_H=HH[0].toInt()
+                l_menu=c.getString(1)
+            }
+            else if(currentHH<24 || currentHH<6){ // 저녁
+                d_H=HH[0].toInt()
+                d_menu=c.getString(1)
+            }
+            val currentHH=SimpleDateFormat("HH").format(date2)
+            Log.d("TAG11","$m_H, $l_H, $d_H")
+            if(currentHH.toInt()<12 && currentHH.toInt()>=6){
+                m_H=currentHH.toInt()
+
+            }
+            else if(currentHH.toInt()<18){
+                l_H=currentHH.toInt()
+            }
+            else if(currentHH.toInt()<24 || currentHH.toInt()<6){
+                d_H=currentHH.toInt()
+            }
+        }
+
+
+        //아침
+        var m_kcal:Float=0f
+        var m_carbo:Float=0f
+        var m_fat:Float=0f
+        var m_pro:Float=0f
+        //점심
+        var l_kcal:Float=0f
+        var l_carbo:Float=0f
+        var l_fat:Float=0f
+        var l_pro:Float=0f
+        //저녁
+        var d_kcal:Float=0f
+        var d_carbo:Float=0f
+        var d_fat:Float=0f
+        var d_pro:Float=0f
+        val c2 : Cursor
+        val c3 : Cursor
+        val c4 : Cursor
+        if(m_menu!=null){
+            c2 = SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$m_menu';",null)
+            c2.moveToNext()
+            m_kcal=c2.getFloat(0)
+            m_carbo=c2.getFloat(1)
+            m_fat=c2.getFloat(2)
+            m_pro=c2.getFloat(3)
+        }
+        if(l_menu!=null){
+            c3=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$l_menu';",null)
+            c3.moveToNext()
+            l_kcal=c3.getFloat(0)
+            l_carbo=c3.getFloat(1)
+            l_fat=c3.getFloat(2)
+            l_pro=c3.getFloat(3)
+        }
+        if(d_menu!=null){
+            c4=SplashActivity.moappDB.rawQuery("select kcal,carbo,fat,protein from FOOD where F_name= '$d_menu';",null)
+            c4.moveToNext()
+            d_kcal=c4.getFloat(0)
+            d_carbo=c4.getFloat(1)
+            d_fat=c4.getFloat(2)
+            d_pro=c4.getFloat(3)
+        }
+        Log.d("TAG11","아침=${m_kcal}, ${m_carbo}, ${m_fat}, ${m_pro}")
+        Log.d("TAG11","점심=${l_kcal}, ${l_carbo}, ${l_fat}, ${l_pro}")
+        Log.d("TAG11","저녁=${d_kcal}, ${d_carbo}, ${d_fat}, ${d_pro}")
+
+
+        if(currentHH.toInt()<12){ // 아침
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            m_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            m_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            m_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            m_fat=c11.getFloat(mci)
+
+        }
+        else if(currentHH.toInt()<18 && currentHH.toInt()>=12){ // 점심
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            l_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            l_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            l_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            l_fat=c11.getFloat(mci)
+        }
+        else if(currentHH.toInt()<24){ // 저녁
+            val sql4 = "SELECT * FROM food where F_name = '${value}'"
+            val c11 = SplashActivity.moappDB.rawQuery(sql4,null)
+            c11.moveToNext()
+            var mki= c11.getColumnIndex("kcal")
+            d_kcal=c11.getFloat(mki)
+            var mpi= c11.getColumnIndex("protein")
+            d_pro=c11.getFloat(mpi)
+            var mfi= c11.getColumnIndex("carbo")
+            d_carbo=c11.getFloat(mfi)
+            var mci= c11.getColumnIndex("fat")
+            d_fat=c11.getFloat(mci)
+
+        }
+
+        val total_kcal=m_kcal+l_kcal+d_kcal
+        val total_carbo=m_carbo+l_carbo+d_carbo
+        val total_fat=m_fat+l_fat+d_fat
+        val total_pro=m_pro+l_pro+d_pro
+        Log.d("TAG11","총(탄,지,단)= ${total_kcal}. ${total_carbo}, ${total_fat}, ${total_pro}")
+
+        val sql="select * from food where F_name=' ${HomeFragment2.food_name};"
+
+//        yes.setOnClickListener(this)
+//        no.setOnClickListener(this)
+
+
+        val sql3 = "SELECT * FROM recommendnutrient where C_id=1"
+        val c10 = SplashActivity.moappDB.rawQuery(sql3,null)
+        c10.moveToNext()
+        var kindex= c10.getColumnIndex("RN_kcal")
+        var kcal=c10.getFloat(kindex)
+        var pindex= c10.getColumnIndex("RN_protein")
+        var protein=c10.getFloat(pindex)
+
+        val sql6 = "SELECT age, height, activation, gender FROM CUSTOMER where C_ID=1"
+        val c5 = SplashActivity.moappDB.rawQuery(sql6,null)
+        c5.moveToNext()
+        var check_value:Int = c5.getColumnIndex("height")
+        var str1=c5.getInt(check_value)
+
+
+        check_value = c5.getColumnIndex("activation")
+        var str2=c5.getInt(check_value)
+        var v = 0
+        if( str2 == 1){
+            v = 20
+        }
+        else if(str2 == 2){
+            v =30
+        }
+        else {
+            v = 40
+        }
+        //그래프를 위한 변수 추가
+        //영양분 점수 계산식
+        // #####################여기를 바꾸시면 적용됩니다
+        var nST = 0f //영양분 점수
+        var totalKcal = total_kcal // 총섭취칼로리
+        // #####################여기를 바꾸시면 적용됩니다
+
+        //고객 정보
+        var height = str1
+        var activation = v.toFloat()
+
+        //DB 에서 합한 합
+        var totalCarbo = total_carbo // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+        var totalFat = total_fat// 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+        var totalProtein = total_pro // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+
+        var need_protein = protein  // 권장 단백질
+        var need_calorie = kcal // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
+
+
+        //건강 지수 계산
+        need_calorie =
+            ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
+        totalCarbo=need_calorie*0.6f
+        var kcals_minus=((kotlin.math.abs((totalKcal) - need_calorie)-300f))
+        if(kcals_minus<0){
+            kcals_minus=0f
+        }
+        kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
+        if(kcalS<0)kcalS=0f
+
+
+
+        var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+        if(carbos_minus<0){
+            carbos_minus=0f
+        }
+        carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+        if(totalCarbo==0f) carboS=0f
+        if(carboS<=0)carboS=0f
+
+        var fat_minus = (totalFat-50f)
+        fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
+        if(fat_minus<=0)fatS=0f
+        if(fatS<=0)fatS=0f
+
+        if(proteinS>=25)proteinS=25f
+        Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
+
+        nST = kcalS+carboS+fatS+proteinS
+        return nST.toInt()
     }
 }

@@ -181,6 +181,7 @@ class LoginActivity5 : AppCompatActivity() {
             var check_value:Int = c.getColumnIndex("height")
             var str=c.getInt(check_value)
 
+
             var kcal = (str - 100) *0.9
 
             check_value = c.getColumnIndex("activation")
@@ -248,8 +249,8 @@ class LoginActivity5 : AppCompatActivity() {
             }
 
 
-//            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
-//            moappDB.execSQL(sql4)
+            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
+            moappDB.execSQL(sql4)
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
