@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Login.LoginActivity5">
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <EditText
             android:id="@+id/Text_search"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginStart="60dp"
-            android:hint="추천에서 제외할 음식을 검색하세요."/>
+            android:layout_marginTop="100dp"
+            android:hint="추천에서 제외할 음식을 검색하세요."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="60dp"
-            android:background="@drawable/ligth_gary_rectangle_radius"
             android:id="@+id/Search_recycler"
             android:layout_width="300dp"
             android:layout_height="102dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
             android:divider="#999999"
-            android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
+            android:dividerHeight="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/Text_search"
+            app:layout_constraintStart_toStartOf="@+id/Text_search"
+            app:layout_constraintTop_toBottomOf="@+id/Text_search"></androidx.recyclerview.widget.RecyclerView>
 
 
         <TextView
             android:id="@+id/Eat_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="60dp"
-            android:textColor="@color/main5"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/bmjua"
-            android:text="제외 음식" />
+            android:text="제외 음식"
+            android:textColor="@color/main5"
+            app:layout_constraintStart_toStartOf="@+id/Search_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/Search_recycler" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Eat_recycler"
-            android:background="@drawable/ligth_gary_rectangle_radius"
-            android:layout_marginStart="40dp"
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="102dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
             android:divider="#999999"
-            android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
+            android:dividerHeight="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/Search_recycler"
+            app:layout_constraintStart_toStartOf="@+id/Search_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/Eat_title"></androidx.recyclerview.widget.RecyclerView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+        <Button
+            android:id="@+id/before_button"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
             android:layout_marginTop="60dp"
-            >
-            <Button
-                android:id="@+id/before_button"
-                android:layout_width="80dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="200dp"
-                android:text="이전"
-                android:fontFamily="@font/bmjua"
-                />
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/bmjua"
+            android:text="이전"
+            app:layout_constraintEnd_toStartOf="@+id/commit_button"
+            app:layout_constraintTop_toBottomOf="@+id/Eat_recycler" />
 
-            <Button
-                android:id="@+id/commit_button"
-                android:layout_width="80dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:text="제출"
-                android:fontFamily="@font/bmjua"
-                />
-        </LinearLayout>
-
-    </LinearLayout>
+        <Button
+            android:id="@+id/commit_button"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/bmjua"
+            android:text="제출"
+            app:layout_constraintBottom_toBottomOf="@+id/before_button"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

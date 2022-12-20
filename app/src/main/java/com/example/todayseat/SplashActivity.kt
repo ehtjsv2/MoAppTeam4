@@ -112,7 +112,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
             else if(str == 0){
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -137,7 +137,7 @@ class SplashActivity : AppCompatActivity() {
                         "age INT,\n" +
                         "height FLOAT,\n" +
                         "activation INT,\n" +
-                        "check_info BOOLEAN,\n" +
+                        "check_info INT,\n" +
                         "PRIMARY KEY(C_id)\n" +
                         ");"
             )

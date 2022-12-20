@@ -1,282 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Login.LoginActivity3">
-
-
-  <ImageView
-      android:id="@+id/ohsiki_pink"
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ohsiki_pink"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/ohsiki_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ohsiki_pink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <Button
-      android:id="@+id/next_button"
-      android:layout_width="80dp"
-      android:layout_height="60dp"
-      android:layout_marginEnd="28dp"
-      android:layout_marginBottom="40dp"
-      android:fontFamily="@font/bmjua"
-      android:text="다음"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="28dp"
+        android:fontFamily="@font/bmjua"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="@+id/before_button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-  <Button
-      android:id="@+id/before_button"
-      android:layout_width="80dp"
-      android:layout_height="60dp"
-      android:layout_marginEnd="24dp"
-      android:layout_marginBottom="40dp"
-      android:fontFamily="@font/bmjua"
-      android:text="이전"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/next_button" />
+    <Button
+        android:id="@+id/before_button"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/bmjua"
+        android:text="이전"
+        app:layout_constraintEnd_toStartOf="@+id/next_button"
+        app:layout_constraintTop_toBottomOf="@+id/vegegroup" />
 
-  <RadioGroup
-      android:id="@+id/meatgroup"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex">
-
-    <RadioButton
-        android:id="@+id/meat_score1"
+    <RadioGroup
+        android:id="@+id/meatgroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex">
 
-    <RadioButton
-        android:id="@+id/meat_score2"
+      <RadioButton
+          android:id="@+id/meat_score1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="1" />
+
+      <RadioButton
+          android:id="@+id/meat_score2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="2" />
+
+      <RadioButton
+          android:id="@+id/meat_score3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="3" />
+
+      <RadioButton
+          android:id="@+id/meat_score4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="4" />
+
+      <RadioButton
+          android:id="@+id/meat_score5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="5" />
+
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/Text_meatIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="2" />
+        android:layout_marginStart="50dp"
+        android:fontFamily="@font/bmjua"
+        android:text="육류 선호도"
+        android:textColor="@color/main5"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
 
-    <RadioButton
-        android:id="@+id/meat_score3"
+
+    <RadioGroup
+        android:id="@+id/seagroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="3" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex">
 
-    <RadioButton
-        android:id="@+id/meat_score4"
+      <RadioButton
+          android:id="@+id/sea_score1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="1" />
+
+      <RadioButton
+          android:id="@+id/sea_score2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="2" />
+
+      <RadioButton
+          android:id="@+id/sea_score3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="3" />
+
+      <RadioButton
+          android:id="@+id/sea_score4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="4" />
+
+      <RadioButton
+          android:id="@+id/sea_score5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="5" />
+
+    </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/Text_seaIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="4" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/main5"
+        android:text="어패류 선호도"
+        android:fontFamily="@font/bmjua"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meatgroup" />
 
-    <RadioButton
-        android:id="@+id/meat_score5"
+
+    <RadioGroup
+        android:id="@+id/vegegroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="5" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex">
 
-  </RadioGroup>
+      <RadioButton
+          android:id="@+id/vege_score1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="1" />
+
+      <RadioButton
+          android:id="@+id/vege_score2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="2" />
+
+      <RadioButton
+          android:id="@+id/vege_score3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="3" />
+
+      <RadioButton
+          android:id="@+id/vege_score4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="4" />
+
+      <RadioButton
+          android:id="@+id/vege_score5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:text="5" />
+
+    </RadioGroup>
 
 
-  <TextView
-      android:id="@+id/Text_meatIndex"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:fontFamily="@font/bmjua"
-      android:text="육류 선호도"
-      android:textColor="@color/main5"
-      android:textSize="25sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
-
-
-  <RadioGroup
-      android:id="@+id/seagroup"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex">
-
-    <RadioButton
-        android:id="@+id/sea_score1"
+    <TextView
+        android:id="@+id/Text_vegeIndex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/main5"
+        android:text="채소류 선호도"
+        android:fontFamily="@font/bmjua"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seagroup" />
 
-    <RadioButton
-        android:id="@+id/sea_score2"
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="2" />
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="10dp"
+        android:text="낮음"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
 
-    <RadioButton
-        android:id="@+id/sea_score3"
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="3" />
+        android:layout_marginStart="207dp"
+        android:layout_marginTop="10dp"
+        android:text="높음"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
 
-    <RadioButton
-        android:id="@+id/sea_score4"
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="4" />
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="10dp"
+        android:text="낮음"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex" />
 
-    <RadioButton
-        android:id="@+id/sea_score5"
+    <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="5" />
+        android:layout_marginStart="207dp"
+        android:layout_marginTop="10dp"
+        android:text="높음"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex" />
 
-  </RadioGroup>
-
-
-  <TextView
-      android:id="@+id/Text_seaIndex"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="40dp"
-      android:textColor="@color/main5"
-      android:text="어패류 선호도"
-      android:fontFamily="@font/bmjua"
-      android:textSize="25sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/meatgroup" />
-
-
-  <RadioGroup
-      android:id="@+id/vegegroup"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex">
-
-    <RadioButton
-        android:id="@+id/vege_score1"
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1" />
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="10dp"
+        android:text="낮음"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex" />
 
-    <RadioButton
-        android:id="@+id/vege_score2"
+    <TextView
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="2" />
+        android:layout_marginStart="207dp"
+        android:layout_marginTop="10dp"
+        android:text="높음"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex" />
 
-    <RadioButton
-        android:id="@+id/vege_score3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="3" />
-
-    <RadioButton
-        android:id="@+id/vege_score4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="4" />
-
-    <RadioButton
-        android:id="@+id/vege_score5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="5" />
-
-  </RadioGroup>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-  <TextView
-      android:id="@+id/Text_vegeIndex"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="50dp"
-      android:layout_marginTop="40dp"
-      android:textColor="@color/main5"
-      android:text="채소류 선호도"
-      android:fontFamily="@font/bmjua"
-      android:textSize="25sp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/seagroup" />
 
-  <TextView
-      android:id="@+id/textView5"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="53dp"
-      android:layout_marginTop="10dp"
-      android:text="낮음"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <TextView
-      android:id="@+id/textView6"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="207dp"
-      android:layout_marginTop="10dp"
-      android:text="높음"
-      app:layout_constraintStart_toEndOf="@+id/textView5"
-      app:layout_constraintTop_toBottomOf="@+id/Text_meatIndex" />
-
-  <TextView
-      android:id="@+id/textView7"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="53dp"
-      android:layout_marginTop="10dp"
-      android:text="낮음"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex" />
-
-  <TextView
-      android:id="@+id/textView8"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="207dp"
-      android:layout_marginTop="10dp"
-      android:text="높음"
-      app:layout_constraintStart_toEndOf="@+id/textView5"
-      app:layout_constraintTop_toBottomOf="@+id/Text_seaIndex" />
-
-  <TextView
-      android:id="@+id/textView9"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="53dp"
-      android:layout_marginTop="10dp"
-      android:text="낮음"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex" />
-
-  <TextView
-      android:id="@+id/textView10"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="207dp"
-      android:layout_marginTop="10dp"
-      android:text="높음"
-      app:layout_constraintStart_toEndOf="@+id/textView5"
-      app:layout_constraintTop_toBottomOf="@+id/Text_vegeIndex" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

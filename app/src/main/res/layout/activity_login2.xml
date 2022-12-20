@@ -1,113 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Login.LoginActivity2">
-
-    <ImageView
-        android:id="@+id/ohsiki_pink"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ohsiki_pink"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ohsiki_pink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ohsiki_pink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <RadioGroup
-        android:id="@+id/group_AI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink">
-
-        <RadioButton
-            android:id="@+id/AI_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RadioButton
-            android:id="@+id/AI_Middle"
+        <RadioGroup
+            android:id="@+id/group_AI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp" />
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink">
 
-        <RadioButton
-            android:id="@+id/AI_High"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp" />
+            <RadioButton
+                android:id="@+id/AI_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/AI_Middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp" />
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="40dp"
-        android:text="다음"
-        android:fontFamily="@font/bmjua"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <RadioButton
+                android:id="@+id/AI_High"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp" />
 
-    <Button
-        android:id="@+id/before_button"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="64dp"
-        android:text="이전"
-        android:fontFamily="@font/bmjua"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/next_button" />
+        </RadioGroup>
 
-    <TextView
-        android:id="@+id/Text_AI_low"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ligth_gary_rectangle_radius"
-        android:gravity="center_vertical"
-        android:textAlignment="center"
-        android:text="@string/activityIndex_low"
-        android:fontFamily="@font/bmjua"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="28dp"
+            android:fontFamily="@font/bmjua"
+            android:text="다음"
+            app:layout_constraintBottom_toBottomOf="@+id/before_button"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/Text_AI_middle"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="60dp"
-        android:background="@drawable/ligth_gary_rectangle_radius"
-        android:gravity="center"
-        android:text="@string/activityIndex_middle"
-        android:fontFamily="@font/bmjua"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Text_AI_low" />
+        <Button
+            android:id="@+id/before_button"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/bmjua"
+            android:text="이전"
+            app:layout_constraintEnd_toStartOf="@+id/next_button"
+            app:layout_constraintTop_toBottomOf="@+id/Text_AI_high" />
 
-    <TextView
-        android:id="@+id/Text_AI_high"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
+        <TextView
+            android:id="@+id/Text_AI_low"
+            android:layout_width="240dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
+            android:fontFamily="@font/bmjua"
+            android:gravity="center_vertical"
+            android:text="@string/activityIndex_low"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
 
-        android:background="@drawable/ligth_gary_rectangle_radius"
-        android:gravity="center"
-        android:text="@string/activityIndex_high"
-        android:fontFamily="@font/bmjua"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Text_AI_middle" />
+        <TextView
+            android:id="@+id/Text_AI_middle"
+            android:layout_width="240dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
+            android:gravity="center"
+            android:text="@string/activityIndex_middle"
+            android:fontFamily="@font/bmjua"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Text_AI_low" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/Text_AI_high"
+            android:layout_width="240dp"
+            android:layout_height="70dp"
+
+            android:layout_marginTop="60dp"
+            android:background="@drawable/ligth_gary_rectangle_radius"
+            android:fontFamily="@font/bmjua"
+            android:gravity="center"
+            android:text="@string/activityIndex_high"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="@+id/Text_AI_middle"
+            app:layout_constraintTop_toBottomOf="@+id/Text_AI_middle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
