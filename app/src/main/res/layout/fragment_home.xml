@@ -123,6 +123,14 @@
             </RelativeLayout>
 
 
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/group_rice"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/bob" />
+
             <RadioGroup
                 android:id="@+id/group_rice"
                 android:layout_width="wrap_content"
