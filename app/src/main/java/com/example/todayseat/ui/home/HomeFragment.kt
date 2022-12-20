@@ -42,8 +42,18 @@ class HomeFragment : Fragment() {
     var carboS = 0f       // 탄수화물점수 : {|총칼로리*0.6/4g - 데이터베이스 g|  - buffer 25g }* 4kcal /(4+9kcal) * 0.12
     var fatS = 0f         // 지방점수 : 데이터베이스의 합 - 50g *9kcal /(4+9kcal) * 0.38
     var proteinS = 0f     // 단백질점수 : (영양성분표 기준 권장g 이상 - 데이터베이스의 합g) * 4kcal /(4+9kcal) * 0.25
+
+    // 여기가 100점으로 점수화한 데이터 입니다!!! 높으면 높을 수록 좋은겁니다!!!
+    var fatS100 = 0f
+    var proteinS100 = 0f
+    var carboS100 =0f
+    var kcalS100 =0f
     // 위 데이터는 임의로 불러온 점수입니다. xml 확인용입니다.
 
+    //chart를 위한 초기화
+    var color1 : Int = 0
+    var color2 : Int = 0
+    var color3 : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,31 +73,39 @@ class HomeFragment : Fragment() {
         //영양분 점수 계산식
         // #####################여기를 바꾸시면 적용됩니다
         var nST = 0f //영양분 점수
-        var totalKcal = 1773.04f // 총섭취칼로리
+        var totalKcal = 1625.77f // 총섭취칼로리
         // #####################여기를 바꾸시면 적용됩니다
 
         //고객 정보
         var height = 175f
         var activation = 30f
 
-        var totalCarbo = 260.37f // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
-        var totalFat = 51.22f // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
-        var totalProtein = 67.76f   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+        //DB 에서 합한 합
+        var totalCarbo = 202.78f // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+        var totalFat = 62.66f // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+        var totalProtein = 62.69f   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
 
         var need_protein = 50f // 권장 단백질
         var need_calorie = 0f // 권장 칼로리 : ( 자신의 키 -100 * 0.9 * 활동지수 )
 
-        //건강 지수 계산
 
-//        need_calorie =
-//            ((height - 100) *0.9 * activation).toFloat() // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
-//        kcalS = (100*0.25 - ((abs((totalKcal) - need_calorie) - 100)*4/(4+9) * 0.25)).toFloat()
-//        carboS = (100*0.12 - ((abs(totalKcal*0.6/4- totalCarbo) - 25)*4/(4+9)*0.12)).toFloat()
-//        fatS = (100*0.38 - ((totalFat - 50 ) *9 *(4+9) * 0.38)).toFloat()
-//        proteinS = (100*0.25 - (( need_protein - totalProtein ) * 4 / (4+9)*0.25)).toFloat()
+        //건강 지수 계산
+        need_calorie =
+            ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
+        kcalS = (100f*0.25f - ((kotlin.math.abs((totalKcal) - need_calorie) - 100f)*4f/(4f+9f) * 0.25f))
+        carboS = (100f*0.12f - ((kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo) - 25f)*4f/(4f+9f)*0.12f))
+        fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
+        proteinS = (100f*0.25f - (( need_protein - totalProtein ) * 4f / (4f+9f)*0.25f))
 
         nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
 
+        //그래프를 위한 백점 환산
+        fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
+        if (fatS100>=100) fatS100=100f
+        proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
+        if (proteinS100>=100) proteinS100=100f
+        carboS100 = (carboS.toDouble()*100.0/25.0).toFloat()
+        if (carboS>=100) carboS=100f
 
         //점수 반영
         binding.nScore.setText(nST.toInt().toString())
@@ -311,37 +329,41 @@ class HomeFragment : Fragment() {
          */
 
         // 여기를 100점 만점으로 기준 잡아야할듯 탄단지가 서로 단위가 너무 다름
-        valueList.add(BarEntry(1f, fatS)) // 가장 아래에 들어감 지방
-        valueList.add(BarEntry(2f, proteinS)) // 단백질
-        valueList.add(BarEntry(3f, carboS)) // 탄수화물
+        valueList.add(BarEntry(1f, fatS100)) // 가장 아래에 들어감 지방
+        valueList.add(BarEntry(2f, proteinS100)) // 단백질
+        valueList.add(BarEntry(3f, carboS100)) // 탄수화물
 
         val barDataSet = BarDataSet(valueList, title)
         // 바 색상 설정 (ColorTemplate.LIBERTY_COLORS)
         // 33(빨간색)이수현 66(주황색) 100(초록색)
-        var Color1 by Delegates.notNull<Int>()
-        var Color2 by Delegates.notNull<Int>()
-        var Color3 by Delegates.notNull<Int>()
 
-        when(carboS.toInt()){
-            in 0..33 ->  Color1 = Color.rgb(223,88,66)
-            in 34..66 -> Color1 = Color.rgb(253,208,89)
-            in 67..100 ->  Color1 = Color.rgb(191,225,192)
+        //var color1 by Delegates.notNull<Int>()
+        //var color2 by Delegates.notNull<Int>()
+        //var color3 by Delegates.notNull<Int>()
+
+        when(carboS100.toInt()){
+            in 0..33 ->
+                color1 = Color.rgb(223,88,66)
+            in 34..66 ->
+                color1 = Color.rgb(253,208,89)
+            in 67..100 ->
+                color1 = Color.rgb(191,225,192)
         }
 
-        when(proteinS.toInt()){
-            in 0..33 ->  Color2 = Color.rgb(223,88,66)
-            in 34..66 -> Color2 = Color.rgb(253,208,89)
-            in 67..100 ->  Color2 = Color.rgb(191,225,192)
+        when(proteinS100.toInt()){
+            in 0..33 ->  color2 = Color.rgb(223,88,66)
+            in 34..66 -> color2 = Color.rgb(253,208,89)
+            in 67..100 ->  color2 = Color.rgb(191,225,192)
         }
 
-        when(fatS.toInt()){
-            in 0..33 ->  Color3 = Color.rgb(223,88,66)
-            in 34..66 -> Color3 = Color.rgb(253,208,89)
-            in 67..100 ->  Color3 = Color.rgb(191,225,192)
+        when(fatS100.toInt()){
+            in 0..33 ->  color3 = Color.rgb(223,88,66)
+            in 34..66 -> color3 = Color.rgb(253,208,89)
+            in 67..100 ->  color3 = Color.rgb(191,225,192)
         }
         //아래에서부터 들어감
         barDataSet.setColors(
-            Color3,Color2,Color1)
+            color3,color2,color1)
         val data = BarData(barDataSet)
         barChart.data = data
         barChart.invalidate()

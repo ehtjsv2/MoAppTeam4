@@ -4,17 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
+        android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/linechart"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:text="영양 점수표"
+            android:textStyle="bold"
+            android:layout_marginTop="30sp"
+            android:layout_marginBottom="20sp"
+            android:textSize="30dp"
+            android:fontFamily="@font/bmjua"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/nSTlinechart"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:paddingBottom="30dp"/>
+
+        <Button
+            android:id="@+id/backBtn_to_myPage"
+            android:text="취소"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
