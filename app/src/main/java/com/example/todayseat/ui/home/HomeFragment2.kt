@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.todayseat.R
 import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.FragmentHome3Binding
@@ -78,46 +79,6 @@ class HomeFragment2 : Fragment() {
             else if(currentHH.toInt()<24 || currentHH.toInt()<6){
                 d_H=currentHH.toInt()
             }
-        }
-        if(count1==0){
-            val dlg=CustomMenuDialog(requireActivity())
-            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-            dlg.setCancelable(false)
-            dlg.show()
-        }
-        else{
-            val ar=date.split(" ")
-            val time=ar[1]
-            val HH=time.split(":")
-            val dlg=CustomMenuDialog(requireActivity())
-            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-            dlg.setCancelable(false)
-
-            if(currentHH2.toInt()<12 && currentHH2>=6){
-                if(m_H!=-1){
-
-                }else{
-                    dlg.show()
-                }
-            }
-            else if(currentHH2<18){
-                if(l_H!=-1){
-
-                }
-                else{
-                    dlg.show()
-                }
-            }
-            else if(currentHH2<24 || currentHH2<6){
-                if(d_H!=-1){
-                    Log.d("TAG11","current= $currentHH2, HH= ${HH[0]}")
-                }
-                else{
-                    Log.d("TAG11","current= $currentHH2, d_H= $d_H")
-                    dlg.show()
-                }
-            }
-            //Log.d("TAG11",time.toString())
         }
         //아침
         var m_kcal:Float=0f
@@ -644,7 +605,7 @@ class HomeFragment2 : Fragment() {
         var goodvalue = 10000
         // 순위별
         if(n1 == 2){
-            for(i in 0..9) {
+            for(i in 0..8) {
                 temp = needf2 - fatlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -655,7 +616,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n2 ==2){
-            for(i in 0..9) {
+            for(i in 0..8) {
                 temp = needc2 - carlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -666,7 +627,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n3 ==2){
-            for(i in 0..9) {
+            for(i in 0..8) {
                 temp = needp2 -prolsit[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -683,7 +644,7 @@ class HomeFragment2 : Fragment() {
 
 
         if(n1 == 1){
-            for(i in 0..8) {
+            for(i in 0..7) {
                 temp = needf2 - fatlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -694,7 +655,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n2 ==1){
-            for(i in 0..8) {
+            for(i in 0..7) {
                 temp = needc2 - carlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -705,7 +666,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n3 ==1){
-            for(i in 0..8) {
+            for(i in 0..7) {
                 temp = needp2 -prolsit[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -717,7 +678,7 @@ class HomeFragment2 : Fragment() {
         }
 
         if(n1 == 0){
-            for(i in 0..7) {
+            for(i in 0..6) {
                 temp = needf2 - fatlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -728,7 +689,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n2 ==0){
-            for(i in 0..7) {
+            for(i in 0..6) {
                 temp = needc2 - carlist[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -739,7 +700,7 @@ class HomeFragment2 : Fragment() {
             selectfood.removeAt(goodindex)
         }
         else if(n3 ==0){
-            for(i in 0..7) {
+            for(i in 0..6) {
                 temp = needp2 -prolsit[i]
                 if(goodvalue>abs(temp)){
                     goodindex = i
@@ -761,6 +722,15 @@ class HomeFragment2 : Fragment() {
             var F_name_pos = c4.getColumnIndex("F_name")
             var fname = c4.getString(F_name_pos)
             Log.d("pjy",fname)
+            val cc=SplashActivity.moappDB.rawQuery("select F_url from photo where F_name='$fname';",null)
+            cc.moveToNext()
+            val menu_url=cc.getString(0)
+            var url_len = menu_url.length - 1
+            var ran = IntRange(1,url_len)
+            var F_url_sub = menu_url.slice(ran)
+            Glide.with(this@HomeFragment2)
+                .load(F_url_sub)
+                .into(binding.menuImage)
             binding.home2MenuName.text = fname
             food_name = fname
         }
@@ -772,6 +742,15 @@ class HomeFragment2 : Fragment() {
             var F_name_pos = c4.getColumnIndex("F_name")
             var fname = c4.getString(F_name_pos)
             Log.d("pjy",fname)
+            val cc=SplashActivity.moappDB.rawQuery("select F_url from photo where F_name='$fname';",null)
+            cc.moveToNext()
+            val menu_url=cc.getString(0)
+            var url_len = menu_url.length - 1
+            var ran = IntRange(1,url_len)
+            var F_url_sub = menu_url.slice(ran)
+            Glide.with(this@HomeFragment2)
+                .load(F_url_sub)
+                .into(binding.menuImage)
             binding.home2MenuName.text = fname
             food_name = fname
         }
@@ -783,6 +762,15 @@ class HomeFragment2 : Fragment() {
             var F_name_pos = c4.getColumnIndex("F_name")
             var fname = c4.getString(F_name_pos)
             Log.d("pjy",fname)
+            val cc=SplashActivity.moappDB.rawQuery("select F_url from photo where F_name='$fname';",null)
+            cc.moveToNext()
+            val menu_url=cc.getString(0)
+            var url_len = menu_url.length - 1
+            var ran = IntRange(1,url_len)
+            var F_url_sub = menu_url.slice(ran)
+            Glide.with(this@HomeFragment2)
+                .load(F_url_sub)
+                .into(binding.menuImage)
             binding.home2MenuName.text = fname
             food_name = fname
         }
@@ -800,13 +788,186 @@ class HomeFragment2 : Fragment() {
             dlg2.setCancelable(false)
             dlg2.show()
         }
+        var score=0
         //좋아요 버튼 눌리면
         binding.likeFood.setOnClickListener{
+            var sql1 = "SELECT category_app FROM food where F_NAME='${food_name}'"
+            //Log.d("test", like_list[i].toString())
+            var c = SplashActivity.moappDB.rawQuery(sql1, null)
+            c.moveToNext()
+            var nameindex = c.getColumnIndex("category_app")
+            var str1 = c.getString(nameindex)
 
+            if (str1.toString().equals('1')) {
+                var sql2 = "SELECT meat FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("meat")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET meat = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('2')) {
+                var sql2 = "SELECT seafood FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("seafood")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET seafood = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('3')) {
+                var sql2 = "SELECT vegetable FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("vegetable")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET vegetable = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('4')) {
+                var sql2 = "SELECT noodle FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("noodle")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET noodle = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('5')) {
+                var sql2 = "SELECT snack_bar FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("snack_bar")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET snack_bar = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('6')) {
+                var sql2 = "SELECT korean FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("korean")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET korean = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('7')) {
+                var sql2 = "SELECT rice FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("rice")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET rice = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('8')) {
+                var sql2 = "SELECT etc FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("etc")
+                score = c2.getInt(foodindex) + 1
+                var sql3 = "UPDATE foodfavor SET etc = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+            Toast.makeText(activity, "좋아요!", Toast.LENGTH_SHORT).show()
         }
         //싫어요 버튼 눌리면
         binding.dislikeFood.setOnClickListener {
+            var sql1 = "SELECT category_app FROM food where F_NAME='${food_name}'"
+            //Log.d("test", like_list[i].toString())
+            var c = SplashActivity.moappDB.rawQuery(sql1, null)
+            c.moveToNext()
+            var nameindex = c.getColumnIndex("category_app")
+            var str1 = c.getString(nameindex)
 
+            if (str1.toString().equals('1')) {
+                var sql2 = "SELECT meat FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("meat")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET meat = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('2')) {
+                var sql2 = "SELECT seafood FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("seafood")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET seafood = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('3')) {
+                var sql2 = "SELECT vegetable FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("vegetable")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET vegetable = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('4')) {
+                var sql2 = "SELECT noodle FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("noodle")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET noodle = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('5')) {
+                var sql2 = "SELECT snack_bar FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("snack_bar")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET snack_bar = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('6')) {
+                var sql2 = "SELECT korean FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("korean")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET korean = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('7')) {
+                var sql2 = "SELECT rice FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("rice")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET rice = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+
+            if (str1.toString().equals('8')) {
+                var sql2 = "SELECT etc FROM foodfavor where Favor_ID=1"
+                var c2 = SplashActivity.moappDB.rawQuery(sql2, null)
+                c2.moveToNext()
+                var foodindex = c2.getColumnIndex("etc")
+                score = c2.getInt(foodindex) - 1
+                var sql3 = "UPDATE foodfavor SET etc = ${score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql3)
+            }
+            Toast.makeText(activity, "싫어요!", Toast.LENGTH_SHORT).show()
         }
         return binding.root
     }

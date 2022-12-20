@@ -165,15 +165,17 @@ class LoginActivity5 : AppCompatActivity() {
 
         // 다음 버튼 클릭 이벤트 추후 캐시, 값 여부 판단, 데이터 처리 추가하기
         binding.commitButton.setOnClickListener{
+            var sql2 =
+                "UPDATE customer SET check_info = 1 where C_ID = 1"
+            SplashActivity.moappDB.execSQL(sql2)
             for(i in 0..dislike_list.size-1) {
                 var sql =
                     "INSERT INTO excludefood (C_ID, F_ID\n" +
                             " ) VALUES (1,' ${dislike_list[i]}')"
                 SplashActivity.moappDB.execSQL(sql)
 
-                var sql2 =
-                    "UPDATE customer SET check_info = 1 where C_ID = 1"
-                SplashActivity.moappDB.execSQL(sql2)
+
+
             }
             val sql3 = "SELECT age, height, activation, gender FROM CUSTOMER where C_ID=1"
             val c = moappDB.rawQuery(sql3,null)
@@ -248,8 +250,8 @@ class LoginActivity5 : AppCompatActivity() {
             }
 
 
-//            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
-//            moappDB.execSQL(sql4)
+            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
+            moappDB.execSQL(sql4)
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

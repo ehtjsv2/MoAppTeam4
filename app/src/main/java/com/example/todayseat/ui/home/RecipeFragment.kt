@@ -48,10 +48,18 @@ class RecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding= FragmentRecipeBinding.inflate(inflater, container, false)
-
-        Glide.with(this)
-            .load("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg")
+        val cc=SplashActivity.moappDB.rawQuery("select F_url from photo where F_name='${HomeFragment2.food_name}';",null)
+        cc.moveToNext()
+        val menu_url=cc.getString(0)
+        var url_len = menu_url.length - 1
+        var ran = IntRange(1,url_len)
+        var F_url_sub = menu_url.slice(ran)
+        Glide.with(this@RecipeFragment)
+            .load(F_url_sub)
             .into(binding.recipeMenuImg)
+//        Glide.with(this)
+//            .load("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg")
+//            .into(binding.recipeMenuImg)
         val c2=SplashActivity.moappDB.rawQuery("select F_ID,kcal,carbo,protein,fat from food where F_name='${HomeFragment2.food_name}';",null)
         c2.moveToNext()
         var menu_index=c2.getString(0)
@@ -97,17 +105,27 @@ class RecipeFragment : Fragment() {
         Log.d("TAG11","3:${dbIngred} \n 4:$dbSeaning \n 5:${c1.getString(5)}")
         val arr1 = dbIngred.split("##")
         val arr2 = dbSeaning.split("##")
+        val arr3 = dbReceipe.split("##")
         val ingred = mutableListOf<String>()
+        val step = mutableListOf<String>()
         for(i in arr1){
             ingred.add(i)
         }
         for(i in arr2){
             ingred.add(i)
         }
+        for(i in arr3){
+            step.add(i)
+        }
         val ingredListAdapter=IngredListAdapter(ingred)
+        val setpListAdapter=StepListAdapter(step)
         binding.recipeIngredRecyclerView.apply {
             layoutManager= LinearLayoutManager(context)
             adapter=ingredListAdapter
+        }
+        binding.recipeRecipeRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter=setpListAdapter
         }
         binding.recipeDetailBtn01.setOnClickListener{
             Log.d("TAG11","btn01 Click")
