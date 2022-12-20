@@ -92,6 +92,15 @@ class SplashActivity : AppCompatActivity() {
             val check_value:Int = c.getColumnIndex("check_info")
             val str=c.getInt(check_value)
             Log.d("pjy",str.toString())
+
+            val sql2 = "SELECT RN_kcal FROM RECOMMENDNUTRIENT where RN_ID=1"
+            val c2 = moappDB.rawQuery(sql2,null)
+            c2.moveToNext()
+            var check_value2:Int = c2.getColumnIndex("RN_kcal")
+            var str2=c2.getFloat(check_value2)
+            Log.d("pjy",str2.toString())
+
+
             //val intent = Intent(this, MainActivity::class.java
             if(str == 1){
                 val intent = Intent(this, MainActivity::class.java)

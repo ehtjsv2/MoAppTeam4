@@ -52,7 +52,7 @@ class RecipeFragment : Fragment() {
         Glide.with(this)
             .load("https://recipe1.ezmember.co.kr/cache/recipe/2017/02/21/8147779d6a47ae304957c86f1afe58321.jpg")
             .into(binding.recipeMenuImg)
-        val c2=SplashActivity.moappDB.rawQuery("select F_ID,kcal,carbo,protein,fat from food where F_name=' ${HomeFragment2.food_name}';",null)
+        val c2=SplashActivity.moappDB.rawQuery("select F_ID,kcal,carbo,protein,fat from food where F_name='${HomeFragment2.food_name}';",null)
         c2.moveToNext()
         var menu_index=c2.getString(0)
         val menu_kcal=c2.getFloat(1)

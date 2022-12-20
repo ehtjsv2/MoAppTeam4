@@ -180,6 +180,81 @@ class LoginActivity5 : AppCompatActivity() {
                     "UPDATE customer SET check_info = 1 where C_ID = 1"
                 SplashActivity.moappDB.execSQL(sql2)
             }
+            val sql3 = "SELECT age, height, activation, gender FROM CUSTOMER where C_ID=1"
+            val c = moappDB.rawQuery(sql3,null)
+            c.moveToNext()
+            var check_value:Int = c.getColumnIndex("height")
+            var str=c.getInt(check_value)
+
+            var kcal = (str - 100) *0.9
+
+            check_value = c.getColumnIndex("activation")
+            str=c.getInt(check_value)
+            if( str == 1){
+                kcal=kcal*20
+            }
+            else if(str == 2){
+                kcal=kcal*30
+            }
+            else {
+                kcal=kcal*40
+            }
+
+            // 20 30 40
+            var carbo = kcal*0.6
+            var fat = kcal*0.2
+            var protain = 0
+            check_value = c.getColumnIndex("gender")
+            var str2 =c.getString(check_value)
+            if(str2.equals("여자")) {
+                check_value = c.getColumnIndex("age")
+                var str3 =c.getInt(check_value)
+                if(str3<=8){
+                    protain = 25
+                }
+                else if(str3 <= 11){
+                    protain = 40
+                }
+                else if(str3 <= 18){
+                    protain = 50
+                }
+                else if(str3 <= 29){
+                    protain = 55
+                }
+                else if(str3 <= 64){
+                    protain = 50
+                }
+                else{
+                    protain = 45
+                }
+
+            }
+            else{
+                check_value = c.getColumnIndex("age")
+                var str3 =c.getInt(check_value)
+                if(str3<=8){
+                    protain = 30
+                }
+                else if(str3 <= 11){
+                    protain = 40
+                }
+                else if(str3 <= 14){
+                    protain = 55
+                }
+                else if(str3 <= 29){
+                    protain = 65
+                }
+                else if(str3 <= 64){
+                    protain = 60
+                }
+                else{
+                    protain = 50
+                }
+            }
+
+            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
+            moappDB.execSQL(sql4)
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

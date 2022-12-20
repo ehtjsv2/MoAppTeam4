@@ -144,42 +144,50 @@ class HomeFragment : Fragment() {
         val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
         val c = SplashActivity.moappDB.rawQuery("select Date_eat from FOODRECENT where Date_eat like '${compareDate}%';",null)
         lateinit var date:String
+        var count:Int=0
         while(c.moveToNext()){
+            count++
             date=c.getString(0)
         }
-        Log.d("TAG11",date.toString())
-        val ar=date.split(" ")
-        val time=ar[1]
-        val HH=ar[1].split(":")
-        val dlg=CustomMenuDialog(requireActivity())
-        dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dlg.setCancelable(false)
-
-        if(currentHH.toInt()<12 && currentHH>=6){
-            if(HH[0].toInt()<12 && HH[0].toInt()>=6){
-
-            }else{
-                dlg.show()
-            }
+        if(count==0){
+            val dlg=CustomMenuDialog(requireActivity())
+            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dlg.setCancelable(false)
+            dlg.show()
         }
-        else if(currentHH<18){
-            if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+        else{
+            val ar=date.split(" ")
+            val time=ar[1]
+            val HH=time.split(":")
+            val dlg=CustomMenuDialog(requireActivity())
+            dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            dlg.setCancelable(false)
 
+            if(currentHH.toInt()<12 && currentHH>=6){
+                if(HH[0].toInt()<12 && HH[0].toInt()>=6){
+
+                }else{
+                    dlg.show()
+                }
             }
-            else{
-                dlg.show()
+            else if(currentHH<18){
+                if(HH[0].toInt()<18 && HH[0].toInt()>=12){
+
+                }
+                else{
+                    dlg.show()
+                }
             }
+            else if(currentHH<24 || currentHH<6){
+                if((HH[0].toInt()<24&&HH[0].toInt()>=18)||HH[0].toInt()<6){
+
+                }
+                else{
+                    dlg.show()
+                }
+            }
+            //Log.d("TAG11",time.toString())
         }
-        else if(currentHH<24 || currentHH<6){
-            if((HH[0].toInt()<24&&HH[0].toInt()>=18)||HH[0].toInt()<6){
-
-            }
-            else{
-                dlg.show()
-            }
-        }
-        Log.d("TAG11",time.toString())
-
 
 //        if (count==0){
 //

@@ -39,7 +39,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginStart="40dp"
             android:textColor="@color/main5"
-            android:text="최근 먹은 음식" />
+            android:text="좋아하는 음식" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Eat_recycler"

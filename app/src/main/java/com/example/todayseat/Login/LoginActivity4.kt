@@ -265,7 +265,7 @@ class LoginActivity4 : AppCompatActivity(){
                     SplashActivity.moappDB.execSQL(sql3)
                 }
 
-                if (str1.toString().equals('7')) {
+                if (str1.toString().equals('8')) {
                     var sql2 = "SELECT etc FROM foodfavor where Favor_ID=1"
                     var c2 = moappDB.rawQuery(sql2, null)
                     c2.moveToNext()
