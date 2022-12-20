@@ -112,7 +112,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
             else if(str == 0){
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -251,8 +251,6 @@ class SplashActivity : AppCompatActivity() {
             db?.execSQL(sql)
             val sql2="insert into foodfavor VALUES ('1',null,null,null,null,null,null,null,null);"
             db?.execSQL(sql2)
-            val sql3= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
-            db?.execSQL(sql3)
 
 
 //            editor.putInt("isInstall", 1);
@@ -331,10 +329,18 @@ class SplashActivity : AppCompatActivity() {
                     " ,R_step) VALUES (?,?,?,?,?,?)"
             val arr = arrayOfNulls<String>(6)
             var a = content_str.split(",")
+            var len_arr = a.size
+            var step :String = ""
+            //앞의 4개만 넣고 나머지 부분을 다 다시 이어붙인다
 
-            for (i in 0..5){
+            for (i in 0..4){
                 arr.set(i,a[i])
             }
+            for(i in 5..len_arr-1){
+                //step.plus(a[i])
+                step=step+a[i]
+            }
+            arr.set(5,step)
 
 //            Log.i("DB11", content_str)
             db?.execSQL(sql, arr)

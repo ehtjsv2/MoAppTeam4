@@ -95,13 +95,13 @@ class MyPageFragment : Fragment(){
             ar=date[i].split(" ") // [i]의 시간이 담김
             time=ar[1]
             HH=time.split(":")
-            if(HH[0].toInt()<12 && HH[0].toInt()>=6){ // 아침
+            if(HH[0].toInt()<12){ // 아침
                 m_index=ID[i].toInt()
             }
             else if(HH[0].toInt()<18 && HH[0].toInt()>=12){ // 점심
                 l_index=ID[i].toInt()
             }
-            else if(currentHH<24 || currentHH<6){ // 저녁
+            else if(currentHH<24){ // 저녁
                 e_index=ID[i].toInt()
             }
 

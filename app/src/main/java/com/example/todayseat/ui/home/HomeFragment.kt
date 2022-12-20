@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
 
-            if(currentHH.toInt()<12 && currentHH>=6){
+            if(currentHH.toInt()<12){
                 if(m_H!=-1){
 
                 }else{
@@ -150,7 +150,7 @@ class HomeFragment : Fragment() {
                     dlg.show()
                 }
             }
-            else if(currentHH<24 || currentHH<6){
+            else if(currentHH<24){
                 if(d_H!=-1){
                     Log.d("TAG11","current= $currentHH, HH= ${HH[0]}")
                 }
@@ -243,16 +243,25 @@ class HomeFragment : Fragment() {
         }
         kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
         if(kcalS<0)kcalS=0f
+
         var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
         if(carbos_minus<0){
             carbos_minus=0f
         }
         carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
-        if(carboS<0)carboS=0f
-        fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
-        if(fatS<0)fatS=0f
+        if(totalCarbo==0f) carboS=0f
+        if(carboS<=0)carboS=0f
+
+        var fat_minus = (totalFat-50f)
+        fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
+        if(fat_minus<=0)fatS=0f
+        if(fatS<=0)fatS=0f
+
         proteinS = 25f*(total_pro/need_protein)
+        if(totalProtein==0f)proteinS=0f
         if(proteinS>=25)proteinS=25f
+
+
         Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
         nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
         //if(nST<0)nST=0f
@@ -341,6 +350,293 @@ class HomeFragment : Fragment() {
 
                 }
             }
+            if(rice==0){
+                totalKcal=total_kcal
+                totalCarbo = total_carbo // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+                totalFat = total_fat // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+                totalProtein = total_pro   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+                need_calorie =
+                    ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
+                need_carbo=need_calorie*0.6f
+                var kcals_minus=((kotlin.math.abs((totalKcal) - need_calorie)-300f))
+                if(kcals_minus<0){
+                    kcals_minus=0f
+                }
+                kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
+                if(kcalS<0)kcalS=0f
+                var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+                if(carbos_minus<0){
+                    carbos_minus=0f
+                }
+                carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+                if(carboS<0)carboS=0f
+                fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
+                if(fatS<0)fatS=0f
+                proteinS = 25f*(total_pro/need_protein)
+                if(proteinS>=25)proteinS=25f
+                Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
+                nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
+                //if(nST<0)nST=0f
+                //그래프를 위한 백점 환산
+                if(total_fat==0f){
+                    fatS100=0f
+                }
+                else{
+                    fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
+                    if (fatS100>=100) fatS100=100f
+                }
+
+                //proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
+                if(need_protein-totalProtein<0){
+                    proteinS100=100f
+                }
+                else{
+                    proteinS100 = 100-((need_protein-totalProtein)/need_protein*100).toFloat()
+                }
+
+                //if (proteinS100>=100) proteinS100=100f
+                if(total_carbo==0f){
+                    carboS100=0f
+                }
+                carboS100 = (carboS.toDouble()*100.0/25.0).toFloat()
+                if (carboS>=100) carboS=100f
+
+                //점수 반영
+                binding.nScore.setText(nST.toInt().toString())
+                binding.kcalChange.setText(totalKcal.toInt().toString())
+                when(nST.toInt()){
+                    in 0..20 -> {
+                        binding.imgBibim0.visibility = View.VISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 21..40 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.VISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 41..60 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.VISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 61..80 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.VISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 81..100 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.VISIBLE
+                    }
+                }
+                initBarChart(binding.barChart)
+                setData(binding.barChart)
+            }
+            if(rice==1){
+                totalKcal=total_kcal+230
+               totalCarbo = total_carbo+36 // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+               totalFat = total_fat // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+               totalProtein = total_pro+7.65f   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+                need_calorie =
+                    ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
+                need_carbo=need_calorie*0.6f
+                var kcals_minus=((kotlin.math.abs((totalKcal) - need_calorie)-300f))
+                if(kcals_minus<0){
+                    kcals_minus=0f
+                }
+                kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
+                if(kcalS<0)kcalS=0f
+                var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+                if(carbos_minus<0){
+                    carbos_minus=0f
+                }
+                carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+                if(carboS<0)carboS=0f
+                fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
+                if(fatS<0)fatS=0f
+                proteinS = 25f*(total_pro/need_protein)
+                if(proteinS>=25)proteinS=25f
+                Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
+                nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
+                //if(nST<0)nST=0f
+                //그래프를 위한 백점 환산
+                if(total_fat==0f){
+                    fatS100=0f
+                }
+                else{
+                    fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
+                    if (fatS100>=100) fatS100=100f
+                }
+
+                //proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
+                if(need_protein-totalProtein<0){
+                    proteinS100=100f
+                }
+                else{
+                    proteinS100 = 100-((need_protein-totalProtein)/need_protein*100).toFloat()
+                }
+
+                //if (proteinS100>=100) proteinS100=100f
+                if(total_carbo==0f){
+                    carboS100=0f
+                }
+                carboS100 = (carboS.toDouble()*100.0/25.0).toFloat()
+                if (carboS>=100) carboS=100f
+
+                //점수 반영
+                binding.nScore.setText(nST.toInt().toString())
+                binding.kcalChange.setText(totalKcal.toInt().toString())
+                when(nST.toInt()){
+                    in 0..20 -> {
+                        binding.imgBibim0.visibility = View.VISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 21..40 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.VISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 41..60 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.VISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 61..80 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.VISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 81..100 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.VISIBLE
+                    }
+                }
+                initBarChart(binding.barChart)
+                setData(binding.barChart)
+            }
+            else if(rice==2){
+                totalKcal=total_kcal+460
+                totalCarbo = total_carbo+72 // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가
+                totalFat = total_fat // 총섭취 지방 (g) 데이터 베이스상 단위 때문에 추가
+                totalProtein = total_pro+15   // 총섭취 단백질 (g) 데이터 베이스상 단위 때문에 추가
+                need_calorie =
+                    ((height - 100f) *0.9f * activation) // 권장 칼로리 (자신의 키 - 100) *0.9 * 활동지수
+                need_carbo=need_calorie*0.6f
+                var kcals_minus=((kotlin.math.abs((totalKcal) - need_calorie)-300f))
+                if(kcals_minus<0){
+                    kcals_minus=0f
+                }
+                kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
+                if(kcalS<0)kcalS=0f
+                var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+                if(carbos_minus<0){
+                    carbos_minus=0f
+                }
+                carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+                if(totalCarbo==0f) carboS=0f
+                if(carboS<=0)carboS=0f
+
+                var fat_minus = (totalFat-50f)
+                fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
+                if(fat_minus<=0)fatS=0f
+                if(fatS<=0)fatS=0f
+                proteinS = 25f*(total_pro/need_protein)
+                if(proteinS>=25)proteinS=25f
+                Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
+                nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
+                //if(nST<0)nST=0f
+                //그래프를 위한 백점 환산
+                if(total_fat==0f){
+                    fatS100=0f
+                }
+                else{
+                    fatS100 = (fatS.toDouble() * 100.0 / 38.0).toFloat()
+                    if (fatS100>=100) fatS100=100f
+                }
+
+                //proteinS100 = (proteinS.toDouble()*100.0/25.0).toFloat()
+                if(need_protein-totalProtein<0){
+                    proteinS100=100f
+                }
+                else{
+                    proteinS100 = 100-((need_protein-totalProtein)/need_protein*100).toFloat()
+                }
+
+                //if (proteinS100>=100) proteinS100=100f
+                if(total_carbo==0f){
+                    carboS100=0f
+                }
+                carboS100 = (carboS.toDouble()*100.0/25.0).toFloat()
+                if (carboS>=100) carboS=100f
+
+                //점수 반영
+                binding.nScore.setText(nST.toInt().toString())
+                binding.kcalChange.setText(totalKcal.toInt().toString())
+                when(nST.toInt()){
+                    in 0..20 -> {
+                        binding.imgBibim0.visibility = View.VISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 21..40 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.VISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 41..60 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.VISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 61..80 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.VISIBLE
+                        binding.imgBibim4.visibility = View.INVISIBLE
+                    }
+                    in 81..100 -> {
+                        binding.imgBibim0.visibility = View.INVISIBLE
+                        binding.imgBibim1.visibility = View.INVISIBLE
+                        binding.imgBibim2.visibility = View.INVISIBLE
+                        binding.imgBibim3.visibility = View.INVISIBLE
+                        binding.imgBibim4.visibility = View.VISIBLE
+                    }
+                }
+                initBarChart(binding.barChart)
+                setData(binding.barChart)
+            }
+
         }
 
 

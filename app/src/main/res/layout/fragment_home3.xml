@@ -54,6 +54,8 @@
             android:src="@drawable/icon_alert1"
             app:layout_constraintEnd_toEndOf="@+id/nScoreNext"
             app:layout_constraintTop_toTopOf="@+id/nScoreNext" />
+
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/nScoreNext"
             android:layout_width="100dp"
@@ -70,7 +72,6 @@
             android:textSize="50dp"
             app:layout_constraintEnd_toEndOf="@+id/menu_image"
             app:layout_constraintTop_toTopOf="@+id/menu_image"><!-- 영양분 점수 --></androidx.appcompat.widget.AppCompatButton>
-
 
         <ImageButton
             android:id="@+id/likeFood"
