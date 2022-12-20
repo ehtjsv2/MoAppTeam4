@@ -159,7 +159,7 @@
                     android:fontFamily="@font/bmjua"
                     android:textColor="@color/main6"
                     android:textStyle="bold"
-                    android:text="1공가"
+                    android:text="1공기"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
