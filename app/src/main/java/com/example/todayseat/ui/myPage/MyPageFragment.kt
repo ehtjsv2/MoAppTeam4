@@ -109,6 +109,8 @@ class MyPageFragment : Fragment(){
             else if(currentHH<24 || currentHH<6){ // 저녁
                 e_index=ID[i].toInt()
             }
+
+
             Log.d("TAG11","$m_index, $l_index, $e_index")
             if(m_index!=-1){
                 val c_m = SplashActivity.moappDB.rawQuery("select food_eat_ID from FOODRECENT where List_ID=$m_index;",null)

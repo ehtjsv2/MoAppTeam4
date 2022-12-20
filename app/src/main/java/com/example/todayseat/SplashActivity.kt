@@ -245,8 +245,8 @@ class SplashActivity : AppCompatActivity() {
             db?.execSQL(sql)
             val sql2="insert into foodfavor VALUES ('1',null,null,null,null,null,null,null,null);"
             db?.execSQL(sql2)
-            sql= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
-            db?.execSQL(sql)
+            val sql3= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
+            db?.execSQL(sql3)
 
 
 //            editor.putInt("isInstall", 1);
