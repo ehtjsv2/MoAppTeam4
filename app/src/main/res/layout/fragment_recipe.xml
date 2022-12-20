@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="김치볶음밥"
+                    android:fontFamily="@font/bmjua"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/recipe_menu_img"
@@ -62,6 +63,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:text="540 kcal"
+                    android:fontFamily="@font/bmjua"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/recipe_menu_name" />
@@ -81,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="300 g"
+                    android:fontFamily="@font/bmjua"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -100,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="10 g"
+                    android:fontFamily="@font/bmjua"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -121,7 +125,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4"
-                    android:text="15 g"/>
+                    android:text="15 g"
+                    android:fontFamily="@font/bmjua"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -137,6 +142,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="재료"
+                    android:fontFamily="@font/bmjua"
                     android:textSize="25sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:text="자세히보기▼"
+                    android:fontFamily="@font/bmjua"
                     app:layout_constraintBottom_toBottomOf="@+id/textView8"
                     app:layout_constraintEnd_toEndOf="parent" />
 
@@ -181,6 +188,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="레시피"
+                    android:fontFamily="@font/bmjua"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,6 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:text="자세히보기▼"
+                    android:fontFamily="@font/bmjua"
                     app:layout_constraintBottom_toBottomOf="@+id/textView"
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -209,6 +218,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="이전"
+            android:fontFamily="@font/bmjua"
             android:textSize="20sp"
             android:background="@drawable/gray_btn"
             />
@@ -219,6 +229,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:text="요리완료!"
+            android:fontFamily="@font/bmjua"
             android:textSize="20sp"
             android:background="@drawable/main3_btn"
 />

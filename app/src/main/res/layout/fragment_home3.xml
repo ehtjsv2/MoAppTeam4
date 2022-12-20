@@ -19,8 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="100dp"
             android:text="치킨"
+            android:fontFamily="@font/bmjua"
             android:shadowColor="#33000000"
             android:shadowDx="7.0"
             android:shadowDy="7.0"
@@ -41,7 +42,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home2_menu_name" />
+            app:layout_constraintTop_toBottomOf="@+id/home2_menu_name"
+            app:layout_constraintVertical_bias="0.288" />
 
         <ImageView
             android:id="@+id/imageView6"

@@ -36,6 +36,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="60dp"
             android:textColor="@color/main5"
+            android:fontFamily="@font/bmjua"
             android:text="제외 음식" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="200dp"
                 android:text="이전"
+                android:fontFamily="@font/bmjua"
                 />
 
             <Button
@@ -67,6 +69,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:text="제출"
+                android:fontFamily="@font/bmjua"
                 />
         </LinearLayout>
 

@@ -6,39 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".Login.LoginActivity2">
 
+    <ImageView
+        android:id="@+id/ohsiki_pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ohsiki_pink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <RadioGroup
         android:id="@+id/group_AI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="60dp"
         android:layout_marginStart="60dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink">
 
         <RadioButton
             android:id="@+id/AI_row"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            />
-
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/AI_Middle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            />
-
+            android:layout_marginTop="80dp" />
 
         <RadioButton
             android:id="@+id/AI_High"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            />
+            android:layout_marginTop="80dp" />
 
     </RadioGroup>
 
@@ -46,10 +48,10 @@
         android:id="@+id/next_button"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="64dp"
-
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="40dp"
         android:text="다음"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -60,6 +62,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="64dp"
         android:text="이전"
+        android:fontFamily="@font/bmjua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/next_button" />
 
@@ -67,40 +70,42 @@
         android:id="@+id/Text_AI_low"
         android:layout_width="240dp"
         android:layout_height="70dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/ligth_gary_rectangle_radius"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
         android:text="@string/activityIndex_low"
+        android:fontFamily="@font/bmjua"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ohsiki_pink" />
 
     <TextView
         android:id="@+id/Text_AI_middle"
         android:layout_width="240dp"
         android:layout_height="70dp"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/ligth_gary_rectangle_radius"
         android:gravity="center"
         android:text="@string/activityIndex_middle"
-
+        android:fontFamily="@font/bmjua"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Text_AI_low" />
 
     <TextView
         android:id="@+id/Text_AI_high"
-        android:layout_width="240dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="60dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="40dp"
 
         android:background="@drawable/ligth_gary_rectangle_radius"
         android:gravity="center"
         android:text="@string/activityIndex_high"
-
+        android:fontFamily="@font/bmjua"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Text_AI_middle" />
