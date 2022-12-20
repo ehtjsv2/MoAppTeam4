@@ -243,16 +243,25 @@ class HomeFragment : Fragment() {
         }
         kcalS = (100f*0.25f - (kcals_minus)/(4f+9f) * 0.25f)
         if(kcalS<0)kcalS=0f
+
         var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
         if(carbos_minus<0){
             carbos_minus=0f
         }
         carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
-        if(carboS<0)carboS=0f
-        fatS = (100f*0.38f - ((totalFat - 50f ) *9f /(4f+9f) * 0.38f))
-        if(fatS<0)fatS=0f
+        if(totalCarbo==0f) carboS=0f
+        if(carboS<=0)carboS=0f
+
+        var fat_minus = (totalFat-50f)
+        fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
+        if(fat_minus<=0)fatS=0f
+        if(fatS<=0)fatS=0f
+
         proteinS = 25f*(total_pro/need_protein)
+        if(totalProtein==0f)proteinS=0f
         if(proteinS>=25)proteinS=25f
+
+
         Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
         nST = kcalS+carboS+fatS+proteinS // 최종 영양분 점수 nutrientScoreTotal
         //if(nST<0)nST=0f
