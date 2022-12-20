@@ -32,8 +32,8 @@ class PreferenceFragment : Fragment() {
         // menuClass를 1~8까지로 분류
 
         Log.d("TAG11","before binding adapter")
-//        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID AND f.preference_check = 0  ORDER BY f.F_ID LIMIT 50;"
-        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID ORDER BY f.F_ID LIMIT 50;"
+        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID AND f.preference_check = 0  ORDER BY f.F_ID LIMIT 50;"
+//        val sql = "SELECT f.F_name, f.category_app, p.F_url FROM FOOD f, PHOTO p WHERE f.F_ID = p.P_ID ORDER BY f.F_ID LIMIT 50;"
 //        val sql = "SELECT f.F_name, f.category_app FROM FOOD f  LIMIT 50;"
         val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
         Log.d("DB1234","before while_sql")
@@ -44,10 +44,13 @@ class PreferenceFragment : Fragment() {
             val F_category_pos = c.getColumnIndex("category_app")
             val F_url_pos = c.getColumnIndex("F_url")
 
+            //이미지 url 사용할수 있도록 수정
             var F_url = c.getString(F_url_pos)
             var url_len = F_url.length - 1
             var ran = IntRange(1,url_len)
             var F_url_sub = F_url.slice(ran)
+
+            //menus에 삽입
             menus.add(Menu(F_url_sub,
                 c.getString(F_name_pos), c.getString(F_category_pos)))
             Log.d("DB123",F_url_sub)
@@ -58,7 +61,6 @@ class PreferenceFragment : Fragment() {
         val preferMenuListAdpater =PreferMenuListAdapter(menus)
         binding.preferRecyclerView.layoutManager=LinearLayoutManager(requireContext())
         binding.preferRecyclerView.adapter=preferMenuListAdpater
-
         binding.preferSearchView.setOnQueryTextListener(object :android.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return true
