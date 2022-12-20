@@ -3,6 +3,8 @@ package com.example.todayseat.ui.home
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.contentValuesOf
@@ -75,6 +78,92 @@ class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
         } )
         // 등록하기 버튼클릭시, 메뉴 db에 넣어야됨
         binding.registBtn.setOnClickListener {
+            val currentTime : Long = System.currentTimeMillis()
+            val currentYear= SimpleDateFormat("YYYY").format(currentTime)
+            val currentMonth= SimpleDateFormat("MM").format(currentTime)
+            val currentDay= SimpleDateFormat("dd").format(currentTime)
+            val currentHH= SimpleDateFormat("HH").format(currentTime).toInt()
+            val compareDate=currentYear+"-"+currentMonth+"-"+currentDay
+            Log.d("TAG11",compareDate)
+            val c1 = SplashActivity.moappDB.rawQuery("select List_ID,Date_eat from FOODRECENT where Date_eat like '${compareDate}%';",null)
+            val date= mutableListOf<String>()
+            val ID= mutableListOf<String>()
+            var count:Int=0
+            while(c1.moveToNext()){
+                count++
+                Log.d("TAG11","id= ${c1.getString(0)}")
+                ID.add(c1.getString(0))
+                date.add(c1.getString(1))
+            }
+            Log.d("TAG11",count.toString())
+            if(count==0){
+                val sql ="insert into FOODRECENT(food_eat_ID,Date_eat,C_ID_eat) values ('${binding.selectMenuName.text}', '$date' ,1);"
+                SplashActivity.moappDB.execSQL(sql)
+                val c=SplashActivity.moappDB.rawQuery("select * from foodrecent",null)
+                while(c.moveToNext()){
+                    val F_name_pos=c.getColumnIndex("food_eat_ID")
+                    val F_date_pos=c.getColumnIndex("Date_eat")
+                    Log.d("TAG11","${c.getString(F_name_pos)} ${c.getString(F_date_pos)}")
+                }
+                Toast.makeText(activity, "등록 완료!", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                var ar= listOf<String>()
+                var time:String
+                var HH=listOf<String>()
+                var m_index:Int=-1
+                var l_index:Int=-1
+                var e_index:Int=-1
+                for(i in 0..date.size-1){
+                    ar=date[i].split(" ") // [i]의 시간이 담김
+                    time=ar[1]
+                    HH=time.split(":")
+                    if(HH[0].toInt()<12 && HH[0].toInt()>=6){ // 아침
+                        m_index=ID[i].toInt()
+                    }
+                    else if(HH[0].toInt()<18 && HH[0].toInt()>=12){ // 점심
+                        l_index=ID[i].toInt()
+                    }
+                    else if(currentHH<24 || currentHH<6){ // 저녁
+                        e_index=ID[i].toInt()
+                    }
+                }
+                Log.d("TAG11","${m_index} + ${l_index} + $e_index ")
+                if(menu=="아침"){
+                    Log.d("TAG11","$compareDate 8:00:00")
+                    if(m_index!=-1){
+                        SplashActivity.moappDB.execSQL("update foodrecent set food_eat_ID='${binding.selectMenuName.text}', Date_eat='$compareDate 8:00:00' where List_ID=$m_index")
+                    }
+                    else{
+                        SplashActivity.moappDB.execSQL("insert into FOODRECENT(food_eat_ID,Date_eat,C_ID_eat) values ('${binding.selectMenuName.text}', '$compareDate 8:00:00' ,1);")
+                    }
+                }
+                else if(menu=="점심"){
+                    if(l_index!=-1){
+                        SplashActivity.moappDB.execSQL("update foodrecent set food_eat_ID='${binding.selectMenuName.text}', Date_eat='$compareDate 13:00:00' where List_ID=$l_index")
+                    }
+                    else{
+                        SplashActivity.moappDB.execSQL("insert into FOODRECENT(food_eat_ID,Date_eat,C_ID_eat) values ('${binding.selectMenuName.text}', '$compareDate 13:00:00' ,1);")
+                    }
+
+                }
+                else if(menu=="저녁"){
+                    if(e_index!=-1){
+                        SplashActivity.moappDB.execSQL("update foodrecent set food_eat_ID='${binding.selectMenuName.text}', Date_eat='$compareDate 20:00:00' where List_ID=$e_index")
+                    }
+                    else{
+                        SplashActivity.moappDB.execSQL("insert into FOODRECENT(food_eat_ID,Date_eat,C_ID_eat) values ('${binding.selectMenuName.text}', '$compareDate 20:00:00' ,1);")
+                    }
+
+                }
+
+
+                //val dlg=CustomMenuDialog(requireActivity())
+                //dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+                //dlg.setCancelable(false)
+            }
+
+
             dismiss()
         }
         // 무시하기 버튼클릭시, 무시
