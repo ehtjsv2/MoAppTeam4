@@ -11,10 +11,10 @@
 
     <Button
         android:id="@+id/l_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="47dp"
         android:onClick="nextButton"
         android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/lsearch"
@@ -22,10 +22,10 @@
 
     <Button
         android:id="@+id/d_butten"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="48dp"
         android:onClick="nextButton"
         android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/dsearch"
@@ -33,25 +33,31 @@
 
     <Button
         android:id="@+id/m_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="75dp"
         android:onClick="nextButton"
         android:text="입력"
         app:layout_constraintStart_toEndOf="@+id/msearch"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/scoreButten"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:onClick="CustomSelect"
-        android:text="영양점수표\n보기"
+        android:text="영양점수표"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/main5"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
     <TextView
         android:id="@+id/m"
@@ -60,6 +66,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:text="아침"
+        android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,6 +79,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:text="저녁"
+        android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/l" />
@@ -83,44 +91,48 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
         android:text="점심"
+        android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/m" />
 
     <TextView
         android:id="@+id/msearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="40dp"
-        android:background="@null"
+        android:layout_width="150dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/ligth_gary_rectangle_radius"
+        android:gravity="center"
         android:hint="미응답"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/m"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lsearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_width="150dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
-        android:background="@null"
+        android:background="@drawable/ligth_gary_rectangle_radius"
+        android:gravity="center"
         android:hint="미응답"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/l"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/msearch" />
 
     <TextView
         android:id="@+id/dsearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_width="150dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="60dp"
-        android:background="@null"
+        android:background="@drawable/ligth_gary_rectangle_radius"
+        android:gravity="center"
         android:hint="미응답"
-        android:textSize="20dp"
-        app:layout_constraintStart_toEndOf="@+id/d"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lsearch" />
 
     <TextView
@@ -130,17 +142,18 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:text="최근 먹은 음식"
+        android:textColor="@color/main5"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/foodl"
         android:layout_width="380dp"
         android:layout_height="200dp"
-
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-
+        android:background="@drawable/ligth_gary_rectangle_radius"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Eatfood" />
 

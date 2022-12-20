@@ -43,7 +43,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Eat_recycler"
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:layout_marginStart="40dp"
             android:layout_height="102dp"
             android:divider="#999999"
@@ -66,7 +66,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="200dp"
                 android:text="이전"
-            />
+                />
 
             <Button
                 android:id="@+id/next_button"
@@ -74,7 +74,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:text="다음"
-            />
-            </LinearLayout>
+                />
         </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

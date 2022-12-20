@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.example.todayseat.LoginActivity4
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 
 import com.example.todayseat.databinding.ActivityLogin33Binding
 
@@ -38,6 +39,9 @@ class LoginActivity3_3 : AppCompatActivity() {
 
         // 이전 버튼 클릭 이벤트 추후 캐시, 값 여부 판단, 데이터 처리 추가하기
         binding.beforeButton.setOnClickListener{
+            var sql =
+                "UPDATE foodfavor SET korean = ${korean_score}, etc = ${etc_score} where Favor_ID = 1"
+            SplashActivity.moappDB.execSQL(sql)
             val intent = Intent(this, LoginActivity3_2::class.java)
             startActivity(intent)
             finish()

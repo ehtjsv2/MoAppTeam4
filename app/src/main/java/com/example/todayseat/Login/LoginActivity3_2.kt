@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.ActivityLogin32Binding
 
 
@@ -29,6 +30,9 @@ class LoginActivity3_2 : AppCompatActivity() {
                     .show()
             }
             else {
+                var sql =
+                    "UPDATE foodfavor SET noodle = ${noodle_score}, snack_bar = ${snack_score},rice = ${rice_score} where Favor_ID = 1"
+                SplashActivity.moappDB.execSQL(sql)
                 val intent = Intent(this, LoginActivity3_3::class.java)
                 startActivity(intent)
                 finish()

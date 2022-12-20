@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,8 @@ import com.example.todayseat.Login.LoginActivity5
 import com.example.todayseat.databinding.ActivityLogin4Binding
 import com.example.todayseat.databinding.SearchListviewBinding
 import com.example.todayseat.Login.MenuListAdapter
+import com.example.todayseat.SplashActivity.Companion.moappDB
+
 /*
 interface OnItemClick {
     fun onClick(value: String)
@@ -24,10 +28,10 @@ interface OnItemClick {
 */
 class MyViewHolder(val binding: SearchListviewBinding) :
     RecyclerView.ViewHolder(binding.root){
-        fun bind(item:String){
-            binding.label.text = item
-        }
+    fun bind(item:String){
+        binding.label.text = item
     }
+}
 /*
 class MyAdapter(val context: Context, val datas: MutableList<String>, listener: OnItemClick ) :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -181,6 +185,99 @@ class LoginActivity4 : AppCompatActivity(){
 
         // 다음 버튼 클릭 이벤트 추후 캐시, 값 여부 판단, 데이터 처리 추가하기
         binding.nextButton.setOnClickListener{
+
+            var score = 0
+            for(i in 0..like_list.size-1) {
+                var sql1 = "SELECT category_app FROM food where F_NAME='${like_list[i]}'"
+                Log.d("test", like_list[i].toString())
+                var c = moappDB.rawQuery(sql1, null)
+                c.moveToNext()
+                var nameindex = c.getColumnIndex("category_app")
+                var str1 = c.getString(nameindex)
+
+                if (str1.toString().equals('1')) {
+                    var sql2 = "SELECT meat FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("meat")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET meat = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('2')) {
+                    var sql2 = "SELECT seafood FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("seafood")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET seafood = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('3')) {
+                    var sql2 = "SELECT vegetable FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("vegetable")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET vegetable = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('4')) {
+                    var sql2 = "SELECT noodle FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("noodle")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET noodle = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('5')) {
+                    var sql2 = "SELECT snack_bar FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("snack_bar")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET snack_bar = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('6')) {
+                    var sql2 = "SELECT korean FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("korean")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET korean = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('7')) {
+                    var sql2 = "SELECT rice FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("rice")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET rice = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+
+                if (str1.toString().equals('7')) {
+                    var sql2 = "SELECT etc FROM foodfavor where Favor_ID=1"
+                    var c2 = moappDB.rawQuery(sql2, null)
+                    c2.moveToNext()
+                    var foodindex = c2.getColumnIndex("etc")
+                    score = c2.getInt(foodindex) + 1
+                    var sql3 = "UPDATE foodfavor SET etc = ${score} where Favor_ID = 1"
+                    SplashActivity.moappDB.execSQL(sql3)
+                }
+            }
+
+
+
             val intent = Intent(this, LoginActivity5::class.java)
             startActivity(intent)
             finish()
@@ -209,15 +306,11 @@ class LoginActivity4 : AppCompatActivity(){
 
     //추후 데이터 베이스 연동
     fun settingList(){
-        all_list.add("김치찌개")
-        all_list.add("떡볶이")
-        all_list.add("라면")
-        all_list.add("국수")
-        all_list.add("국밥")
-        all_list.add("김치찜")
-        all_list.add("씨리얼")
-        all_list.add("북어국")
-        all_list.add("탕수육")
-        all_list.add("파스타")
+        val sql = "SELECT * FROM FOOD"
+        val c = SplashActivity.moappDB.rawQuery(sql,null)
+        while (c.moveToNext()){
+            var F_name_pos = c.getColumnIndex("F_name")
+            all_list.add(c.getString(F_name_pos))
+        }
     }
 }

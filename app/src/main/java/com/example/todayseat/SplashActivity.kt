@@ -86,10 +86,24 @@ class SplashActivity : AppCompatActivity() {
         // 바로 메인으로 갈지 Login으로 갈지 설정해야합니다. 그 과정을 위해 미리 변수 선언 했습니다.
 
         Handler().postDelayed(splashDuration){
-            //val intent = Intent(this, MainActivity::class.java)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            val sql = "SELECT check_info FROM CUSTOMER where C_ID=1"
+            val c = moappDB.rawQuery(sql,null)
+            c.moveToNext()
+            val check_value:Int = c.getColumnIndex("check_info")
+            val str=c.getInt(check_value)
+            Log.d("pjy",str.toString())
+            //val intent = Intent(this, MainActivity::class.java
+            if(str == 1){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else if(str == 0){
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
         }
     }
 
@@ -221,8 +235,8 @@ class SplashActivity : AppCompatActivity() {
 
             var sql="insert into CUSTOMER VALUES ('1',null,null,null,null,null,null,null,null,null);"
             db?.execSQL(sql)
-            sql= "insert into FOODFAVOR VALUES ('F_1',0,0,0,0,0,0,0,0);"
-            db?.execSQL(sql)
+            val sql2="insert into foodfavor VALUES ('1',null,null,null,null,null,null,null,null);"
+            db?.execSQL(sql2)
             sql= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
             db?.execSQL(sql)
 

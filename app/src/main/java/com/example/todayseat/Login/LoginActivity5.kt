@@ -14,6 +14,7 @@ import com.example.todayseat.*
 import com.example.todayseat.databinding.ActivityLogin5Binding
 import com.example.todayseat.databinding.SearchListviewBinding
 import com.example.todayseat.Login.MenuListAdapter2
+import com.example.todayseat.SplashActivity.Companion.moappDB
 
 /*
 interface OnItemClick2 {
@@ -169,6 +170,16 @@ class LoginActivity5 : AppCompatActivity() {
 
         // 다음 버튼 클릭 이벤트 추후 캐시, 값 여부 판단, 데이터 처리 추가하기
         binding.commitButton.setOnClickListener{
+            for(i in 0..dislike_list.size-1) {
+                var sql =
+                    "INSERT INTO excludefood (C_ID, F_ID\n" +
+                            " ) VALUES (1,' ${dislike_list[i]}')"
+                SplashActivity.moappDB.execSQL(sql)
+
+                var sql2 =
+                    "UPDATE customer SET check_info = 1 where C_ID = 1"
+                SplashActivity.moappDB.execSQL(sql2)
+            }
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -197,16 +208,12 @@ class LoginActivity5 : AppCompatActivity() {
 
     //추후 데이터 베이스 연동
     fun settingList(){
-        all_list.add("김치찌개")
-        all_list.add("떡볶이")
-        all_list.add("라면")
-        all_list.add("국수")
-        all_list.add("국밥")
-        all_list.add("김치찜")
-        all_list.add("씨리얼")
-        all_list.add("북어국")
-        all_list.add("탕수육")
-        all_list.add("파스타")
+        val sql = "SELECT * FROM FOOD"
+        val c = SplashActivity.moappDB.rawQuery(sql,null)
+        while (c.moveToNext()){
+            var F_name_pos = c.getColumnIndex("F_name")
+            all_list.add(c.getString(F_name_pos))
+        }
     }
 }
 

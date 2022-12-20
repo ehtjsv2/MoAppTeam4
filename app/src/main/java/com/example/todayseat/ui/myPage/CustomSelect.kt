@@ -16,6 +16,7 @@ import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.InsertMenuDialogBinding
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -26,8 +27,14 @@ class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+        var menus:MutableList<String> = ArrayList()
 
-        var menus= mutableListOf<String>("치킨","제육볶음","오징어볶음","쏘세지야채볶음","돼지고기김치볶음")
+        val sql = "SELECT * FROM FOOD"
+        val c = SplashActivity.moappDB.rawQuery(sql,null)
+        while (c.moveToNext()){
+            var F_name_pos = c.getColumnIndex("F_name")
+            menus.add(c.getString(F_name_pos))
+        }
         val menuListAdapter=MenuListAdapter(menus)
         val binding= InsertMenuDialogBinding.inflate(layoutInflater)
         //아침 점심 저녁 text 변경

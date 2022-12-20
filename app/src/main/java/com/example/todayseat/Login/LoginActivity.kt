@@ -7,6 +7,9 @@ import androidx.appcompat.app.AlertDialog
 import com.example.todayseat.Login.LoginActivity2
 import com.example.todayseat.MainActivity
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
+import com.example.todayseat.SplashActivity.Companion.moappDB
+
 import com.example.todayseat.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -64,8 +67,35 @@ class LoginActivity : AppCompatActivity() {
                 AlertDialog.Builder(this@LoginActivity).setTitle("모든 문항을 입력해야 합니다")
                     .setCancelable(true).setNegativeButton("확인", null)
                     .show()
+                /*
+                var sql =
+                    "INSERT INTO CUSTOMER (C_ID, age, C_name, gender, height \n" +
+                            " ) VALUES (?,?,?,?)"
+*/
+                /*
+                var sql2 =
+                    "SELECT age, C_name, gender, height FROM CUSTOMER\n" +
+                            " WHELE C_ID = 1"
+                 */
+
+
+
             }
             else {
+//                val sql = "SELECT check_info FROM CUSTOMER where C_ID=1"
+//                val c = moappDB.rawQuery(sql,null)
+//                val check_value:Int = c.getColumnIndex("check_info")
+//                Log.d("pjy",check_value.toString())
+                val arr = arrayOfNulls<String>(4)
+                arr.set(0, age.toString())
+                arr.set(1, name)
+                arr.set(2, gender)
+                arr.set(3, stature.toString())
+
+                var sql =
+                    "UPDATE customer SET age = ${arr[0]} , C_name = '${arr[1]}' , gender = '${arr[2]}' , height = ${arr[3]} where C_ID = 1"
+
+                moappDB.execSQL(sql)
                 // 추후 데이터 저장 여기에
                 val intent = Intent(this, LoginActivity2::class.java)
                 startActivity(intent)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.ActivityLogin2Binding
 
 
@@ -28,6 +29,12 @@ class LoginActivity2 : AppCompatActivity() {
                     .show()
             }
             else {
+
+
+                var sql =
+                    "UPDATE CUSTOMER SET activation = ${activity_index} where C_ID = 1"
+
+                SplashActivity.moappDB.execSQL(sql)
                 val intent = Intent(this, LoginActivity3::class.java)
                 startActivity(intent)
                 finish()

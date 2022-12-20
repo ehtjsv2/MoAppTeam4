@@ -42,7 +42,7 @@
             android:id="@+id/Eat_recycler"
             android:background="@drawable/ligth_gary_rectangle_radius"
             android:layout_marginStart="40dp"
-            android:layout_width="300dp"
+            android:layout_width="350dp"
             android:layout_height="102dp"
             android:divider="#999999"
             android:dividerHeight="1dp"></androidx.recyclerview.widget.RecyclerView>
