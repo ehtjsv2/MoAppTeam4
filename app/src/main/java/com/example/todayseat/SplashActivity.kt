@@ -106,7 +106,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
             else if(str == 0){
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -177,7 +177,7 @@ class SplashActivity : AppCompatActivity() {
             //5.FOODRECENT 테이블
             db?.execSQL(
                 "CREATE TABLE FOODRECENT(\n" +
-                        "List_ID VARCHAR(10),\n" +
+                        "List_ID integer,\n" +
                         "food_eat_ID VARCHAR(10),\n" +
                         "Date_eat  DATE,\n" +
                         "C_ID_eat VARCHAR(10),\n" +
