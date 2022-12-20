@@ -93,11 +93,6 @@ class dislikeAdapter2(val context: Context, val datas: MutableList<String> ) :
 
 }
 
-
-
-
-
-
 class LoginActivity5 : AppCompatActivity() {
 
     //처리해야할 데이터
