@@ -122,23 +122,11 @@ class CustomScore : DialogFragment(), OnChartValueSelectedListener {
 //        values.add(Entry(3f, value3))
 
         //아직 data가 없어서 random 값 입력
-        var sql = "SELECT * FROM NUTREINTSCORE"
-        var i: Float = 0F
-        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
-        while(c.moveToNext()){
-//            val ID_pos = c.getColumnIndex("S_ID")
-            val score_pos = c.getColumnIndex("score")
-            val date_pos = c.getColumnIndex("S_date")
-            var score = c.getFloat(score_pos)
-            var sc_str = c.getString(date_pos)
-            values.add(Entry(i, score/*, resources.getDrawable(R.drawable.star)*/))
-            i++
+        for (i in 1 until count) {
+            //value에 지난 영양점수들을 입력하면 됩니다.
+            val value = (Math.random() * range).toFloat()
+            values.add(Entry(i.toFloat(), value))/*, resources.getDrawable(R.drawable.star)*/
         }
-//        for (i in 1 until count) {
-//            //value에 지난 영양점수들을 입력하면 됩니다.
-//            val value = (Math.random() * range).toFloat()
-//            values.add(Entry(i.toFloat(), value))/*, resources.getDrawable(R.drawable.star)*/
-//        }
 
         val set1: LineDataSet
 

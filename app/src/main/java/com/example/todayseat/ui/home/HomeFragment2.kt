@@ -1127,12 +1127,11 @@ class HomeFragment2 : Fragment() {
             d_fat=c11.getFloat(mci)
 
         }
-
         val total_kcal=m_kcal+l_kcal+d_kcal
         val total_carbo=m_carbo+l_carbo+d_carbo
         val total_fat=m_fat+l_fat+d_fat
         val total_pro=m_pro+l_pro+d_pro
-        Log.d("TAG11","총(탄,지,단)= ${total_kcal}. ${total_carbo}, ${total_fat}, ${total_pro}")
+        Log.d("TAG11","1총(탄,지,단)= ${total_kcal}. ${total_carbo}, ${total_fat}, ${total_pro}")
 
         val sql="select * from food where F_name=' ${HomeFragment2.food_name};"
 
@@ -1200,11 +1199,13 @@ class HomeFragment2 : Fragment() {
 
 
 
-        var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+        var carbos_minus=(kotlin.math.abs((totalKcal * 0.6f / 4f) - total_carbo)-25f)
         if(carbos_minus<0){
             carbos_minus=0f
         }
-        carboS = (100f*0.12f - (carbos_minus)*4f/(6f)*0.12f)
+
+        carboS = (100f*0.12f - (carbos_minus)*4/6*0.12).toFloat()
+        Log.d("TAG11","${totalKcal * 0.6f / 4f}  ${100f*0.12f}  ${(carbos_minus)*4/6*0.12} $total_carbo,  $totalKcal,  $need_calorie   $carbos_minus,   $carboS")
         if(totalCarbo==0f) carboS=0f
         if(carboS<=0)carboS=0f
 
@@ -1212,7 +1213,11 @@ class HomeFragment2 : Fragment() {
         fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
         if(fat_minus<=0)fatS=0f
         if(fatS<=0)fatS=0f
+        Log.d("TAG11","$total_fat,  $totalFat,  50  $fat_minus,   $fatS")
 
+
+        proteinS = 25f*(total_pro/need_protein)
+        if(totalProtein==0f)proteinS=0f
         if(proteinS>=25)proteinS=25f
         Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
 

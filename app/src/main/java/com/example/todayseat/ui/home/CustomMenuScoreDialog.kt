@@ -279,7 +279,7 @@ class CustomMenuScoreDialog(var activity: Activity, var value:String) : Dialog(a
 
 
 
-        var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - totalCarbo)-25f)
+        var carbos_minus=(kotlin.math.abs(totalKcal * 0.6f / 4f - total_carbo)-25f)
         if(carbos_minus<0){
             carbos_minus=0f
         }
@@ -291,7 +291,8 @@ class CustomMenuScoreDialog(var activity: Activity, var value:String) : Dialog(a
         fatS = (100f*0.38f - (fat_minus *9f /(4f+9f) * 0.38f))
         if(fat_minus<=0)fatS=0f
         if(fatS<=0)fatS=0f
-
+        proteinS = 25f*(total_pro/need_protein)
+        if(totalProtein==0f)proteinS=0f
         if(proteinS>=25)proteinS=25f
         Log.d("TAG11","칼,탄,지,단 = ${kcalS}, ${carboS}, ${fatS}, ${proteinS}")
 

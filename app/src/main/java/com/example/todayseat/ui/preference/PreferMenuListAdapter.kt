@@ -213,9 +213,9 @@ class PreferMenuListAdapter(val menus: MutableList<Menu>) :
                 Log.d("DB1234","${column_name} : ${modify}")
 
                 //해당 음식의 preference_check 1로 만들기
-//                sql = "Update FOOD Set preference_check = 1 WHERE F_name = \"${binding.preferMenuName.text}\" "
-//                SplashActivity.moappDB.execSQL(sql)
-//                Log.d("DB1234","좋아요 선호도 확인용 음식 하나 사라짐")
+                sql = "Update FOOD Set preference_check = 1 WHERE F_name = \"${binding.preferMenuName.text}\" "
+                SplashActivity.moappDB.execSQL(sql)
+                Log.d("DB1234","좋아요 선호도 확인용 음식 하나 사라짐")
             }
             else{
                 // 좋아요 였는데 그것을 눌러서 버튼을 없앴을 경우

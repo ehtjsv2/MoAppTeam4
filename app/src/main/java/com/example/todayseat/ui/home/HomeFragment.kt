@@ -211,7 +211,25 @@ class HomeFragment : Fragment() {
         val total_fat=m_fat+l_fat+d_fat
         val total_pro=m_pro+l_pro+d_pro
         Log.d("TAG11","총(탄,지,단)= ${total_kcal}. ${total_carbo}, ${total_fat}, ${total_pro}")
+        val sql6 = "SELECT age, height, activation, gender FROM CUSTOMER where C_ID=1"
+        val c5 = SplashActivity.moappDB.rawQuery(sql6,null)
+        c5.moveToNext()
+        var check_value:Int = c5.getColumnIndex("height")
+        var str1=c5.getInt(check_value)
 
+
+        check_value = c5.getColumnIndex("activation")
+        var str2=c5.getInt(check_value)
+        var v = 0
+        if( str2 == 1){
+            v = 20
+        }
+        else if(str2 == 2){
+            v =30
+        }
+        else {
+            v = 40
+        }
 
         //영양분 점수 계산식
         // #####################여기를 바꾸시면 적용됩니다
@@ -220,8 +238,8 @@ class HomeFragment : Fragment() {
         // #####################여기를 바꾸시면 적용됩니다
 
         //고객 정보
-        var height = 175f
-        var activation = 30f
+        var height = str1
+        var activation = v.toFloat()
 
         //DB 에서 합한 합
         var totalCarbo = total_carbo // 총섭취 탄수화물 (g) 데이터 베이스상 단위 때문에 추가

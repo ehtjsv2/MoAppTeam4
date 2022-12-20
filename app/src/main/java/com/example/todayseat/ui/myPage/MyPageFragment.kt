@@ -143,13 +143,14 @@ class MyPageFragment : Fragment(){
             dlg.setItemClickListener(object : CustomSelect.OnItemClickListener{
                 override fun onClick(selectedMenu: String) {
                     binding.dsearch.text=selectedMenu
-                    var menus:MutableList<String> = ArrayList()
+                    menus.clear()
                     val sql = "SELECT food_eat_ID FROM FOODRECENT"
                     val c = SplashActivity.moappDB.rawQuery(sql,null)
                     while (c.moveToNext()){
                         var F_name_pos = c.getColumnIndex("food_eat_ID")
                         menus.add(c.getString(F_name_pos))
                     }
+                    adapter2.notifyDataSetChanged()
                 }
 
             })
@@ -183,13 +184,14 @@ class MyPageFragment : Fragment(){
             dlg.setItemClickListener(object : CustomSelect.OnItemClickListener{
                 override fun onClick(selectedMenu: String) {
                     binding.lsearch.text=selectedMenu
-                    var menus:MutableList<String> = ArrayList()
+                    menus.clear()
                     val sql = "SELECT food_eat_ID FROM FOODRECENT"
                     val c = SplashActivity.moappDB.rawQuery(sql,null)
                     while (c.moveToNext()){
                         var F_name_pos = c.getColumnIndex("food_eat_ID")
                         menus.add(c.getString(F_name_pos))
                     }
+                    adapter2.notifyDataSetChanged()
                 }
 
             })
