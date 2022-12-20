@@ -240,6 +240,7 @@ class SplashActivity : AppCompatActivity() {
             sql= "insert into RECOMMENDNUTRIENT VALUES ('RN_1',1,0,0,0,0);"
             db?.execSQL(sql)
 
+
 //            editor.putInt("isInstall", 1);
 //            editor.apply()
         }

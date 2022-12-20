@@ -4,13 +4,16 @@ package com.example.todayseat
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.AssetManager
+import android.database.Cursor
 import com.example.todayseat.ui.preference.PreferenceFragment
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.appcompat.app.AlertDialog
 import com.opencsv.CSVReader
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -43,6 +46,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        SplashActivity.moappDB.execSQL("update CUSTOMER SET gender = 3 where C_ID=1;")
+
+        val sql = "SELECT gender,C_name FROM customer where C_ID='1';"
+        Log.d("TAG11","sql실행")
+        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
+        while (c.moveToNext()){
+            var F_name_pos = c.getColumnIndex("gender")
+            val str=c.getString(F_name_pos)
+            Log.d("TAG11",str)
+        }
         getHashKey()
         setContentView(R.layout.activity_main)
         Log.d("LifeCycleTest", "onCreate")
@@ -99,5 +112,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("종료")
+        builder.setMessage("정말로 종료하겠습니까?")
+        builder.setPositiveButton("종료") { dialogInterface: DialogInterface, i: Int ->
+            finish()
+        }
+        builder.setNegativeButton("취소") { dialogInterface: DialogInterface, i: Int ->
+            dialogInterface.cancel()
+        }
+        builder.show()
+    }
 }

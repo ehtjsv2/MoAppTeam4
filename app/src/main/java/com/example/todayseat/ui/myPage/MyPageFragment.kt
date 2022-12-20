@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +50,8 @@ class MyPageFragment : Fragment(){
 
     private var _binding: FragmentMyPageBinding? = null
     lateinit var adapter2: dislikeAdapter2
+    private lateinit var callback: OnBackPressedCallback
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -105,8 +108,22 @@ class MyPageFragment : Fragment(){
     }
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //여기에 백버튼 눌렀을때 적용될것 작성
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }

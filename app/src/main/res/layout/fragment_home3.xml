@@ -9,19 +9,23 @@
     tools:context=".ui.home.HomeFragment2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
-        android:layout_marginTop="30dp">
+        android:layout_weight="9"
+>
 
         <TextView
             android:id="@+id/home2_menu_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="30dp"
             android:text="치킨"
-            android:textSize="30sp"
+            android:shadowColor="#33000000"
+            android:shadowDx="7.0"
+            android:shadowDy="7.0"
+            android:shadowRadius="2.0"
+            android:textSize="50sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,21 +43,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/home2_menu_name" />
 
-        <TextView
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="49dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="-18dp"
+            android:layout_marginEnd="-18dp"
+            android:src="@drawable/icon_alert1"
+            app:layout_constraintEnd_toEndOf="@+id/nScoreNext"
+            app:layout_constraintTop_toTopOf="@+id/nScoreNext" />
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/nScoreNext"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentRight="true"
             android:layout_marginTop="-30dp"
             android:layout_marginEnd="-30dp"
-            android:background="@drawable/circle"
+            android:background="@drawable/circle2"
+            android:elevation="30dp"
             android:gravity="center"
             android:text="97"
             android:textAlignment="center"
             android:textColor="#252323"
             android:textSize="50dp"
             app:layout_constraintEnd_toEndOf="@+id/menu_image"
-            app:layout_constraintTop_toTopOf="@+id/menu_image"><!-- 영양분 점수 --></TextView>
+            app:layout_constraintTop_toTopOf="@+id/menu_image"><!-- 영양분 점수 --></androidx.appcompat.widget.AppCompatButton>
+
 
         <ImageButton
             android:id="@+id/likeFood"
@@ -77,46 +92,33 @@
             app:layout_constraintEnd_toEndOf="@+id/menu_image"
             app:layout_constraintTop_toBottomOf="@+id/menu_image" />
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/cook"
-            android:background="@drawable/choice_btn"
-            android:text="요리"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="40dp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/reroll"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reload"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="45dp"
-            android:gravity="center"
-            android:background="@drawable/choice_btn"
-            android:drawableBottom="@drawable/resize_reload">
-
-        </Button>
-
-        <Button
-            android:id="@+id/buying"
-            android:background="@drawable/choice_btn"
-            android:text="구매"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="40dp"
+            android:text="다시추천"
+            android:textSize="20sp"
+            android:background="@drawable/gray_btn"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cook"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="요리할래요!"
+            android:textSize="20sp"
+            android:background="@drawable/main3_btn"
+            />
 
     </LinearLayout>
 

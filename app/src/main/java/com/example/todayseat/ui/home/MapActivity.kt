@@ -53,11 +53,13 @@ class MapActivity : AppCompatActivity(),loadcComplete {
     lateinit var jsonresult: ResultSearchKeyword
     var datasize: Int = 0
     var namelist: MutableList<String> = ArrayList() // 장소명, 업체명
+
     var xlist: MutableList<String> = ArrayList() // x좌표
     var ylist: MutableList<String> = ArrayList() // y좌표
     var addresslist: MutableList<String> = ArrayList() // 지번주소
     var roadlist: MutableList<String> = ArrayList() // 도로명주소
 //    private val eventListener = MarkerEventListener(this)
+
 
     //    companion object{
 //        const val BASE_URL = "https://dapi.kakao.com/"
@@ -85,7 +87,7 @@ class MapActivity : AppCompatActivity(),loadcComplete {
 //            roadlist.add(jsonresult!!.documents[i].road_address_name)
 //        }
     }
-}
+
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //
@@ -242,6 +244,164 @@ class MapActivity : AppCompatActivity(),loadcComplete {
 //            mapView?.removePOIItem(poiItem)
 //        }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        binding = ActivityMapBinding.inflate(layoutInflater)
+        val view = binding.root
+
+
+        setContentView(view)
+
+        val map_page_ok_btn: Button = findViewById(com.example.todayseat.R.id.map_page_ok_btn)
+
+        map_page_ok_btn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
+        val mapView = MapView(this)
+        val mapViewContainer = findViewById<View>(com.example.todayseat.R.id.map_view) as ViewGroup
+        mapViewContainer.addView(mapView)// 맵띄우기
+    }
+}
+
+//        mapView.setCalloutBalloonAdapter(CustomBalloonAdapter(layoutInflater))  // 커스텀 말풍선 등록
+//        mapView.setPOIItemEventListener(eventListener)
+//        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//
+//        if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
+//            val lm: LocationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+//            try {
+//                val userNowLocation: Location =
+//                    lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)!!
+//                val uLatitude = userNowLocation.latitude // 위도 y
+//                val uLongitude = userNowLocation.longitude // 경도 x
+//                Log.d("test",uLatitude.toString())
+//                Log.d("test",uLongitude.toString())
+//                val uNowPosition = MapPoint.mapPointWithGeoCoord(uLatitude, uLongitude)
+//                mapView.setMapCenterPoint(uNowPosition, true) // 지정한 위치로 가기
+//                mapView.setZoomLevel(4, true); // 줌레벨 변경
+//
+//                //searchKeyword("치킨",this@MapActivity,uLongitude,uLongitude)
+//                searchKeyword("치킨",this@MapActivity) //나온 결과를 해당 위치에 기입
+//
+//                val handler = android.os.Handler()
+//                handler.postDelayed({
+//                    val marker = MapPOIItem()
+//                    for (i in 0..datasize) {
+//                        marker.apply {
+//                            itemName = namelist[i].plus("*".plus(addresslist[i].plus("*".plus(roadlist[i]))))
+//                            mapPoint = MapPoint.mapPointWithGeoCoord(
+//                                ylist[i].toDouble(),
+//                                xlist[i].toDouble()
+//                            )   // 좌표
+//                            markerType = MapPOIItem.MarkerType.CustomImage          // 마커 모양 (커스텀)
+//                            customImageResourceId = R.drawable.map_marker_icon               // 커스텀 마커 이미지
+//                            selectedMarkerType = MapPOIItem.MarkerType.CustomImage  // 클릭 시 마커 모양 (커스텀)
+//                            customSelectedImageResourceId = R.drawable.map_marker_icon   // 클릭 시 커스텀 마커 이미지
+//                            isCustomImageAutoscale = false      // 커스텀 마커 이미지 크기 자동 조정
+//                            setCustomImageAnchor(0.5f, 1.0f)    // 마커 이미지 기준점
+//                            mapView.addPOIItem(marker) // 마커찍기
+//                        }
+//                    }
+//                },1000)
+//
+//
+//            }catch(e: NullPointerException){
+//                Log.e("LOCATION_ERROR", e.toString())
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                    ActivityCompat.finishAffinity(this)
+//                }else{
+//                    ActivityCompat.finishAffinity(this)
+//                }
+//
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//                System.exit(0)
+//            }
+//        }else{
+//            Toast.makeText(this, "위치 권한이 없습니다.", Toast.LENGTH_SHORT).show()
+//
+//            // 권한 물어보기
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(
+//                    Manifest.permission.ACCESS_COARSE_LOCATION,
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+//                    Manifest.permission.ACCESS_BACKGROUND_LOCATION),
+//                1
+//            )
+//
+//
+//        }
+//
+//
+//    }
+//    //fun searchKeyword(keyword: String,mCallback:MapActivity,x:String, y:String)
+//    fun searchKeyword(keyword: String,mCallback:MapActivity) {
+//
+//        val retrofit = Retrofit.Builder() // Retrofit 구성
+//            .baseUrl(BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//        val api = retrofit.create(KakaoAPI::class.java) // 통신 인터페이스를 객체로 생성
+//        val call = api.getSearchKeyword(API_KEY, keyword, "FD6") // 검색 조건 입력
+//        //val call = api.getSearchKeyword(API_KEY, keyword, "FD6",x,y,1000)
+//        // API 서버에 요청
+//        call.enqueue(object: Callback<ResultSearchKeyword> {
+//            override fun onResponse(
+//                call: Call<ResultSearchKeyword>,
+//                response: Response<ResultSearchKeyword>
+//            ) {
+//
+//
+//                // 통신 성공 (검색 결과는 response.body()에 담겨있음)
+//                Log.d("Test", "Raw: ${response.raw()}")
+//                Log.d("Test", "Body: ${response.body()}")
+//
+//                mCallback.loadComplete(response.body()!!)
+//
+//            }
+//
+//            override fun onFailure(call: Call<ResultSearchKeyword>, t: Throwable) {
+//                // 통신 실패
+//                Log.w("MainActivity", "통신 실패: ${t.message}")
+//            }
+//        })
+//
+//    }
+//
+//
+//    class CustomBalloonAdapter(inflater: LayoutInflater): CalloutBalloonAdapter {
+//        var mCalloutBalloon:BalloonLayoutBinding = BalloonLayoutBinding.inflate(inflater)
+//        val name: TextView = mCalloutBalloon.ballTvName
+//        val address: TextView = mCalloutBalloon.ballTvAddress
+//        val address2: TextView = mCalloutBalloon.textView
+//
+//
+//        override fun getCalloutBalloon(poiItem: MapPOIItem?): View {
+//            // 마커 클릭 시 나오는 말풍선
+//            var split = poiItem!!.itemName.split("*")
+//            name.text = split[0]   // 해당 마커의 정보 이용 가능
+//            address.text = split[1]
+//            address2.text = split[2]
+//            return mCalloutBalloon.root
+//        }
+//
+//        override fun getPressedCalloutBalloon(poiItem: MapPOIItem?): View {
+//            // 말풍선 클릭 시
+//            return mCalloutBalloon.root
+//        }
+//    }
+//
+//    class MarkerEventListener(val context: Context): MapView.POIItemEventListener {
+//        override fun onPOIItemSelected(mapView: MapView?, poiItem: MapPOIItem?) {
+//            mapView?.removePOIItem(poiItem)
+//        }
+//
 //        override fun onCalloutBalloonOfPOIItemTouched(mapView: MapView?, poiItem: MapPOIItem?) {
 //
 //        }
@@ -254,7 +414,9 @@ class MapActivity : AppCompatActivity(),loadcComplete {
 //        override fun onDraggablePOIItemMoved(mapView: MapView?, poiItem: MapPOIItem?, mapPoint: MapPoint?) {
 //
 //        }
-    //}
+
+
+
 
     /* 내위치기반 검색, kakaoAPI 바꿔줘야함
     private fun searchKeyword2(keyword: String,x:String,y:String) {

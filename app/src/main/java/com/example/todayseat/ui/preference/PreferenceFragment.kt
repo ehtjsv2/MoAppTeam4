@@ -1,11 +1,13 @@
 package com.example.todayseat.ui.preference
 
+import android.content.Context
 import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +19,7 @@ class PreferenceFragment : Fragment() {
 
     private var _binding: FragmentPreferenceBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var callback: OnBackPressedCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,9 +73,22 @@ class PreferenceFragment : Fragment() {
 
         return root
     }
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //여기에 백버튼 눌렀을때 적용될것 작성
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }

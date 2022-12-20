@@ -203,20 +203,24 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/back_btn"
+            android:clickable="true"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="이전"
             android:textSize="20sp"
-            android:background="@color/light_gray"
+            android:background="@drawable/gray_btn"
             />
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cook_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="요리했어요!"
+            android:clickable="true"
+            android:text="요리완료!"
             android:textSize="20sp"
-            android:background="@color/main3"
+            android:background="@drawable/main3_btn"
 />
     </LinearLayout>
 </LinearLayout>
