@@ -2,27 +2,17 @@ package com.example.todayseat.ui.home
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.R
 import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.InsertMenuDialogBinding
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+
 
 class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
     View.OnClickListener {
@@ -118,13 +108,13 @@ class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
                     ar=date[i].split(" ") // [i]의 시간이 담김
                     time=ar[1]
                     HH=time.split(":")
-                    if(HH[0].toInt()<12 && HH[0].toInt()>=6){ // 아침
+                    if(HH[0].toInt()<12){ // 아침
                         m_index=ID[i].toInt()
                     }
                     else if(HH[0].toInt()<18 && HH[0].toInt()>=12){ // 점심
                         l_index=ID[i].toInt()
                     }
-                    else if(currentHH<24 || currentHH<6){ // 저녁
+                    else if(currentHH<24){ // 저녁
                         e_index=ID[i].toInt()
                     }
                 }
@@ -163,7 +153,7 @@ class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
                 //dlg.setCancelable(false)
             }
 
-
+            itemClickListener.onClick(binding.selectMenuName.text.toString())
             dismiss()
         }
         // 무시하기 버튼클릭시, 무시
@@ -176,7 +166,21 @@ class CustomSelect(var activity: Activity, var menu:String) : Dialog(activity),
 //        no.setOnClickListener(this)
 
     }
+    interface CustomDialogListener {
+        fun onPositiveClicked(name: String)
+        fun onNegativeClicked()
+    }
 
+    interface OnItemClickListener {
+        fun onClick(selectedMenu:String)
+    }
+
+
+    fun setItemClickListener(onItemClickListener: CustomSelect.OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: CustomSelect.OnItemClickListener
     override fun onClick(p0: View?) {
         //TODO("Not yet implemented")
     }

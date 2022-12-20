@@ -8,21 +8,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todayseat.MyViewHolder
-import com.example.todayseat.R
 import com.example.todayseat.SplashActivity
 import com.example.todayseat.databinding.FragmentMyPageBinding
 import com.example.todayseat.databinding.SearchListviewBinding
-import com.example.todayseat.ui.home.CustomMenuDialog
 import com.example.todayseat.ui.home.CustomSelect
-import com.example.todayseat.ui.home.MenuListAdapter
 import java.text.SimpleDateFormat
 
 class dislikeAdapter2(val datas: MutableList<String> ) :
@@ -145,18 +140,59 @@ class MyPageFragment : Fragment(){
 
         binding.dButten.setOnClickListener {
             val dlg= CustomSelect(requireActivity(),"저녁")
+            dlg.setItemClickListener(object : CustomSelect.OnItemClickListener{
+                override fun onClick(selectedMenu: String) {
+                    binding.dsearch.text=selectedMenu
+                    var menus:MutableList<String> = ArrayList()
+                    val sql = "SELECT food_eat_ID FROM FOODRECENT"
+                    val c = SplashActivity.moappDB.rawQuery(sql,null)
+                    while (c.moveToNext()){
+                        var F_name_pos = c.getColumnIndex("food_eat_ID")
+                        menus.add(c.getString(F_name_pos))
+                    }
+                }
+
+            })
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()
         }
         binding.mButton.setOnClickListener {
             val dlg=CustomSelect(requireActivity(),"아침")
+            dlg.setItemClickListener(object : CustomSelect.OnItemClickListener{
+                override fun onClick(selectedMenu: String) {
+                    binding.msearch.text=selectedMenu
+
+                    menus.clear()
+                    val sql = "SELECT food_eat_ID FROM FOODRECENT"
+                    val c = SplashActivity.moappDB.rawQuery(sql,null)
+                    while (c.moveToNext()){
+                        var F_name_pos = c.getColumnIndex("food_eat_ID")
+                        menus.add(c.getString(F_name_pos))
+                    }
+                    adapter2.notifyDataSetChanged()
+                }
+
+            })
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()
         }
         binding.lButton.setOnClickListener {
             val dlg=CustomSelect(requireActivity(),"점심")
+            dlg.setItemClickListener(object : CustomSelect.OnItemClickListener{
+                override fun onClick(selectedMenu: String) {
+                    binding.lsearch.text=selectedMenu
+                    var menus:MutableList<String> = ArrayList()
+                    val sql = "SELECT food_eat_ID FROM FOODRECENT"
+                    val c = SplashActivity.moappDB.rawQuery(sql,null)
+                    while (c.moveToNext()){
+                        var F_name_pos = c.getColumnIndex("food_eat_ID")
+                        menus.add(c.getString(F_name_pos))
+                    }
+                }
+
+            })
             dlg.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
             dlg.setCancelable(false)
             dlg.show()
