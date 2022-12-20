@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.Insets.add
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -13,15 +14,22 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.Insets.add
 import androidx.core.os.postDelayed
 import com.example.todayseat.Login.LoginActivity
 import com.example.todayseat.databinding.ActivitySplashBinding
 
 import com.example.todayseat.ui.home.MapActivity
 import com.example.todayseat.ui.home.HomeFragment
+import com.github.mikephil.charting.data.Entry
 import com.opencsv.CSVReader
+import org.apache.commons.lang3.ArrayUtils.add
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.ArrayList
 
 
 class SplashActivity : AppCompatActivity() {
@@ -64,7 +72,7 @@ class SplashActivity : AppCompatActivity() {
 
         helper = myDBHelper(this)
         moappDB = helper.writableDatabase
-//        helper.onUpgrade(moappDB, 1, 2)
+       // helper.onUpgrade(moappDB, 1, 2)
 //        val isInstall = pref.getInt("isInstall",0)
 //        if(isInstall==1){
 //            binding.textView4.visibility= View.INVISIBLE
@@ -241,6 +249,8 @@ class SplashActivity : AppCompatActivity() {
             insertPhotoCsv_to_DB(db)
             Log.i("DB1234", "insertCSV FK in DB")
 
+            insertRecentScore_DB(db)
+
             var sql="insert into CUSTOMER VALUES ('1',null,null,null,null,null,null,null,null,null);"
             db?.execSQL(sql)
             val sql2="insert into foodfavor VALUES ('1',null,null,null,null,null,null,null,null);"
@@ -253,6 +263,7 @@ class SplashActivity : AppCompatActivity() {
 //            editor.apply()
         }
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+//            db?.execSQL("DROP TABLE IF EXISTS PHOTO")
 //            db?.execSQL("DROP TABLE IF EXISTS CUSTOMER")
 //            db?.execSQL("DROP TABLE IF EXISTS FOOD")
 //            db?.execSQL("DROP TABLE IF EXISTS FOODCATEGORY")
@@ -261,7 +272,7 @@ class SplashActivity : AppCompatActivity() {
 //            db?.execSQL("DROP TABLE IF EXISTS EXCLUDEFOOD")
 //            db?.execSQL("DROP TABLE IF EXISTS RECEIPE")
 //            db?.execSQL("DROP TABLE IF EXISTS NUTRIENTSCORE")
-//            db?.execSQL("DROP TABLE IF EXISTS PHOTO")
+//            db?.execSQL("DROP TABLE IF EXISTS RECOMMENDNUTRIENT")
 //            onCreate(db)
 
         }
@@ -296,7 +307,7 @@ class SplashActivity : AppCompatActivity() {
                 arr.set(i, a[i])
             }
             arr.set(9,"0")
-            Log.i("DB1234", arr[9].toString())
+            Log.i("DB1234", "food의 preference_check : ${arr[9].toString()}")
             db?.execSQL(sql, arr)
 
         }
@@ -369,6 +380,36 @@ class SplashActivity : AppCompatActivity() {
             db?.execSQL(sql, arr)
         }//
         Log.i("DB1234","input PHOTO csvfile to DB end")
+    }
+    //그래프 환산을 위해 고객의 임시 데이터를 제공해주는 함수
+    private fun insertRecentScore_DB(db: SQLiteDatabase?){
+        var count = 30
+        val values = ArrayList<Entry>()
+
+        //아직 data가 없어서 random 값 입력
+        for (i in 1 until count) {
+            //value에 지난 영양점수들을 입력하면 됩니다.
+            val value = (Math.random() * 100f).toFloat()
+            values.add(Entry(i.toFloat(), value))/*, resources.getDrawable(R.drawable.star)*/
+        }
+
+        for(i in 1..count){
+
+            var score = values.get(i)
+            var now = LocalDateTime.now().minusDays(i.toLong())
+            val arr = arrayOfNulls<String>(3)
+
+
+            arr.set(1,score.toString())
+            arr.set(2,now.toString())
+            Log.d("TAG11","1=${arr[1]!!.toString()}, 2=${arr[2]}")
+            var sql = "INSERT INTO NUTREINTSCORE (score, S_date \n"+
+                    " ) VALUES (${arr[1]!!.toFloat()},'${arr[2]}')"
+            Log.i("DB113", arr.toList().toString())
+            db?.execSQL(sql,null)
+        }
+
+
     }
     companion object{
         lateinit var helper : SplashActivity.myDBHelper

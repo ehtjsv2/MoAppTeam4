@@ -247,8 +247,8 @@ class LoginActivity5 : AppCompatActivity() {
                 }
             }
 
-            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
-            moappDB.execSQL(sql4)
+//            var sql4="insert into recommendnutrient VALUES ('1','1',${kcal},${carbo},${protain},${fat});"
+//            moappDB.execSQL(sql4)
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

@@ -37,7 +37,7 @@ class CustomMenuDialog(var activity: Activity) : Dialog(activity),
         val currentMin=SimpleDateFormat("mm").format(currentTime).toInt()
         val currentSec=SimpleDateFormat("ss").format(currentTime)
         val date=currentYear+"-"+currentMonth+"-"+currentDay+" "+currentHour+":"+currentMin+":"+currentSec
-
+// 'YYYY-MM-DD HH:mm:ss'
         val sql = "SELECT * FROM FOOD"
         val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
         Log.d("DB1234","HomeFragment cursor")

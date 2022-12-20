@@ -1,8 +1,10 @@
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.todayseat.R
+import com.example.todayseat.SplashActivity
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.ChartData
 import com.github.mikephil.charting.data.Entry
@@ -78,6 +80,20 @@ class MPAndroidChartActivity : AppCompatActivity(), OnChartValueSelectedListener
     private fun setData(count: Int, range: Float) {
 
         val values = ArrayList<Entry>()
+
+//        var sql = "SELECT * FROM NUTREINTSCORE"
+//        var i: Float = 0F
+//        val c: Cursor = SplashActivity.moappDB.rawQuery(sql,null)
+//        while(c.moveToNext()){
+////            val ID_pos = c.getColumnIndex("S_ID")
+//            val score_pos = c.getColumnIndex("score")
+//            val date_pos = c.getColumnIndex("S_date")
+//            var score = c.getFloat(score_pos)
+//            var sc_str = c.getString(date_pos)
+//            values.add(Entry(i, score/*, resources.getDrawable(R.drawable.star)*/))
+//            i++
+//        }
+
 
         for (i in 0 until count) {
 
