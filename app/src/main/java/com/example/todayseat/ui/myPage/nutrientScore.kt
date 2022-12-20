@@ -1,26 +1,144 @@
-/*`import android.R
-import android.content.Context
-import android.graphics.Color
+/*import android.graphics.Color
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.todayseat.R
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.MarkerView
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.CandleEntry
+import com.github.mikephil.charting.data.ChartData
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.utils.MPPointF
-import com.github.mikephil.charting.utils.Utils
 import java.util.*
 
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.data
+import java.util.*
 
+class MainActivity : AppCompatActivity() {
+    private val TAG = this.javaClass.simpleName
+    lateinit var lineChart: LineChart
+    private val chartData = ArrayList<ChartData>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        chartData.clear()
+        addChartItem("1월", 7.9)
+        addChartItem("2월", 8.2)
+        addChartItem("3월", 8.3)
+        addChartItem("4월", 8.5)
+        addChartItem("5월", 7.3)
+
+        LineChartGraph(chartData, "강남")
+    }
+
+    private fun addChartItem(lableitem: String, dataitem: Double) {
+        val item = ChartData()
+        item.lableData = lableitem
+        item.valData = dataitem
+        chartData.add(item)
+    }
+
+    private fun LineChartGraph(chartItem: ArrayList<ChartData>, displayname: String) {
+        lineChart = findViewById(R.id.linechart)
+
+        val entries = ArrayList<Entry>()
+        for (i in chartItem.indices) {
+            entries.add(Entry(chartItem[i].valData.toFloat(), i))
+        }
+
+        val depenses = LineDataSet(entries, displayname)
+        depenses.axisDependency = YAxis.AxisDependency.LEFT
+        depenses.valueTextSize = 12f // 값 폰트 지정하여 크게 보이게 하기
+        depenses.setColors(ColorTemplate.COLORFUL_COLORS) //
+        //depenses.setDrawCubic(true); //선 둥글게 만들기
+        depenses.setDrawFilled(false) //그래프 밑부분 색칠
+
+        val labels = ArrayList<String>()
+        for (i in chartItem.indices) {
+            labels.add(chartItem[i].lableData)
+        }
+
+        val dataSets = ArrayList<ILineDataSet>()
+        dataSets.add(depenses as ILineDataSet)
+        val data = LineData(labels, dataSets) // 라이브러리 v3.x 사용하면 에러 발생함
+
+        lineChart.data = data
+        //lineChart.animateXY(1000,1000);
+        lineChart.invalidate()
+    }
+}
+
+/*
+class MainActivity : AppCompatActivity() {
+    private val TAG = this.javaClass.simpleName
+    lateinit var lineChart: LineChart
+    private val chartData = ArrayList<ChartData>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        // 서버에서 데이터 가져오기 (서버에서 가져온 데이터로 가정하고 직접 추가)
+        chartData.clear()
+        addChartItem("1월", 7.9)
+        addChartItem("2월", 8.2)
+        addChartItem("3월", 8.3)
+        addChartItem("4월", 8.5)
+        addChartItem("5월", 7.3)
+
+        // 그래프 그릴 자료 넘기기
+        LineChart(chartData)
+    }
+
+    private fun addChartItem(lableitem: String, dataitem: Double) {
+        val item = ChartData()
+        item.lableData = lableitem
+        item.lineData = dataitem
+        chartData.add(item)
+    }
+
+    private fun LineChart(chartData: ArrayList<ChartData>) {
+        lineChart = findViewById(R.id.linechart)
+
+        val entries = mutableListOf<Entry>()  //차트 데이터 셋에 담겨질 데이터
+
+        for (item in chartData) {
+            entries.add(Entry(item.lableData.replace(("[^\\d.]").toRegex(), "").toFloat(), item.lineData.toFloat()))
+        }
+
+        //LineDataSet 선언
+        val lineDataSet: LineDataSet
+        lineDataSet = LineDataSet(entries, "라인챠트 예시")
+        lineDataSet.color = Color.BLUE  //LineChart에서 Line Color 설정
+        lineDataSet.setCircleColor(Color.DKGRAY)  // LineChart에서 Line Circle Color 설정
+        lineDataSet.setCircleHoleColor(Color.DKGRAY) // LineChart에서 Line Hole Circle Color 설정
+
+        val dataSets = ArrayList<ILineDataSet>()
+        dataSets.add(lineDataSet) // add the data sets
+
+        // create a data object with the data sets
+        val data = LineData(dataSets)
+
+        // set data
+        lineChart.setData(data)
+        lineChart.setDescription(null); //차트에서 Description 설정 삭제
+
+    }
+
+}
+ */
+/*
 class nutrientScore : AppCompatActivity() {
     private val TAG = this.javaClass.simpleName
 
@@ -94,9 +212,6 @@ class nutrientScore : AppCompatActivity() {
 
         chart!!.invalidate() // 다시그리기
 
-
-
-
     }
 
 
@@ -152,6 +267,16 @@ class nutrientScore : AppCompatActivity() {
         }
     }
 
+
+    class TimeAxisValueFormat: IndexAxisValueFormatter(){
+        override fun getFormattedValue(value: Float): String {
+
+            var valueToMinutes = TimeUnit.MINUTES.toMillis(value.toLong())
+            var timeMinutes = Date(valueToMinutes)
+            var formatMinutes = SimpleDateFormat("Hm:mm")
+            return super.getFormattedValue(value)
+        }
+    }
 }
 
- */
+*/

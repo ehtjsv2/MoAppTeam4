@@ -10,8 +10,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.postDelayed
 import com.example.todayseat.Login.LoginActivity
+import com.example.todayseat.databinding.ActivitySplashBinding
 
 import com.example.todayseat.ui.home.MapActivity
 import com.example.todayseat.ui.home.HomeFragment
@@ -67,6 +71,11 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 //        helper.onUpgrade(moappDB, 1, 2)
 
+        // blink 애니메이션
+        val anim = AnimationUtils.loadAnimation(this,R.anim.blink_animation)
+        // 애니메이션 재생
+        val image : TextView = findViewById(R.id.textView4)
+        image.startAnimation(anim)
 
         // Handler()를 통해서 UI 쓰레드를 컨트롤 한다.
         // Handler().postDelayed(딜레이 시간){딜레이 이후 동작}
